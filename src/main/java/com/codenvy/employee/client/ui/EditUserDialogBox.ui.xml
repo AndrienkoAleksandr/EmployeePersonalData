@@ -1,0 +1,19 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+        <g:FlowPanel ui:field="dialogPanel" visible="true">
+
+            <g:Label >First name</g:Label>
+            <g:TextBox ui:field="firstName" />
+
+            <g:Label>Surname</g:Label>
+            <g:TextBox ui:field="secondName"/>
+
+            <g:Label>Address</g:Label>
+            <g:TextBox ui:field="address"/>
+
+            <g:Button ui:field="okButton" text="Ok"/>
+            <g:Button ui:field='cancelButton' text="Cancel"/>
+
+        </g:FlowPanel>
+</ui:UiBinder>
