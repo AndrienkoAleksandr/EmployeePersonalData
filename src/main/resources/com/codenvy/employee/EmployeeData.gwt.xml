@@ -16,6 +16,6 @@
     <set-configuration-property name="gwt.superdevmode" value="on" />
     <set-property name="compiler.useSourceMaps" value="true"/>
 
-    <!--Logger/-->
-    <inherits name="com.google.gwt.logging.Logging"/>
+    <inherits name='com.google.gwt.activity.Activity'/>
+    <inherits name='com.google.gwt.place.Place'/>
 </module>

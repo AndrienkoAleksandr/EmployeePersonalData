@@ -12,7 +12,7 @@ public class EditUserDialogBox_UserEditableImpl implements UiBinder<com.google.g
   public com.google.gwt.user.client.ui.Widget createAndBindUi(final com.codenvy.employee.client.ui.EditUserDialogBox owner) {
 
 
-    return new Widgets(owner).get_dialogPanel();
+    return new Widgets(owner).get_f_FlowPanel1();
   }
 
   /**
@@ -43,45 +43,43 @@ public class EditUserDialogBox_UserEditableImpl implements UiBinder<com.google.g
     }
 
     /**
-     * Getter for dialogPanel called 1 times. Type: DEFAULT. Build precedence: 1.
+     * Getter for f_FlowPanel1 called 1 times. Type: DEFAULT. Build precedence: 1.
      */
-    private com.google.gwt.user.client.ui.FlowPanel get_dialogPanel() {
-      return build_dialogPanel();
+    private com.google.gwt.user.client.ui.FlowPanel get_f_FlowPanel1() {
+      return build_f_FlowPanel1();
     }
-    private com.google.gwt.user.client.ui.FlowPanel build_dialogPanel() {
+    private com.google.gwt.user.client.ui.FlowPanel build_f_FlowPanel1() {
       // Creation section.
-      final com.google.gwt.user.client.ui.FlowPanel dialogPanel = (com.google.gwt.user.client.ui.FlowPanel) GWT.create(com.google.gwt.user.client.ui.FlowPanel.class);
+      final com.google.gwt.user.client.ui.FlowPanel f_FlowPanel1 = (com.google.gwt.user.client.ui.FlowPanel) GWT.create(com.google.gwt.user.client.ui.FlowPanel.class);
       // Setup section.
-      dialogPanel.add(get_f_Label1());
-      dialogPanel.add(get_firstName());
-      dialogPanel.add(get_f_Label2());
-      dialogPanel.add(get_secondName());
-      dialogPanel.add(get_f_Label3());
-      dialogPanel.add(get_address());
-      dialogPanel.add(get_okButton());
-      dialogPanel.add(get_cancelButton());
-      dialogPanel.setVisible(true);
+      f_FlowPanel1.add(get_f_Label2());
+      f_FlowPanel1.add(get_firstName());
+      f_FlowPanel1.add(get_f_Label3());
+      f_FlowPanel1.add(get_secondName());
+      f_FlowPanel1.add(get_f_Label4());
+      f_FlowPanel1.add(get_address());
+      f_FlowPanel1.add(get_okButton());
+      f_FlowPanel1.add(get_cancelButton());
+      f_FlowPanel1.setVisible(true);
 
 
-      this.owner.dialogPanel = dialogPanel;
-
-      return dialogPanel;
+      return f_FlowPanel1;
     }
 
     /**
-     * Getter for f_Label1 called 1 times. Type: DEFAULT. Build precedence: 2.
+     * Getter for f_Label2 called 1 times. Type: DEFAULT. Build precedence: 2.
      */
-    private com.google.gwt.user.client.ui.Label get_f_Label1() {
-      return build_f_Label1();
+    private com.google.gwt.user.client.ui.Label get_f_Label2() {
+      return build_f_Label2();
     }
-    private com.google.gwt.user.client.ui.Label build_f_Label1() {
+    private com.google.gwt.user.client.ui.Label build_f_Label2() {
       // Creation section.
-      final com.google.gwt.user.client.ui.Label f_Label1 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
+      final com.google.gwt.user.client.ui.Label f_Label2 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
       // Setup section.
-      f_Label1.setText("First name");
+      f_Label2.setText("First name");
 
 
-      return f_Label1;
+      return f_Label2;
     }
 
     /**
@@ -102,19 +100,19 @@ public class EditUserDialogBox_UserEditableImpl implements UiBinder<com.google.g
     }
 
     /**
-     * Getter for f_Label2 called 1 times. Type: DEFAULT. Build precedence: 2.
+     * Getter for f_Label3 called 1 times. Type: DEFAULT. Build precedence: 2.
      */
-    private com.google.gwt.user.client.ui.Label get_f_Label2() {
-      return build_f_Label2();
+    private com.google.gwt.user.client.ui.Label get_f_Label3() {
+      return build_f_Label3();
     }
-    private com.google.gwt.user.client.ui.Label build_f_Label2() {
+    private com.google.gwt.user.client.ui.Label build_f_Label3() {
       // Creation section.
-      final com.google.gwt.user.client.ui.Label f_Label2 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
+      final com.google.gwt.user.client.ui.Label f_Label3 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
       // Setup section.
-      f_Label2.setText("Surname");
+      f_Label3.setText("Surname");
 
 
-      return f_Label2;
+      return f_Label3;
     }
 
     /**
@@ -135,19 +133,19 @@ public class EditUserDialogBox_UserEditableImpl implements UiBinder<com.google.g
     }
 
     /**
-     * Getter for f_Label3 called 1 times. Type: DEFAULT. Build precedence: 2.
+     * Getter for f_Label4 called 1 times. Type: DEFAULT. Build precedence: 2.
      */
-    private com.google.gwt.user.client.ui.Label get_f_Label3() {
-      return build_f_Label3();
+    private com.google.gwt.user.client.ui.Label get_f_Label4() {
+      return build_f_Label4();
     }
-    private com.google.gwt.user.client.ui.Label build_f_Label3() {
+    private com.google.gwt.user.client.ui.Label build_f_Label4() {
       // Creation section.
-      final com.google.gwt.user.client.ui.Label f_Label3 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
+      final com.google.gwt.user.client.ui.Label f_Label4 = (com.google.gwt.user.client.ui.Label) GWT.create(com.google.gwt.user.client.ui.Label.class);
       // Setup section.
-      f_Label3.setText("Address");
+      f_Label4.setText("Address");
 
 
-      return f_Label3;
+      return f_Label4;
     }
 
     /**
