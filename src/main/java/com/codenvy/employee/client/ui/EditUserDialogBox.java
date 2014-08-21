@@ -14,18 +14,10 @@ public class EditUserDialogBox extends DialogBox {
     interface UserEditable extends UiBinder<Widget, EditUserDialogBox> {
     }
 
-    @UiField
-    FlowPanel dialogPanel;
-
     public UserEditable userEditor = GWT.create(UserEditable.class);
 
     public EditUserDialogBox() {
         add(userEditor.createAndBindUi(this));
-    }
-
-    @Override
-    public void hide() {
-        super.hide();;
     }
 
     @UiField
@@ -42,14 +34,6 @@ public class EditUserDialogBox extends DialogBox {
 
     @UiField
     Button cancelButton;
-
-    public User addUser() {
-        return new User(firstName.getValue(), secondName.getValue(), address.getValue());
-    }
-
-    public User EditUser(User user) {
-        return new User(firstName.getValue(), secondName.getValue(), address.getValue());
-    }
 
     public Button getCancelButton() {
         return cancelButton;
@@ -74,5 +58,4 @@ public class EditUserDialogBox extends DialogBox {
         secondName.setValue("");
         address.setValue("");
     }
-
 }

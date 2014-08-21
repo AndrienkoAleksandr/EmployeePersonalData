@@ -1,7 +1,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
 
-        <g:FlowPanel ui:field="dialogPanel" visible="true">
+        <g:FlowPanel visible="true">
 
             <g:Label >First name</g:Label>
             <g:TextBox ui:field="firstName" />
