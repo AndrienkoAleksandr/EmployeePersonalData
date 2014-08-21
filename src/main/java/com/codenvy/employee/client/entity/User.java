@@ -42,4 +42,11 @@ public class User implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public User update(User userUpdate) {
+        firstName = userUpdate.getFirstName();
+        lastName = userUpdate.getLastName();
+        address = userUpdate.getAddress();
+        return this;
+    }
 }

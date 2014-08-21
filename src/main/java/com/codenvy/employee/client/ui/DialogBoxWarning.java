@@ -36,6 +36,10 @@ public class DialogBoxWarning extends DialogBox {
         });
     }
 
+    public Button getOk() {
+        return ok;
+    }
+
     public Label getWaringMessage() {
         return waringMessage;
     }

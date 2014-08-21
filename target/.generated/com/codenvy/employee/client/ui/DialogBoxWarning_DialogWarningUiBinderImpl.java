@@ -89,8 +89,6 @@ public class DialogBoxWarning_DialogWarningUiBinderImpl implements UiBinder<com.
       // Setup section.
 
 
-      this.owner.waringMessage = waringMessage;
-
       return waringMessage;
     }
 
@@ -106,8 +104,6 @@ public class DialogBoxWarning_DialogWarningUiBinderImpl implements UiBinder<com.
       // Setup section.
       ok.setHTML(template_html1().asString());
 
-
-      this.owner.ok = ok;
 
       return ok;
     }
