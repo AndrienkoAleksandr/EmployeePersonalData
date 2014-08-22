@@ -1,9 +1,10 @@
 package com.codenvy.employee.client.presenter.impl;
 
 import com.codenvy.employee.client.entity.User;
+import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.ui.EditUserDialogBox;
 import com.codenvy.employee.client.view.impl.UsersListViewImpl;
+import com.google.gwt.user.client.ui.HasWidgets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,22 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private User selectedUser;
 
-    private List<User> users = new ArrayList<User>();
+    UsersListViewImpl usersListView;//todo interface
 
-    public UsersListPresenterImpl() {
-        addSomeUser();
-        users.addAll(addSomeUser());
+    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+
+    private List<User> users;
+
+    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter) {
+        this.editUserDialogBoxPresenter = presenter;
+        users = new ArrayList<User>();
+        users.addAll(getLisUsersFromServer());
+    }
+
+    @Override
+    public void go(HasWidgets container) {
+        usersListView = new UsersListViewImpl(this, users);//todo interface
+        container.add(usersListView);
     }
 
     public List<User> getUsers() {
@@ -34,29 +46,35 @@ public class UsersListPresenterImpl implements UsersListPresenter {
         return selectedUser;
     }
 
+    @Override
     public void deleteUser() {
-        if (users.size() > 0) {
-            users.remove(selectedUser);
-            //todo
-            selectedUser = null;
+        users.remove(selectedUser);
+        selectedUser = null;
+        usersListView.setUsers(users);
+    }
+
+    public void showDialog()  {
+        CallBack callBack = new CallBack();
+        editUserDialogBoxPresenter.showDialog(selectedUser, callBack);
+    }
+
+    public class CallBack {
+        public void onchange(User user) {
+            users.add(user);
+            usersListView.setUsers(users);
+        }
+
+        public void onchange() {
+            usersListView.setUsers(users);
         }
     }
 
-    public void editUser(User userUpdate) {
-            selectedUser.setFirstName(userUpdate.getFirstName());
-            selectedUser.setLastName(userUpdate.getLastName());
-            selectedUser.setAddress(userUpdate.getAddress());
-    }
-
-    public void addUser(User newUser) {
-    users.add(newUser);
-    }
-
-    public List<User> addSomeUser() {
+    //hard code realization
+    public List<User> getLisUsersFromServer() {
         List<User> userList = new ArrayList<User>();
         userList.add(new User("Bogdan", "Petrenenko", "Kaniv"));
         userList.add(new User("Xolod", "Ivan", "Kaniv"));
-        userList.add(new User("Nepuizckrunuci", "Konstantin", "Kiev"));
+        userList.add(new User("Stateman", "Konstantin", "Kiev"));
         userList.add(new User("Fermi", "Gustav", "Kiev"));
         userList.add(new User("Ammundcen", "Den", "Kiev"));
         return userList;

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='EmployeeData'>
 
-  <inherits name='com.google.gwt.user.User' />
+    <inherits name='com.google.gwt.user.User'/>
 
-  <inherits name='com.google.gwt.junit.JUnit' />
+    <inherits name='com.google.gwt.user.theme.standard.Standard'/>
 
-  <inherits name='com.google.gwt.user.theme.standard.Standard' />
+    <entry-point class='com.codenvy.employee.client.EmployeeDataModule'/>
+    <!-- Inherit the UiBinder module.-->
+    <inherits name="com.google.gwt.uibinder.UiBinder"/>
 
-  <entry-point class='com.codenvy.employee.client.EmployeeDataModule' />
-  <!-- Inherit the UiBinder module.-->
-  <inherits name="com.google.gwt.uibinder.UiBinder"/>
-
-    <add-linker name="xsiframe" />
-    <set-configuration-property name="devModeRedirectEnabled" value="true" />
-    <set-configuration-property name="gwt.superdevmode" value="on" />
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+    <set-configuration-property name="gwt.superdevmode" value="on"/>
     <set-property name="compiler.useSourceMaps" value="true"/>
 
-    <inherits name='com.google.gwt.activity.Activity'/>
-    <inherits name='com.google.gwt.place.Place'/>
+    <source path="client" />
+
+    <inherits name="com.google.gwt.logging.Logging"/>
+
 </module>

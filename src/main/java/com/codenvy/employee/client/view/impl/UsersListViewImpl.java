@@ -1,10 +1,7 @@
 package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
-import com.codenvy.employee.client.ui.DialogBoxWarning;
-import com.codenvy.employee.client.ui.EditUserDialogBox;
 import com.codenvy.employee.client.view.UserListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,6 +15,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+
+import java.util.List;
 
 /**
  * Created by logarifm on 19.08.14.
@@ -39,30 +38,28 @@ public class UsersListViewImpl extends Composite implements UserListView {
     @UiField
     Button add;
 
-    private UsersListPresenter usersListPresenter;
+    public void setUsers(List<User> users) {
+        usersTable.setRowData(users);
+    }
 
-    private final EditUserDialogBox dialogBox = GWT.create(EditUserDialogBox.class);
+    private UsersListPresenterImpl usersListPresenter;
 
     private static UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
-    //constructor
-    public UsersListViewImpl() {
+    public UsersListViewImpl(UsersListPresenterImpl usersListPresenter, List<User> users) {
         initWidget(ourUiBinder.createAndBindUi(this));
-        usersTable.setSize("50%", "50%");
-        usersListPresenter = new UsersListPresenterImpl();
-        drawUserTable();
-        initUserDialogBox();
-        initButtonAdd();
-        initButtonDelete();
-        initButtonEdit();
+
+        this.usersListPresenter = usersListPresenter;
+
+        drawUserTable(users);
+
+        addHandlerToButtonAdd();
+        addHandlerToButtonDelete();
+        addHandlerToButtonEdit();
     }
 
-    public void updateUserTable() {
-        usersTable.setRowCount(usersListPresenter.getUsers().size());
-        usersTable.setRowData(usersListPresenter.getUsers());
-    }
-
-    public void drawUserTable() {
+    public void drawUserTable(final List<User> users) {
+        //create column
         TextColumn<User> firstName = new TextColumn<User>() {
             @Override
             public String getValue(User user) {
@@ -81,10 +78,11 @@ public class UsersListViewImpl extends Composite implements UserListView {
                 return user.getAddress();
             }
         };
+
+        //put column to table
         usersTable.addColumn(firstName, "Name");
         usersTable.addColumn(lastName, "Surname");
         usersTable.addColumn(address, "Address");
-        updateUserTable();
 
         //add handler for table
         final SingleSelectionModel<User> mySelectionModel = new SingleSelectionModel<User>();
@@ -96,62 +94,37 @@ public class UsersListViewImpl extends Composite implements UserListView {
                     }
                 }
         );
+        //put data to table
+        usersTable.setRowData(users);
     }
 
-    private void initUserDialogBox() {
-        dialogBox.getOkButton().addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                switch (dialogBox.getText()) {
-                    case "Edit":
-                        usersListPresenter.editUser(dialogBox.getUserData());
-                        updateUserTable();
-                        break;
-                    case "Add":
-                        User newUser = dialogBox.getUserData();
-                        usersListPresenter.addUser(newUser);
-                        updateUserTable();
-                }
-                dialogBox.hide();
-            }
-        });
-        dialogBox.getCancelButton().addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                dialogBox.hide();
-            }
-        });
-    }
+    private void addHandlerToButtonDelete() {
 
-    public void initButtonAdd() {
-        add.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                dialogBox.setText("Add");
-                dialogBox.clearUserData();
-                dialogBox.center();
-            }
-        });
-    }
-
-    public void initButtonDelete() {
         delete.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent clickEvent) {
                 usersListPresenter.deleteUser();
-                updateUserTable();
             }
         });
+
     }
 
-    public void initButtonEdit() {
+    private void addHandlerToButtonAdd() {
+
+        add.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent clickEvent) {
+                usersListPresenter.setSelectedUser(null);
+                usersListPresenter.showDialog();
+            }
+        });
+
+    }
+
+    private void addHandlerToButtonEdit() {
+
         edit.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent clickEvent) {
-                dialogBox.setText("Edit");
-                User selectedUser = usersListPresenter.getSelectedUser();
-                if (selectedUser != null){
-                    dialogBox.setUserData(selectedUser);
-                    dialogBox.center();
-                } else {
-                    DialogBoxWarning dialogBoxWarning = GWT.create(DialogBoxWarning.class);
-                    dialogBoxWarning.center();
-                    dialogBoxWarning.getWaringMessage().setText("You don't select any user...");
+                if (usersListPresenter.getSelectedUser() != null) {
+                    usersListPresenter.showDialog();
                 }
             }
         });
