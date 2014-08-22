@@ -1,15 +1,21 @@
 package com.codenvy.employee.client;
 
-import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.view.impl.UsersListViewImpl;
+import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
+import com.codenvy.employee.client.presenter.UsersListPresenter;
+import com.codenvy.employee.client.presenter.impl.EditUserDialogBoxPresenterImpl;
+import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
-        final UsersListViewImpl usersListViewImpl = GWT.create(UsersListViewImpl.class);
-        RootLayoutPanel.get().add(usersListViewImpl);
+        EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl();
+        UsersListPresenterImpl usersListPresenter = new UsersListPresenterImpl(editUserDialogBoxPresenter);
+        usersListPresenter.go(RootLayoutPanel.get());
     }
 }

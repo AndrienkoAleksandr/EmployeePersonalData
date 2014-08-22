@@ -1,17 +1,12 @@
 package com.codenvy.employee.client.entity;
 
-import java.io.Serializable;
-
 /**
  * Created by logarifm on 19.08.14.
  */
-public class User implements Serializable {
+public class User {
     private String firstName;
     private String lastName;
     private String address;
-
-    public User() {
-    }
 
     public User(String firstName, String lastName, String address) {
         this.firstName = firstName;
@@ -41,5 +36,10 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "{firstName: "+ firstName + "; lastName: " + lastName + "; address: " + address + "}";
     }
 }
