@@ -25,8 +25,8 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
     private EditUserDialogBoxPresenterImpl editUserDialogBoxPresenter;
 
     public EditUserDialogBoxImpl(EditUserDialogBoxPresenterImpl editUserDialogBoxPresenter) {
-        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
         add(userEditor.createAndBindUi(this));
+        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
         initHandlersForUserDialogBox();
     }
 

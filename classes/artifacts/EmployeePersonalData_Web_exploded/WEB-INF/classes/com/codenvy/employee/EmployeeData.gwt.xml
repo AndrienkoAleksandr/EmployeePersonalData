@@ -16,4 +16,6 @@
 
     <source path="client" />
 
+    <inherits name="com.google.gwt.logging.Logging"/>
+
 </module>
