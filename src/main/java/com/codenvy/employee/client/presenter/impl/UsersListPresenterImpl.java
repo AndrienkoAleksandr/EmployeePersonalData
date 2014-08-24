@@ -3,8 +3,10 @@ package com.codenvy.employee.client.presenter.impl;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
+import com.codenvy.employee.client.view.UsersListView;
 import com.codenvy.employee.client.view.impl.UsersListViewImpl;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private User selectedUser;
 
-    UsersListViewImpl usersListView;//todo interface
+    private UsersListViewImpl usersListView;
 
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
@@ -30,12 +32,8 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void go(HasWidgets container) {
-        usersListView = new UsersListViewImpl(this, users);//todo interface
+        usersListView = new UsersListViewImpl(this, users);
         container.add(usersListView);
-    }
-
-    public List<User> getUsers() {
-        return users;
     }
 
     public void setSelectedUser(User selectedUser) {

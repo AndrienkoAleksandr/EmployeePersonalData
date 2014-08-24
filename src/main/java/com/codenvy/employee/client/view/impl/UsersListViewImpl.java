@@ -2,7 +2,7 @@ package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
-import com.codenvy.employee.client.view.UserListView;
+import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by logarifm on 19.08.14.
  */
-public class UsersListViewImpl extends Composite implements UserListView {
+public class UsersListViewImpl extends Composite implements UsersListView {
 
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
@@ -38,6 +38,7 @@ public class UsersListViewImpl extends Composite implements UserListView {
     @UiField
     Button add;
 
+    @Override
     public void setUsers(List<User> users) {
         usersTable.setRowData(users);
     }
