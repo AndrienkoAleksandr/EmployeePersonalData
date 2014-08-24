@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by logarifm on 21.08.14.
  */
-public interface UserListView {
+public interface UsersListView {
 //    void updateUserTable();
 //    void drawUserTable(List<User> userList);
 }
