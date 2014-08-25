@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
+import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -40,19 +40,20 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     @Override
     public void setUsers(List<User> users) {
+        if (usersTable.getColumnCount() == 0) {
+            drawUserTable(users);
+        }
         usersTable.setRowData(users);
     }
 
-    private UsersListPresenterImpl usersListPresenter;
+    private UsersListPresenter usersListPresenter;
 
     private static UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
-    public UsersListViewImpl(UsersListPresenterImpl usersListPresenter, List<User> users) {
+    public UsersListViewImpl(UsersListPresenter usersListPresenter) {
         initWidget(ourUiBinder.createAndBindUi(this));
 
         this.usersListPresenter = usersListPresenter;
-
-        drawUserTable(users);
 
         addHandlerToButtonAdd();
         addHandlerToButtonDelete();
@@ -90,13 +91,13 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         usersTable.setSelectionModel(mySelectionModel);
         mySelectionModel.addSelectionChangeHandler(
                 new SelectionChangeEvent.Handler() {
+
                     public void onSelectionChange(SelectionChangeEvent event) {
                         usersListPresenter.setSelectedUser(mySelectionModel.getSelectedObject());
                     }
                 }
+
         );
-        //put data to table
-        usersTable.setRowData(users);
     }
 
     private void addHandlerToButtonDelete() {
@@ -113,8 +114,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
         add.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent clickEvent) {
-                usersListPresenter.setSelectedUser(null);
-                usersListPresenter.showDialog();
+                usersListPresenter.showDialog(null);
             }
         });
 
@@ -125,7 +125,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         edit.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent clickEvent) {
                 if (usersListPresenter.getSelectedUser() != null) {
-                    usersListPresenter.showDialog();
+                    usersListPresenter.showDialog(usersListPresenter.getSelectedUser());
                 }
             }
         });

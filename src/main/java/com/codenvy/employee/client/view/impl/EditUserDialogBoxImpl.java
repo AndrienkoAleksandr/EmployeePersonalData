@@ -1,6 +1,6 @@
 package com.codenvy.employee.client.view.impl;
 
-import com.codenvy.employee.client.presenter.impl.EditUserDialogBoxPresenterImpl;
+import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.view.EditUserDialogBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,11 +20,11 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
     interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxImpl> {
     }
 
-    public EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
+    private EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
 
-    private EditUserDialogBoxPresenterImpl editUserDialogBoxPresenter;
+    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    public EditUserDialogBoxImpl(EditUserDialogBoxPresenterImpl editUserDialogBoxPresenter) {
+    public EditUserDialogBoxImpl(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
         add(userEditor.createAndBindUi(this));
         this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
         initHandlersForUserDialogBox();
@@ -45,26 +45,32 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
     @UiField
     Button cancelButton;
 
+    @Override
     public String getLastName() {
         return lastName.getValue();
     }
 
+    @Override
     public String getAddress() {
         return address.getValue();
     }
 
+    @Override
     public String getFirstName() {
         return firstName.getValue();
     }
 
+    @Override
     public void setFirstName(String firstName) {
         this.firstName.setValue(firstName);
     }
 
+    @Override
     public void setLastName(String lastName) {
         this.lastName.setValue(lastName);
     }
 
+    @Override
     public void setAddress(String address) {
         this.address.setValue(address);
     }
@@ -73,6 +79,7 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
 
         okButton.addClickHandler(new ClickHandler() {
 
+            @Override
             public void onClick(ClickEvent clickEvent) {
                 editUserDialogBoxPresenter.saveUser();
                 hide();

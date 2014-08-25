@@ -1,11 +1,14 @@
 package com.codenvy.employee.client.presenter;
 
+import com.codenvy.employee.client.CallBack;
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
+import com.codenvy.employee.client.view.EditUserDialogBox;
 
 /**
  * Created by logarifm on 22.08.14.
  */
 public interface EditUserDialogBoxPresenter {
-    void showDialog(User selectedUser, UsersListPresenterImpl.CallBack callBack);
+    void showDialog(User selectedUser, CallBack callBack);
+    void go(EditUserDialogBox editUserDialogBox);
+    void saveUser();
 }
