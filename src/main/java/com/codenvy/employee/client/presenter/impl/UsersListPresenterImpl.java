@@ -4,11 +4,11 @@ import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
-import com.codenvy.employee.client.view.impl.UsersListViewImpl;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private User selectedUser;
 
-    private UsersListViewImpl usersListView;
+    private UsersListView usersListView;
 
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
@@ -26,20 +26,23 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter) {
         this.editUserDialogBoxPresenter = presenter;
-        users = new ArrayList<User>();
+        users = new LinkedList<User>();
         users.addAll(getLisUsersFromServer());
     }
 
     @Override
-    public void go(HasWidgets container) {
-        usersListView = new UsersListViewImpl(this, users);
-        container.add(usersListView);
+    public void go(HasWidgets container, UsersListView usersListView) {
+        this.usersListView = usersListView;
+        usersListView.setUsers(getLisUsersFromServer());
+        container.add((Widget)usersListView);
     }
 
+    @Override
     public void setSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
 
+    @Override
     public User getSelectedUser() {
         return selectedUser;
     }
@@ -51,17 +54,20 @@ public class UsersListPresenterImpl implements UsersListPresenter {
         usersListView.setUsers(users);
     }
 
-    public void showDialog()  {
+    @Override
+    public void showDialog(User userForEdit)  {
         CallBack callBack = new CallBack();
-        editUserDialogBoxPresenter.showDialog(selectedUser, callBack);
+        editUserDialogBoxPresenter.showDialog(userForEdit, callBack);
     }
 
-    public class CallBack {
+    public class CallBack extends com.codenvy.employee.client.CallBack{
+        @Override
         public void onchange(User user) {
             users.add(user);
             usersListView.setUsers(users);
         }
 
+        @Override
         public void onchange() {
             usersListView.setUsers(users);
         }
