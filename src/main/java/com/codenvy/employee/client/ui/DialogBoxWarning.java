@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Created by logarifm on 21.08.14.
  */
+//todo ?
 public class DialogBoxWarning extends DialogBox {
     interface DialogWarningUiBinder extends UiBinder<Widget, DialogBoxWarning> {
     }
