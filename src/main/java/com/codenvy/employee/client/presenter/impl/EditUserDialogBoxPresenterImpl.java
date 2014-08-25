@@ -25,11 +25,11 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
         } else {
             initDialog("Edit", userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
         }
-
         //show dialog box
+        this.userForEdit = userForEdit;
+
         editUserDialogBox.center();
 
-        this.userForEdit = userForEdit;
     }
 
     @Override

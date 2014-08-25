@@ -57,7 +57,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Override
     public void showDialog(User userForEdit)  {
         CallBack callBack = new CallBack();
-        editUserDialogBoxPresenter.showDialog(userForEdit, callBack);
+        editUserDialogBoxPresenter.showDialog(users.get(users.indexOf(userForEdit)), callBack);
     }
 
     public class CallBack extends com.codenvy.employee.client.CallBack{
