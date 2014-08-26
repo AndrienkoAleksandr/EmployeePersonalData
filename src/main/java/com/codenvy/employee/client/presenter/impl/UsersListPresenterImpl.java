@@ -3,12 +3,13 @@ package com.codenvy.employee.client.presenter.impl;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
+import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.codenvy.employee.client.view.UsersListView;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,22 +19,32 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private User selectedUser;
 
-    private UsersListView usersListView;
+    private final UsersListView usersListView;
 
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
     private List<User> users;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter) {
+    {
+        users = new ArrayList<>();
+        users.add(new User("Bogdan", "Petrenenko", "Kaniv"));
+        users.add(new User("Xolod", "Ivan", "Kaniv"));
+        users.add(new User("Stateman", "Konstantin", "Kiev"));
+        users.add(new User("Fermi", "Gustav", "Kiev"));
+        users.add(new User("Ammundcen", "Den", "Kiev"));
+    }
+
+    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, UsersListView usersListView) {
         this.editUserDialogBoxPresenter = presenter;
-        users = new LinkedList<User>();
-        users.addAll(getLisUsersFromServer());
+        this.usersListView = usersListView;
     }
 
     @Override
-    public void go(HasWidgets container, UsersListView usersListView) {
-        this.usersListView = usersListView;
-        usersListView.setUsers(getLisUsersFromServer());
+    public void go(HasWidgets container) {
+        //set data to userListView's table
+        usersListView.setUsers(users);
+
+        container.clear();
         container.add((Widget)usersListView);
     }
 
@@ -43,21 +54,24 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     }
 
     @Override
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    @Override
-    public void deleteUser() {
+    public void onDeleteButtonClicked() {
         users.remove(selectedUser);
         selectedUser = null;
         usersListView.setUsers(users);
     }
 
     @Override
-    public void showDialog(User userForEdit)  {
+    public void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent)  {
         CallBack callBack = new CallBack();
-        editUserDialogBoxPresenter.showDialog(users.get(users.indexOf(userForEdit)), callBack);
+        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.ADD_USER) {
+            editUserDialogBoxPresenter.showDialog(null, callBack);
+        }
+        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser != null) {
+            editUserDialogBoxPresenter.showDialog(selectedUser, callBack);
+        }
+        if(userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser == null) {
+            Window.alert("You nothing selected!");
+        }
     }
 
     public class CallBack extends com.codenvy.employee.client.CallBack{
@@ -71,16 +85,5 @@ public class UsersListPresenterImpl implements UsersListPresenter {
         public void onchange() {
             usersListView.setUsers(users);
         }
-    }
-
-    //hard code realization
-    public List<User> getLisUsersFromServer() {
-        List<User> userList = new ArrayList<User>();
-        userList.add(new User("Bogdan", "Petrenenko", "Kaniv"));
-        userList.add(new User("Xolod", "Ivan", "Kaniv"));
-        userList.add(new User("Stateman", "Konstantin", "Kiev"));
-        userList.add(new User("Fermi", "Gustav", "Kiev"));
-        userList.add(new User("Ammundcen", "Den", "Kiev"));
-        return userList;
     }
 }

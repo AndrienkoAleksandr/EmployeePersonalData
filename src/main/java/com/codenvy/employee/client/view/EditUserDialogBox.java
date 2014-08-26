@@ -1,9 +1,12 @@
 package com.codenvy.employee.client.view;
 
+import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
+
 /**
  * Created by logarifm on 22.08.14.
  */
 public interface EditUserDialogBox {
+    void setEditUserDialogBoxPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter);
     void center();
     void setText(String title);
     String getText();
@@ -13,4 +16,5 @@ public interface EditUserDialogBox {
     String getFirstName();
     String getLastName();
     String getAddress();
+
 }

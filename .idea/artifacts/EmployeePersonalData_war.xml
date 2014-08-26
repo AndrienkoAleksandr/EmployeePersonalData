@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="EmployeePersonalData:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="EmployeePersonalData-0.1.war">
-      <element id="artifact" artifact-name="EmployeePersonalData:war exploded" />
-    </root>
-  </artifact>
-</component>
