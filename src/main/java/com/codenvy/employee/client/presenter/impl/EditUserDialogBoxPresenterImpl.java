@@ -10,11 +10,15 @@ import com.codenvy.employee.client.view.EditUserDialogBox;
  */
 public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
 
-    private EditUserDialogBox editUserDialogBox;
+    private final EditUserDialogBox editUserDialogBox;
 
     private CallBack callBack;
 
     private User userForEdit;
+
+    public EditUserDialogBoxPresenterImpl(EditUserDialogBox editUserDialogBox) {
+        this.editUserDialogBox = editUserDialogBox;
+    }
 
     @Override
     public void showDialog(User userForEdit, CallBack  callback) {
@@ -30,11 +34,6 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
 
         editUserDialogBox.center();
 
-    }
-
-    @Override
-    public void go(EditUserDialogBox editUserDialogBox) {
-        this.editUserDialogBox = editUserDialogBox;
     }
 
     private void initDialog(String title, String firstName, String lastName, String address) {

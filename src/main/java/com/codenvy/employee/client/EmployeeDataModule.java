@@ -15,12 +15,14 @@ public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
         //init EditUserDialogBoxPresenter
-        EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl();
-        EditUserDialogBox editUserDialogBox = new EditUserDialogBoxImpl(editUserDialogBoxPresenter);
-        editUserDialogBoxPresenter.go(editUserDialogBox);
+        EditUserDialogBox editUserDialogBox = new EditUserDialogBoxImpl();
+        EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl(editUserDialogBox);
+        editUserDialogBox.setEditUserDialogBoxPresenter(editUserDialogBoxPresenter);
+
         //init UsersListPresenter
-        UsersListPresenter usersListPresenter = new UsersListPresenterImpl(editUserDialogBoxPresenter);
-        UsersListView usersListView = new UsersListViewImpl(usersListPresenter);
-        usersListPresenter.go(RootLayoutPanel.get(), usersListView);
+        UsersListView usersListView = new UsersListViewImpl();
+        UsersListPresenter usersListPresenter = new UsersListPresenterImpl(editUserDialogBoxPresenter, usersListView);
+        usersListView.setUsersListPresenter(usersListPresenter);
+        usersListPresenter.go(RootLayoutPanel.get());
     }
 }
