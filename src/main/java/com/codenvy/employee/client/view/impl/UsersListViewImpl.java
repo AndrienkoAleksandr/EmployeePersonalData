@@ -3,18 +3,20 @@ package com.codenvy.employee.client.view.impl;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
+import com.codenvy.employee.client.view.impl.enumeration.TypeButtonOfUsersListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.*;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
+
+    private static UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
     @UiField
     CellTable<User> usersTable;
@@ -38,29 +42,43 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiField
     Button add;
 
-    @Override
-    public void setUsers(List<User> users) {
-        if (usersTable.getColumnCount() == 0) {
-            drawUserTable(users);
-        }
-        usersTable.setRowData(users);
-    }
+    @UiField
+    SimplePager simplePager;
+
+    private AsyncDataProvider<User> provider = null;
 
     private UsersListPresenter usersListPresenter;
 
-    private static UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
-
-    public UsersListViewImpl(UsersListPresenter usersListPresenter) {
+    public UsersListViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
-
-        this.usersListPresenter = usersListPresenter;
-
-        addHandlerToButtonAdd();
-        addHandlerToButtonDelete();
-        addHandlerToButtonEdit();
     }
 
-    public void drawUserTable(final List<User> users) {
+    @Override
+    public void setUsers(final List<User> users) {
+
+        if (usersTable.getColumnCount() == 0) {
+            drawUserTable();
+             provider = new AsyncDataProvider<User>() {
+                @Override
+                protected void onRangeChanged(HasData<User> display) {
+                    GWT.log("i'm work!");
+                    provider.updateRowCount(users.size(), true);
+                    updateRowData(0, users);
+                }
+            };
+            provider.addDataDisplay(usersTable);
+            simplePager.setDisplay(usersTable);
+        }
+        provider.updateRowCount(users.size(), true);
+        usersTable.setRowData(users);
+    }
+
+    @Override
+    public void setUsersListPresenter(UsersListPresenter usersListPresenter) {
+        this.usersListPresenter = usersListPresenter;
+    }
+
+    private void drawUserTable() {
         //create column
         TextColumn<User> firstName = new TextColumn<User>() {
             @Override
@@ -98,36 +116,48 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 }
 
         );
+
+
+
+//        final NoSelectionModel<User> selectionModel = new NoSelectionModel<User>();
+//        selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+//
+//            @Override
+//            public void onSelectionChange(SelectionChangeEvent event) {
+//                usersListPresenter.setSelectedUser(selectionModel.getLastSelectedObject());
+//                GWT.log("message" + selectionModel.getLastSelectedObject().getFirstName());
+//            }
+//        });
+//        usersTable.setSelectionModel(selectionModel);
+
+//        final NoSelectionModel<User> selectionModel = new NoSelectionModel<User>();
+//        SelectionChangeEvent.Handler ff = new SelectionChangeEvent.Handler() {
+//
+//            @Override
+//            public void onSelectionChange(SelectionChangeEvent event) {
+//                GWT.log("source" + event.getSource());
+//                usersListPresenter.setSelectedUser(selectionModel.getLastSelectedObject());
+//            }
+//        };
+//        selectionModel.addSelectionChangeHandler(ff);
+//        usersTable.setSelectionModel(selectionModel);
+//        ff.onSelectionChange(null);
     }
 
-    private void addHandlerToButtonDelete() {
-
-        delete.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                usersListPresenter.deleteUser();
-            }
-        });
-
+    @UiHandler("delete")
+    void onDeleteButtonClicked(ClickEvent clickEvent) {
+                usersListPresenter.onDeleteButtonClicked();
     }
 
-    private void addHandlerToButtonAdd() {
 
-        add.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                usersListPresenter.showDialog(null);
-            }
-        });
-
+    @UiHandler("add")
+    void onEditButtonClicked(ClickEvent clickEvent) {
+                usersListPresenter.onShowButtonClicked(TypeButtonOfUsersListView.ADD);
     }
 
-    private void addHandlerToButtonEdit() {
-
-        edit.addClickHandler(new ClickHandler() {
-            public void onClick(ClickEvent clickEvent) {
-                if (usersListPresenter.getSelectedUser() != null) {
-                    usersListPresenter.showDialog(usersListPresenter.getSelectedUser());
-                }
-            }
-        });
+    @UiHandler("edit")
+     void onAddButtonClicked(ClickEvent clickEvent) {
+        usersListPresenter.onShowButtonClicked(TypeButtonOfUsersListView.EDIT);
     }
+
 }

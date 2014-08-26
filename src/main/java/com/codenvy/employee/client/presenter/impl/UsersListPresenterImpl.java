@@ -4,8 +4,9 @@ import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
+import com.codenvy.employee.client.view.impl.enumeration.TypeButtonOfUsersListView;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,49 +19,49 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private User selectedUser;
 
-    private UsersListView usersListView;
+    private final UsersListView usersListView;
 
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    private List<User> users;
+    private final List<User> users;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter) {
+    public UsersListPresenterImpl(UsersListView usersListView, EditUserDialogBoxPresenter presenter) {
+        this.usersListView = usersListView;
         this.editUserDialogBoxPresenter = presenter;
-        users = new LinkedList<User>();
+        users = new ArrayList<>();
         users.addAll(getLisUsersFromServer());
     }
 
     @Override
-    public void go(HasWidgets container, UsersListView usersListView) {
-        this.usersListView = usersListView;
+    public void go(HasWidgets container) {
         usersListView.setUsers(getLisUsersFromServer());
-        container.add((Widget)usersListView);
+
+        container.clear();
+        container.add(usersListView.asWidget());
     }
 
     @Override
     public void setSelectedUser(User selectedUser) {
+        GWT.log("news" + users.contains(selectedUser));
         this.selectedUser = selectedUser;
     }
 
     @Override
-    public User getSelectedUser() {
-        return selectedUser;
-    }
-
-    @Override
-    public void deleteUser() {
+    public void onDeleteButtonClicked() {
         users.remove(selectedUser);
         selectedUser = null;
         usersListView.setUsers(users);
     }
 
     @Override
-    public void showDialog(User userForEdit)  {
+    public void onShowButtonClicked(TypeButtonOfUsersListView typeOfButton)  {
         CallBack callBack = new CallBack();
-        if (userForEdit != null) {
-            userForEdit = users.get(users.indexOf(userForEdit));
+        if (typeOfButton == TypeButtonOfUsersListView.EDIT && selectedUser != null) {
+            editUserDialogBoxPresenter.onShowButtonClicked(selectedUser, callBack);
         }
-        editUserDialogBoxPresenter.showDialog(userForEdit, callBack);
+        if (typeOfButton == TypeButtonOfUsersListView.ADD) {
+            editUserDialogBoxPresenter.onShowButtonClicked(null, callBack);
+        }
     }
 
     public class CallBack extends com.codenvy.employee.client.CallBack{
@@ -72,6 +73,10 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
         @Override
         public void onchange() {
+            GWT.log("* *" + selectedUser.getFirstName() + " " + selectedUser.getLastName() + " " + selectedUser.getAddress());
+            for (User user:users) {
+                GWT.log("* *" + user.getFirstName() + " " + user.getLastName() + " " + user.getAddress() + " \n");
+            }
             usersListView.setUsers(users);
         }
     }

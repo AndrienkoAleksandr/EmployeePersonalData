@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -24,10 +25,8 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
 
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    public EditUserDialogBoxImpl(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
+    public EditUserDialogBoxImpl() {
         add(userEditor.createAndBindUi(this));
-        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
-        initHandlersForUserDialogBox();
     }
 
     @UiField
@@ -56,6 +55,11 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
     }
 
     @Override
+    public void setEditUserDialogBoxPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
+        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
+    }
+
+    @Override
     public String getFirstName() {
         return firstName.getValue();
     }
@@ -75,24 +79,14 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
         this.address.setValue(address);
     }
 
-    public void initHandlersForUserDialogBox() {
+    @UiHandler("okButton")
+    void onOkButtonClicked(ClickEvent clickEvent) {
+        editUserDialogBoxPresenter.saveUser();
+        hide();
+    }
 
-        okButton.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                editUserDialogBoxPresenter.saveUser();
-                hide();
-            }
-
-        });
-
-        cancelButton.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                hide();
-            }
-        });
+    @UiHandler("cancelButton")
+    void onCancelClicked(ClickEvent clickEvent) {
+        hide();
     }
 }

@@ -8,7 +8,6 @@ import com.codenvy.employee.client.view.EditUserDialogBox;
  * Created by logarifm on 22.08.14.
  */
 public interface EditUserDialogBoxPresenter {
-    void showDialog(User selectedUser, CallBack callBack);
-    void go(EditUserDialogBox editUserDialogBox);
+    void onShowButtonClicked(User selectedUser, CallBack callBack);
     void saveUser();
 }
