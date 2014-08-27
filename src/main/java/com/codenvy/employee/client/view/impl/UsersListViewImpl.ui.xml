@@ -9,8 +9,9 @@
             <!--<g:FlowPanel>-->
             <g:AbsolutePanel height="300" width="200">
                 <g:ScrollPanel>
-                    <c:CellTable ui:field="usersTable"/>
+                    <c:CellTable ui:field="usersTable" pageSize="3"/>
                 </g:ScrollPanel>
+                <c:SimplePager ui:field="pager" location="CENTER"/>
         </g:AbsolutePanel>
             <!--</g:FlowPanel>-->
 
