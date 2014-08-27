@@ -1,9 +1,9 @@
 package com.codenvy.employee.client.presenter.impl;
 
+import com.codenvy.employee.client.CallBack;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -22,20 +22,24 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    private List<User> users;
+    private final List<User> users;
 
-    {
-        users = new ArrayList<>();
-        users.add(new User("Bogdan", "Petrenenko", "Kaniv"));
-        users.add(new User("Xolod", "Ivan", "Kaniv"));
-        users.add(new User("Stateman", "Konstantin", "Kiev"));
-        users.add(new User("Fermi", "Gustav", "Kiev"));
-        users.add(new User("Ammundcen", "Den", "Kiev"));
+    @SuppressWarnings("deprecation")
+    private static final List<User> temp;
+
+    static {
+        temp = new ArrayList<>();
+        temp.add(new User("Bogdan", "Petrenenko", "Kaniv"));
+        temp.add(new User("Xolod", "Ivan", "Kaniv"));
+        temp.add(new User("Stateman", "Konstantin", "Kiev"));
+        temp.add(new User("Fermi", "Gustav", "Kiev"));
+        temp.add(new User("Ammundcen", "Den", "Kiev"));
     }
 
     public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, UsersListView usersListView) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
+        users = new ArrayList<>(temp);
     }
 
     @Override
@@ -48,41 +52,48 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     }
 
     @Override
-    public void setSelectedUser(User selectedUser) {
+    public void onSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
     }
 
     @Override
     public void onDeleteButtonClicked() {
         users.remove(selectedUser);
+
         selectedUser = null;
+
         usersListView.setUsers(users);
     }
 
     @Override
-    public void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent) {
-        CallBack callBack = new CallBack();
-        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.ADD_USER) {
-            editUserDialogBoxPresenter.showDialog(null, callBack);
-        }
-        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser != null) {
-            editUserDialogBoxPresenter.showDialog(selectedUser, callBack);
-        }
-        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser == null) {
-            Window.alert("You nothing selected!");
-        }
+    public void onShowButtonAddClicked() {
+        CallBack callBack = new CallBack() {
+            @Override
+            public void onChanged(User user) {
+                users.add(user);
+                usersListView.setUsers(users);
+            }
+        };
+        editUserDialogBoxPresenter.onShowDialog(null, callBack);
     }
 
-    public class CallBack extends com.codenvy.employee.client.CallBack {
-        @Override
-        public void onchange(User user) {
-            users.add(user);
-            usersListView.setUsers(users);
-        }
+    @Override
+    public void onShowButtonEditClicked() {
+        CallBack callBack = new CallBack() {
+            @Override
+            public void onChanged(User user) {
+                selectedUser.setFirstName(user.getFirstName());
+                selectedUser.setLastName(user.getLastName());
+                selectedUser.setAddress(user.getAddress());
 
-        @Override
-        public void onchange() {
-            usersListView.setUsers(users);
+                usersListView.setUsers(users);
+            }
+        };
+
+        if (selectedUser != null) {
+            editUserDialogBoxPresenter.onShowDialog(selectedUser, callBack);
+        } else {
+            Window.alert("You nothing selected!");
         }
     }
 }

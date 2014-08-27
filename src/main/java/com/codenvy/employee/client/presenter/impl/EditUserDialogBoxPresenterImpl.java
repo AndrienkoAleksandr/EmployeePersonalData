@@ -3,60 +3,62 @@ package com.codenvy.employee.client.presenter.impl;
 import com.codenvy.employee.client.CallBack;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.view.EditUserDialogBox;
+import com.codenvy.employee.client.view.EditUserDialogBoxView;
 
 /**
  * Created by Andrienko Alexander  on 22.08.14.
  */
 public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
 
-    private final EditUserDialogBox editUserDialogBox;
+    private final EditUserDialogBoxView editUserDialogBoxView;
 
     private CallBack callBack;
 
     private User userForEdit;
 
-    public EditUserDialogBoxPresenterImpl(EditUserDialogBox editUserDialogBox) {
-        this.editUserDialogBox = editUserDialogBox;
+    public EditUserDialogBoxPresenterImpl(EditUserDialogBoxView editUserDialogBoxView) {
+        this.editUserDialogBoxView = editUserDialogBoxView;
     }
 
     @Override
-    public void showDialog(User userForEdit, CallBack callback) {
+    public void onShowDialog(User userForEdit, CallBack callback) {
         this.callBack = callback;
+
         if (userForEdit == null) {
             userForEdit = new User("", "", "");
             initDialog("Add", "", "", "");
         } else {
             initDialog("Edit", userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
         }
-        //show dialog box
+
         this.userForEdit = userForEdit;
 
-        editUserDialogBox.center();
-
+        //show and move to center of display
+        editUserDialogBoxView.center();
     }
 
     private void initDialog(String title, String firstName, String lastName, String address) {
-        editUserDialogBox.setText(title);
-        editUserDialogBox.setFirstName(firstName);
-        editUserDialogBox.setLastName(lastName);
-        editUserDialogBox.setAddress(address);
+        editUserDialogBoxView.setText(title);
+        editUserDialogBoxView.setFirstName(firstName);
+        editUserDialogBoxView.setLastName(lastName);
+        editUserDialogBoxView.setAddress(address);
     }
 
-
     private void getDataFromDialogBox() {
-        userForEdit.setFirstName(editUserDialogBox.getFirstName());
-        userForEdit.setLastName(editUserDialogBox.getLastName());
-        userForEdit.setAddress(editUserDialogBox.getAddress());
+        userForEdit.setFirstName(editUserDialogBoxView.getFirstName());
+        userForEdit.setLastName(editUserDialogBoxView.getLastName());
+        userForEdit.setAddress(editUserDialogBoxView.getAddress());
     }
 
     @Override
-    public void saveUser() {
+    public void onOkButtonClicked() {
         getDataFromDialogBox();
-        if (editUserDialogBox.getText().equals("Add")) {
-            callBack.onchange(userForEdit);
-        } else {
-            callBack.onchange();
-        }
+        callBack.onChanged(userForEdit);
+        editUserDialogBoxView.hide();
+    }
+
+    @Override
+    public void onCancelButtonClicked() {
+        editUserDialogBoxView.hide();
     }
 }

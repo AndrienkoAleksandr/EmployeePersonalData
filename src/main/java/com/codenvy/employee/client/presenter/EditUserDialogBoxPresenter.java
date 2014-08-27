@@ -7,7 +7,9 @@ import com.codenvy.employee.client.entity.User;
  * Created by Andrienko Alexander  on 22.08.14.
  */
 public interface EditUserDialogBoxPresenter {
-    void showDialog(User selectedUser, CallBack callBack);
+    void onShowDialog(User selectedUser, CallBack callBack);
 
-    void saveUser();
+    void onOkButtonClicked();
+
+    void onCancelButtonClicked();
 }
