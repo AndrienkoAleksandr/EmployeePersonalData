@@ -5,11 +5,14 @@ import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
- * Created by logarifm on 21.08.14.
+ * Created by Andrienko Alexander  on 21.08.14.
  */
 public interface UsersListPresenter {
     void go(HasWidgets container);
+
     void onDeleteButtonClicked();
+
     void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent);
+
     void setSelectedUser(User user);
 }

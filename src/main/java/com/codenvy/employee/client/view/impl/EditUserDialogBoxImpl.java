@@ -13,18 +13,11 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Created by logarifm on 19.08.14.
+ * Created by Andrienko Alexander  on 19.08.14.
  */
 public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBox {
 
     interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxImpl> {
-    }
-
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
-
-    public EditUserDialogBoxImpl() {
-        EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
-        add(userEditor.createAndBindUi(this));
     }
 
     @UiField
@@ -41,6 +34,13 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
 
     @UiField
     Button cancelButton;
+
+    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+
+    public EditUserDialogBoxImpl() {
+        EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
+        add(userEditor.createAndBindUi(this));
+    }
 
     @Override
     public void setEditUserDialogBoxPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {

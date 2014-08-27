@@ -20,14 +20,9 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import java.util.List;
 
 /**
- * Created by logarifm on 19.08.14.
+ * Created by Andrienko Alexander  on 19.08.14.
  */
 public class UsersListViewImpl extends Composite implements UsersListView {
-
-    @Override
-    public void setUsers(List<User> users) {
-        usersTable.setRowData(users);
-    }
 
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
@@ -54,6 +49,11 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     public void setUsersListPresenter(UsersListPresenter usersListPresenter) {
         this.usersListPresenter = usersListPresenter;
+    }
+
+    @Override
+    public void setUsers(List<User> users) {
+        usersTable.setRowData(users);
     }
 
     public void drawUserTable() {
@@ -86,11 +86,11 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         usersTable.setSelectionModel(mySelectionModel);
         mySelectionModel.addSelectionChangeHandler(
 
-            new SelectionChangeEvent.Handler() {
-                public void onSelectionChange(SelectionChangeEvent event) {
-                    usersListPresenter.setSelectedUser(mySelectionModel.getSelectedObject());
+                new SelectionChangeEvent.Handler() {
+                    public void onSelectionChange(SelectionChangeEvent event) {
+                        usersListPresenter.setSelectedUser(mySelectionModel.getSelectedObject());
+                    }
                 }
-            }
 
         );
     }
