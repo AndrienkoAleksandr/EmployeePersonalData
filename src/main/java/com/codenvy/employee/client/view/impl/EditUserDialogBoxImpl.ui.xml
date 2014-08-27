@@ -16,4 +16,5 @@
         <g:Button ui:field='cancelButton' text="Cancel"/>
 
     </g:FlowPanel>
+
 </ui:UiBinder>

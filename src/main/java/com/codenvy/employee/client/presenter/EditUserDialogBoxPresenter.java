@@ -4,9 +4,10 @@ import com.codenvy.employee.client.CallBack;
 import com.codenvy.employee.client.entity.User;
 
 /**
- * Created by logarifm on 22.08.14.
+ * Created by Andrienko Alexander  on 22.08.14.
  */
 public interface EditUserDialogBoxPresenter {
     void showDialog(User selectedUser, CallBack callBack);
+
     void saveUser();
 }

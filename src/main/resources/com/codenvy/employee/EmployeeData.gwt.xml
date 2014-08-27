@@ -14,6 +14,6 @@
     <set-configuration-property name="gwt.superdevmode" value="on"/>
     <set-property name="compiler.useSourceMaps" value="true"/>
 
-    <source path="client" />
+    <source path="client"/>
 
 </module>

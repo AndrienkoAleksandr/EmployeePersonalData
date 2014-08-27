@@ -6,7 +6,7 @@ import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.view.EditUserDialogBox;
 
 /**
- * Created by logarifm on 22.08.14.
+ * Created by Andrienko Alexander  on 22.08.14.
  */
 public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
 
@@ -21,7 +21,7 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
     }
 
     @Override
-    public void showDialog(User userForEdit, CallBack  callback) {
+    public void showDialog(User userForEdit, CallBack callback) {
         this.callBack = callback;
         if (userForEdit == null) {
             userForEdit = new User("", "", "");

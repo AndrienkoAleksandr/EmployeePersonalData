@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.entity;
 
 /**
- * Created by logarifm on 19.08.14.
+ * Created by Andrienko Alexander on 19.08.14.
  */
 public class User {
     private String firstName;

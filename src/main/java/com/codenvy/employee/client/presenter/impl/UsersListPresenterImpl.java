@@ -7,13 +7,12 @@ import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by logarifm on 21.08.14.
+ * Created by Andrienko Alexander  on 21.08.14.
  */
 public class UsersListPresenterImpl implements UsersListPresenter {
 
@@ -45,7 +44,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
         usersListView.setUsers(users);
 
         container.clear();
-        container.add((Widget)usersListView);
+        container.add(usersListView.asWidget());
     }
 
     @Override
@@ -61,7 +60,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     }
 
     @Override
-    public void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent)  {
+    public void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent) {
         CallBack callBack = new CallBack();
         if (userListViewTypeOfEvent == UserListViewTypeOfEvent.ADD_USER) {
             editUserDialogBoxPresenter.showDialog(null, callBack);
@@ -69,12 +68,12 @@ public class UsersListPresenterImpl implements UsersListPresenter {
         if (userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser != null) {
             editUserDialogBoxPresenter.showDialog(selectedUser, callBack);
         }
-        if(userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser == null) {
+        if (userListViewTypeOfEvent == UserListViewTypeOfEvent.EDIT_USER && selectedUser == null) {
             Window.alert("You nothing selected!");
         }
     }
 
-    public class CallBack extends com.codenvy.employee.client.CallBack{
+    public class CallBack extends com.codenvy.employee.client.CallBack {
         @Override
         public void onchange(User user) {
             users.add(user);

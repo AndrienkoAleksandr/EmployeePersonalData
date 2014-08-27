@@ -2,19 +2,30 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-        <g:DockLayoutPanel unit='EM'>
-            <g:west size='15'>
-                <g:FlowPanel >
+    <g:DockLayoutPanel unit='PX'>
+
+        <g:west size='300'>
+
+            <g:FlowPanel>
+
+                <g:ScrollPanel>
                     <c:CellTable ui:field="usersTable"/>
-                </g:FlowPanel>
-            </g:west>
-            <g:center>
-                <g:FlowPanel >
-                    <g:Button ui:field="edit">Edit</g:Button>
-                    <g:Button ui:field="add">Add</g:Button>
-                    <g:Button ui:field="delete">Delete</g:Button>
-                </g:FlowPanel>
-            </g:center>
-        </g:DockLayoutPanel>
+                </g:ScrollPanel>
+
+            </g:FlowPanel>
+
+        </g:west>
+
+        <g:center>
+
+            <g:FlowPanel>
+                <g:Button ui:field="edit">Edit</g:Button>
+                <g:Button ui:field="add">Add</g:Button>
+                <g:Button ui:field="delete">Delete</g:Button>
+            </g:FlowPanel>
+
+        </g:center>
+
+    </g:DockLayoutPanel>
 
 </ui:UiBinder>
