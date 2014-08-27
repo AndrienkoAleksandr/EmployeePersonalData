@@ -6,22 +6,22 @@
 
         <g:west size='300'>
 
-            <g:FlowPanel>
-
+            <!--<g:FlowPanel>-->
+            <g:AbsolutePanel height="300" width="200">
                 <g:ScrollPanel>
                     <c:CellTable ui:field="usersTable"/>
                 </g:ScrollPanel>
-
-            </g:FlowPanel>
+        </g:AbsolutePanel>
+            <!--</g:FlowPanel>-->
 
         </g:west>
 
         <g:center>
 
             <g:FlowPanel>
-                <g:Button ui:field="edit">Edit</g:Button>
-                <g:Button ui:field="add">Add</g:Button>
-                <g:Button ui:field="delete">Delete</g:Button>
+                <g:Button ui:field="edit" text="Edit"/>
+                <g:Button ui:field="add" text="Add"/>
+                <g:Button ui:field="delete" text="Delete"/>
             </g:FlowPanel>
 
         </g:center>

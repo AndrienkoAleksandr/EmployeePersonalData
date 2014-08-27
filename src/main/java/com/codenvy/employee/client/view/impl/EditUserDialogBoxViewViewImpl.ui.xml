@@ -3,13 +3,13 @@
 
     <g:FlowPanel>
 
-        <g:Label>First name</g:Label>
+        <g:Label text="First name"/>
         <g:TextBox ui:field="firstName"/>
 
-        <g:Label>Surname</g:Label>
+        <g:Label text="Surname"/>
         <g:TextBox ui:field="lastName"/>
 
-        <g:Label>Address</g:Label>
+        <g:Label text="Address"/>
         <g:TextBox ui:field="address"/>
 
         <g:Button ui:field="okButton" text="Ok"/>

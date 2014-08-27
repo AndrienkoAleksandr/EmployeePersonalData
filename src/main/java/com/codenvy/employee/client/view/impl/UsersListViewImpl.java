@@ -2,7 +2,6 @@ package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -43,7 +42,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     public UsersListViewImpl() {
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
+
         initWidget(ourUiBinder.createAndBindUi(this));
+
         drawUserTable();
     }
 
@@ -88,7 +89,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
-                        usersListPresenter.setSelectedUser(mySelectionModel.getSelectedObject());
+                        usersListPresenter.onSelectedUser(mySelectionModel.getSelectedObject());
                     }
                 }
 
@@ -102,12 +103,12 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     @UiHandler("add")
     void onAddButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onShowButtonClicked(UserListViewTypeOfEvent.ADD_USER);
+        usersListPresenter.onShowButtonAddClicked();
     }
 
 
     @UiHandler("edit")
     void onEditButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onShowButtonClicked(UserListViewTypeOfEvent.EDIT_USER);
+        usersListPresenter.onShowButtonEditClicked();
     }
 }

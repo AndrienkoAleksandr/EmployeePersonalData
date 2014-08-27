@@ -1,7 +1,6 @@
 package com.codenvy.employee.client.presenter;
 
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.view.UserListViewTypeOfEvent;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
@@ -12,7 +11,9 @@ public interface UsersListPresenter {
 
     void onDeleteButtonClicked();
 
-    void onShowButtonClicked(UserListViewTypeOfEvent userListViewTypeOfEvent);
+    void onShowButtonEditClicked();
 
-    void setSelectedUser(User user);
+    void onShowButtonAddClicked();
+
+    void onSelectedUser(User user);
 }

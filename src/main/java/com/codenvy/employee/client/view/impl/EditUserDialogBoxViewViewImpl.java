@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.view.EditUserDialogBox;
+import com.codenvy.employee.client.view.EditUserDialogBoxView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -15,9 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Created by Andrienko Alexander  on 19.08.14.
  */
-public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBox {
+public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUserDialogBoxView {
 
-    interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxImpl> {
+    interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewViewImpl> {
     }
 
     @UiField
@@ -35,10 +35,11 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
     @UiField
     Button cancelButton;
 
+    private EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
+
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    public EditUserDialogBoxImpl() {
-        EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
+    public EditUserDialogBoxViewViewImpl() {
         add(userEditor.createAndBindUi(this));
     }
 
@@ -79,12 +80,11 @@ public class EditUserDialogBoxImpl extends DialogBox implements EditUserDialogBo
 
     @UiHandler("okButton")
     void onOkButtonClicked(ClickEvent clickEvent) {
-        editUserDialogBoxPresenter.saveUser();
-        hide();
+        editUserDialogBoxPresenter.onOkButtonClicked();
     }
 
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent clickEvent) {
-        hide();
+        editUserDialogBoxPresenter.onCancelButtonClicked();
     }
 }
