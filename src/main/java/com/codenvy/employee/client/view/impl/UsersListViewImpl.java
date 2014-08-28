@@ -1,5 +1,6 @@
 package com.codenvy.employee.client.view.impl;
 
+import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
@@ -10,6 +11,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -46,9 +48,14 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         initWidget(ourUiBinder.createAndBindUi(this));
 
         drawUserTable();
+        addStyle();
     }
 
-    public void setUsersListPresenter(UsersListPresenter usersListPresenter) {
+    private void addStyle() {
+        add.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().editButtonOfUserList());
+    }
+
+    public void setPresenter(UsersListPresenter usersListPresenter) {
         this.usersListPresenter = usersListPresenter;
     }
 
@@ -92,7 +99,6 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                         usersListPresenter.onSelectedUser(mySelectionModel.getSelectedObject());
                     }
                 }
-
         );
     }
 
@@ -103,12 +109,12 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     @UiHandler("add")
     void onAddButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onShowButtonAddClicked();
+        usersListPresenter.onAddButtonClicked();
     }
 
 
     @UiHandler("edit")
     void onEditButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onShowButtonEditClicked();
+        usersListPresenter.onEditButtonClicked();
     }
 }

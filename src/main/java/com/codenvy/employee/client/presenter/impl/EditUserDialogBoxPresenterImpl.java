@@ -18,6 +18,7 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
 
     public EditUserDialogBoxPresenterImpl(EditUserDialogBoxView editUserDialogBoxView) {
         this.editUserDialogBoxView = editUserDialogBoxView;
+        userForEdit = new User("", "", "");
     }
 
     @Override
@@ -25,16 +26,13 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
         this.callBack = callback;
 
         if (userForEdit == null) {
-            userForEdit = new User("", "", "");
             initDialog("Add", "", "", "");
         } else {
             initDialog("Edit", userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
         }
 
-        this.userForEdit = userForEdit;
-
         //show and move to center of display
-        editUserDialogBoxView.center();
+        editUserDialogBoxView.showDialog();
     }
 
     private void initDialog(String title, String firstName, String lastName, String address) {
@@ -53,12 +51,14 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
     @Override
     public void onOkButtonClicked() {
         getDataFromDialogBox();
+
         callBack.onChanged(userForEdit);
-        editUserDialogBoxView.hide();
+
+        editUserDialogBoxView.hideDialog();
     }
 
     @Override
     public void onCancelButtonClicked() {
-        editUserDialogBoxView.hide();
+        editUserDialogBoxView.hideDialog();
     }
 }

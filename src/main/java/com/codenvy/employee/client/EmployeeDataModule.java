@@ -14,17 +14,19 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
+
+        EmployeeDataResource.INSTANCE.employDataStyle().ensureInjected();
         //init EditUserDialogBoxPresenter
         EditUserDialogBoxView editUserDialogBoxView = new EditUserDialogBoxViewViewImpl();
         EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl(editUserDialogBoxView);
 
-        editUserDialogBoxView.setEditUserDialogBoxPresenter(editUserDialogBoxPresenter);
+        editUserDialogBoxView.setPresenter(editUserDialogBoxPresenter);
 
         //init UsersListPresenter
         UsersListView usersListView = new UsersListViewImpl();
         UsersListPresenter usersListPresenter = new UsersListPresenterImpl(editUserDialogBoxPresenter, usersListView);
 
-        usersListView.setUsersListPresenter(usersListPresenter);
+        usersListView.setPresenter(usersListPresenter);
 
         usersListPresenter.go(RootLayoutPanel.get());
     }

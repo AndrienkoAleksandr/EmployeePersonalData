@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Andrienko Alexander  on 21.08.14.
  */
 public interface UsersListView extends IsWidget {
-    void setUsersListPresenter(UsersListPresenter usersListPresenter);
+    void setPresenter(UsersListPresenter usersListPresenter);
 
     void setUsers(List<User> users);
 }

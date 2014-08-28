@@ -9,12 +9,22 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Andrienko Alexander  on 21.08.14.
  */
 public class UsersListPresenterImpl implements UsersListPresenter {
+
+    @SuppressWarnings("deprecation")
+    private static final List<User> temp = Arrays.asList(
+            new User("Bogdan", "Petrenenko", "Kaniv"),
+            new User("Xolod", "Ivan", "Kaniv"),
+            new User("Stateman", "Konstantin", "Kiev"),
+            new User("Fermi", "Gustav", "Kiev"),
+            new User("Ammundcen", "Den", "Kiev")
+    );
 
     private User selectedUser;
 
@@ -24,22 +34,33 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final List<User> users;
 
-    @SuppressWarnings("deprecation")
-    private static final List<User> temp;
+    private final CallBack callBackForAddUser;
 
-    static {
-        temp = new ArrayList<>();
-        temp.add(new User("Bogdan", "Petrenenko", "Kaniv"));
-        temp.add(new User("Xolod", "Ivan", "Kaniv"));
-        temp.add(new User("Stateman", "Konstantin", "Kiev"));
-        temp.add(new User("Fermi", "Gustav", "Kiev"));
-        temp.add(new User("Ammundcen", "Den", "Kiev"));
-    }
+    private final CallBack callBackForEditUser;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, UsersListView usersListView) {
+    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
-        users = new ArrayList<>(temp);
+        this.users = new ArrayList<>(temp);
+
+        callBackForAddUser = new CallBack() {
+            @Override
+            public void onChanged(User user) {
+                users.add(new User(user.getFirstName(), user.getLastName(), user.getAddress()));
+                usersListView.setUsers(users);
+            }
+        };
+
+        callBackForEditUser = new CallBack() {
+            @Override
+            public void onChanged(User user) {
+                selectedUser.setFirstName(user.getFirstName());
+                selectedUser.setLastName(user.getLastName());
+                selectedUser.setAddress(user.getAddress());
+
+                usersListView.setUsers(users);
+            }
+        };
     }
 
     @Override
@@ -66,32 +87,14 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     }
 
     @Override
-    public void onShowButtonAddClicked() {
-        CallBack callBack = new CallBack() {
-            @Override
-            public void onChanged(User user) {
-                users.add(user);
-                usersListView.setUsers(users);
-            }
-        };
-        editUserDialogBoxPresenter.onShowDialog(null, callBack);
+    public void onAddButtonClicked() {
+        editUserDialogBoxPresenter.onShowDialog(null, callBackForAddUser);
     }
 
     @Override
-    public void onShowButtonEditClicked() {
-        CallBack callBack = new CallBack() {
-            @Override
-            public void onChanged(User user) {
-                selectedUser.setFirstName(user.getFirstName());
-                selectedUser.setLastName(user.getLastName());
-                selectedUser.setAddress(user.getAddress());
-
-                usersListView.setUsers(users);
-            }
-        };
-
+    public void onEditButtonClicked() {
         if (selectedUser != null) {
-            editUserDialogBoxPresenter.onShowDialog(selectedUser, callBack);
+            editUserDialogBoxPresenter.onShowDialog(selectedUser, callBackForEditUser);
         } else {
             Window.alert("You nothing selected!");
         }

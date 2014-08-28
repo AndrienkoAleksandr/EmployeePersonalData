@@ -35,7 +35,7 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
     @UiField
     Button cancelButton;
 
-    private EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
+    private static EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
 
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
@@ -44,7 +44,7 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
     }
 
     @Override
-    public void setEditUserDialogBoxPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
+    public void setPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
         this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
     }
 
@@ -86,5 +86,13 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent clickEvent) {
         editUserDialogBoxPresenter.onCancelButtonClicked();
+    }
+
+    public void showDialog() {
+        center();
+    }
+
+    public void hideDialog() {
+        hide();
     }
 }
