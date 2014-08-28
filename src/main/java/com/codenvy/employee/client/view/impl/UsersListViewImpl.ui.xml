@@ -2,26 +2,35 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-    <g:DockLayoutPanel unit='PX'>
+    <ui:style>
+        .edit-button {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-left: 5px;
+            width: 49px;
+            background-color: lemonchiffon;
+        }
+    </ui:style>
+    <ui:with field="addButtonRes" type="com.codenvy.employee.client.EmployeeDataResource"/>
 
-        <g:west size='300'>
+    <g:DockLayoutPanel unit='PX' >
 
-            <!--<g:FlowPanel>-->
-            <g:AbsolutePanel height="300" width="200">
+        <g:west size='600'>
+
+            <g:FlowPanel>
                 <g:ScrollPanel>
                     <c:CellTable ui:field="usersTable"/>
                 </g:ScrollPanel>
-        </g:AbsolutePanel>
-            <!--</g:FlowPanel>-->
+            </g:FlowPanel>
 
         </g:west>
 
         <g:center>
 
             <g:FlowPanel>
-                <g:Button ui:field="edit" text="Edit"/>
+                <g:Button ui:field="edit" styleName="{style.edit-button}" text="Edit"/>
                 <g:Button ui:field="add" text="Add"/>
-                <g:Button ui:field="delete" text="Delete"/>
+                <g:Button ui:field="delete" styleName="{addButtonRes.employDataStyle.editButtonOfUserList}" text="Delete"/>
             </g:FlowPanel>
 
         </g:center>

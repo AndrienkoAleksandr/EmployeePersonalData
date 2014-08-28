@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.DialogBox;
  * Created by Andrienko Alexander  on 22.08.14.
  */
 public interface EditUserDialogBoxView {
-    void setEditUserDialogBoxPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter);
+    void setPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter);
 
     void setText(String title);
 
@@ -23,9 +23,7 @@ public interface EditUserDialogBoxView {
 
     String getAddress();
 
-    //show and move to center dialog
-    void center();
+    void showDialog();
 
-    void hide();
-
+    void hideDialog();
 }

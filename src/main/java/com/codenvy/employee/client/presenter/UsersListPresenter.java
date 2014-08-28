@@ -11,9 +11,9 @@ public interface UsersListPresenter {
 
     void onDeleteButtonClicked();
 
-    void onShowButtonEditClicked();
+    void onEditButtonClicked();
 
-    void onShowButtonAddClicked();
+    void onAddButtonClicked();
 
     void onSelectedUser(User user);
 }
