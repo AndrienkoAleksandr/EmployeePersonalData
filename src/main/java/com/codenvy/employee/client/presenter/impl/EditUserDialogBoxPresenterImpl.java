@@ -1,9 +1,10 @@
 package com.codenvy.employee.client.presenter.impl;
 
-import com.codenvy.employee.client.CallBack;
+import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.view.EditUserDialogBoxView;
+import com.google.gwt.event.shared.EventBus;
 
 /**
  * Created by Andrienko Alexander  on 22.08.14.

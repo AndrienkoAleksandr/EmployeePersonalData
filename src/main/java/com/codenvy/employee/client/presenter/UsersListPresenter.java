@@ -16,4 +16,6 @@ public interface UsersListPresenter {
     void onAddButtonClicked();
 
     void onSelectedUser(User user);
+
+    void onInfoLinkClicked();
 }
