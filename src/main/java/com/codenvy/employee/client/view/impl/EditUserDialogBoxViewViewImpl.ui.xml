@@ -1,19 +1,48 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <ui:style>
+        .textDialogBox {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .textBoxOfDialog {
+            float: right;
+        }
+
+        .buttonOfDialog {
+            width: 52px ;
+            margin-right: 10px;
+            margin-left: 70px;
+        }
+    </ui:style>
+
+    <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
 
     <g:FlowPanel>
 
-        <g:Label text="First name"/>
-        <g:TextBox ui:field="firstName"/>
+        <g:FlowPanel>
+            <g:Label styleName="{style.textDialogBox}" text="First name"/>
+            <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="firstName"/>
+        </g:FlowPanel>
 
-        <g:Label text="Surname"/>
-        <g:TextBox ui:field="lastName"/>
 
-        <g:Label text="Address"/>
-        <g:TextBox ui:field="address"/>
+        <g:FlowPanel>
+            <g:Label styleName="{style.textDialogBox}" text="Surname"/>
+            <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="lastName"/>
+        </g:FlowPanel>
 
-        <g:Button ui:field="okButton" text="Ok"/>
-        <g:Button ui:field='cancelButton' text="Cancel"/>
+
+        <g:FlowPanel>
+            <g:Label styleName="{style.textDialogBox}" text="Address"/>
+            <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="address"/>
+        </g:FlowPanel>
+
+
+        <g:FlowPanel>
+            <g:Button styleName="{style.buttonOfDialog}" ui:field="okButton" text="Ok"/>
+            <g:Button ui:field='cancelButton' text="Cancel"/>
+        </g:FlowPanel>
 
     </g:FlowPanel>
 
