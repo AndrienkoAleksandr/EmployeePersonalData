@@ -10,11 +10,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -42,17 +40,36 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiField
     Button add;
 
+    @UiField
+    Label labelListEmployee;
+
+    @UiField
+    Hyperlink link;
+
     public UsersListViewImpl() {
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
         initWidget(ourUiBinder.createAndBindUi(this));
 
         drawUserTable();
+        writeTextInHeader();
         addStyle();
     }
 
+    private void writeTextInHeader() {
+        GWT.log(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
+        labelListEmployee.setText(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
+    }
+
     private void addStyle() {
-        add.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().editButtonOfUserList());
+//        RowStyles<User> rowStyles = new RowStyles<User>() {
+//            @Override
+//            public String getStyleNames(User row, int rowIndex) {
+//                return EmployeeDataResource.INSTANCE.employDataStyle().cellStyle();
+//            }
+//        };
+//        usersTable.setRowStyles(rowStyles);
+    link.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
     }
 
     public void setPresenter(UsersListPresenter usersListPresenter) {
@@ -88,6 +105,11 @@ public class UsersListViewImpl extends Composite implements UsersListView {
             }
         };
         usersTable.addColumn(address, "Address");
+
+        //add style to table
+        firstName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
+        lastName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
+        address.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
 
         //add handler for table
         final SingleSelectionModel<User> mySelectionModel = new SingleSelectionModel<User>();

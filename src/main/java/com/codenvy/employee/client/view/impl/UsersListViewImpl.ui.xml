@@ -3,24 +3,54 @@
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
     <ui:style>
-        .edit-button {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            margin-left: 5px;
-            width: 49px;
-            background-color: lemonchiffon;
+        .table {
+            background-color: lightblue;
+            width: 800px;
+            height: 300px;
+            margin:20px auto;
+        }
+        .imgBuildings {
+            float:left;
+            width: 320px;
+            height: 200px;
+        }
+        .textFromResource {
+            float:left;
+            width: 400px;
+            height: 50px;
+            font-size: large;
+            text-align: center;
+            margin-left: 160px;
+            margin-top: 90px;
+            color: darkblue;
         }
     </ui:style>
-    <ui:with field="addButtonRes" type="com.codenvy.employee.client.EmployeeDataResource"/>
+    <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
 
     <g:DockLayoutPanel unit='PX' >
 
-        <g:west size='600'>
+        <g:north size="200">
 
             <g:FlowPanel>
-                <g:ScrollPanel>
-                    <c:CellTable ui:field="usersTable"/>
-                </g:ScrollPanel>
+
+                <g:SimplePanel>
+                    <g:Image resource="{res.imgBuildings}" styleName="{style.imgBuildings}"/>
+                </g:SimplePanel>
+
+                <g:SimplePanel>
+                    <g:Label ui:field="labelListEmployee" styleName="{style.textFromResource}"/>
+                </g:SimplePanel>
+
+            </g:FlowPanel>
+
+        </g:north>
+
+        <g:west size='300'>
+
+            <g:FlowPanel>
+
+                <g:Hyperlink ui:field="link" text="About company" targetHistoryToken="text"/>
+
             </g:FlowPanel>
 
         </g:west>
@@ -28,12 +58,26 @@
         <g:center>
 
             <g:FlowPanel>
-                <g:Button ui:field="edit" styleName="{style.edit-button}" text="Edit"/>
-                <g:Button ui:field="add" text="Add"/>
-                <g:Button ui:field="delete" styleName="{addButtonRes.employDataStyle.editButtonOfUserList}" text="Delete"/>
+
+                <g:ScrollPanel styleName="{style.table}">
+                    <c:CellTable ui:field="usersTable" styleName="{style.table}"/>
+                </g:ScrollPanel>
+
             </g:FlowPanel>
 
         </g:center>
+
+        <g:east size="200">
+
+            <g:FlowPanel>
+
+                <g:Button ui:field="edit" styleName="{res.employDataStyle.editButtonOfUserList}" text="Edit"/>
+                <g:Button ui:field="add" styleName="{res.employDataStyle.editButtonOfUserList}" text="Add"/>
+                <g:Button ui:field="delete" styleName="{res.employDataStyle.editButtonOfUserList}" text="Delete"/>
+
+            </g:FlowPanel>
+
+        </g:east>
 
     </g:DockLayoutPanel>
 

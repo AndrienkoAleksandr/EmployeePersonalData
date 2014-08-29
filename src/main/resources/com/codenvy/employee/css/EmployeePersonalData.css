@@ -1,7 +1,22 @@
 .editButtonOfUserList {
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-top: 20px;
     margin-left: 5px;
     width: 49px;
     background-color: lemonchiffon;
+}
+
+.cellStyle {
+    height: 15px;
+}
+
+.link {
+    margin: 20px auto;
+    align-content: center;
+    width: 100px;
+}
+
+.dialogBox {
+
 }

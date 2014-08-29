@@ -7,4 +7,6 @@ import com.google.gwt.resources.client.CssResource;
  */
 public interface EmployDataStyle extends CssResource {
     String editButtonOfUserList();
+    String cellStyle();
+    String link();
 }
