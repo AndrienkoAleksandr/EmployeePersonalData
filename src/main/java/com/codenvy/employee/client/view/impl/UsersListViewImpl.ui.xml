@@ -49,7 +49,7 @@
 
             <g:FlowPanel>
 
-                <g:Hyperlink ui:field="link" text="About company" targetHistoryToken="text"/>
+                <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="text"/>
 
             </g:FlowPanel>
 

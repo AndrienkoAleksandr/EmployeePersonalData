@@ -5,6 +5,8 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
 
+import javax.xml.soap.Text;
+
 /**
  * Created by logarifm on 28.08.14.
  */
@@ -20,4 +22,7 @@ public interface EmployeeDataResource extends ClientBundle {
 
     @ClientBundle.Source("com/codenvy/employee/text/EmployeeTable")
     TextResource textEmployeeTable();
+
+    @ClientBundle.Source("com/codenvy/employee/text/CompanyInfo")
+    TextResource textCompanyInfo();
 }

@@ -1,10 +1,12 @@
 package com.codenvy.employee.client.presenter.impl;
 
-import com.codenvy.employee.client.CallBack;
+import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
+import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -38,9 +40,14 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final CallBack callBackForEditUser;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView) {
+    private final EventBus eventBus;
+
+    private HasWidgets container;
+
+    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView, EventBus eventBus) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
+        this.eventBus = eventBus;
         this.users = new ArrayList<>(temp);
 
         callBackForAddUser = new CallBack() {
@@ -65,6 +72,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void go(HasWidgets container) {
+        this.container = container;
         //set data to userListView's table
         usersListView.setUsers(users);
 
@@ -75,6 +83,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
     @Override
     public void onSelectedUser(User selectedUser) {
         this.selectedUser = selectedUser;
+    }
+
+    @Override
+    public void onInfoLinkClicked() {
+        eventBus.fireEvent(new RedirectToPageInfoEvent(container));
     }
 
     @Override

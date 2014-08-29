@@ -1,6 +1,6 @@
 package com.codenvy.employee.client.presenter;
 
-import com.codenvy.employee.client.CallBack;
+import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.entity.User;
 
 /**

@@ -44,7 +44,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     Label labelListEmployee;
 
     @UiField
-    Hyperlink link;
+    Hyperlink linkInfo;
 
     public UsersListViewImpl() {
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
@@ -61,15 +61,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         labelListEmployee.setText(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
     }
 
+    //todo
     private void addStyle() {
-//        RowStyles<User> rowStyles = new RowStyles<User>() {
-//            @Override
-//            public String getStyleNames(User row, int rowIndex) {
-//                return EmployeeDataResource.INSTANCE.employDataStyle().cellStyle();
-//            }
-//        };
-//        usersTable.setRowStyles(rowStyles);
-    link.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
+    linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
     }
 
     public void setPresenter(UsersListPresenter usersListPresenter) {
@@ -138,5 +132,10 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiHandler("edit")
     void onEditButtonClicked(ClickEvent clickEvent) {
         usersListPresenter.onEditButtonClicked();
+    }
+
+    @UiHandler("linkInfo")
+    void onLinkInfoClicked(ClickEvent clickEvent) {
+        usersListPresenter.onInfoLinkClicked();
     }
 }
