@@ -1,15 +1,12 @@
 package com.codenvy.employee.client.presenter.impl;
 
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.event.RedirectToListPageEvent;
-import com.codenvy.employee.client.event.RedirectToListPageEventHandler;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.view.UsersListView;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.History;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -43,23 +40,16 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final CallBack callBackForEditUser;
 
-    private final EventBus eventBus;
+    private final HandlerManager eventBus;
 
     private HasWidgets container;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView, EventBus eventBus) {
+    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView,
+                                  HandlerManager eventBus) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
         this.eventBus = eventBus;
         this.users = new ArrayList<>(temp);
-
-        //todo
-        eventBus.addHandler(RedirectToListPageEvent.TYPE, new RedirectToListPageEventHandler() {
-            @Override
-            public void redirectToPageList(RedirectToListPageEvent redirectToListPageEvent) {
-                go(container);
-            }
-        });
 
         callBackForAddUser = new CallBack() {
             @Override
@@ -98,7 +88,6 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void onInfoLinkClicked() {
-        History.newItem("list");
         eventBus.fireEvent(new RedirectToPageInfoEvent(container));
     }
 
