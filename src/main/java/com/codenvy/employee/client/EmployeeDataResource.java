@@ -5,8 +5,6 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
 
-import javax.xml.soap.Text;
-
 /**
  * Created by Andrienko Alexander on 28.08.14.
  */
