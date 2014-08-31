@@ -10,7 +10,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -53,7 +52,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
         drawUserTable();
         writeTextInHeader();
-        addStyle();
+        addStyleToView();
     }
 
     private void writeTextInHeader() {
@@ -61,9 +60,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         labelListEmployee.setText(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
     }
 
-    //todo
-    private void addStyle() {
-    linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
+    private void addStyleToView() {
+        usersTable.setStyleName(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
+        linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
     }
 
     public void setPresenter(UsersListPresenter usersListPresenter) {

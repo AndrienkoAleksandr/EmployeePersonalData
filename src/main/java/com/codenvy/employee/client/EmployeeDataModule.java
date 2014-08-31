@@ -21,7 +21,7 @@ public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
 
-        SimpleEventBus simpleEventBus = new SimpleEventBus();
+        EventBus simpleEventBus = new SimpleEventBus();
 
         EmployeeDataResource.INSTANCE.employDataStyle().ensureInjected();
         //init EditUserDialogBoxPresenter
@@ -31,10 +31,11 @@ public class EmployeeDataModule implements EntryPoint {
 
         editUserDialogBoxView.setPresenter(editUserDialogBoxPresenter);
 
-
+        //init PageInfoPresenter
         PageInfoView pageInfoView = new PageInfoViewImpl();
         PageInfoPresenter pageInfoPresenter = new PageInfoPresenterImpl(pageInfoView, simpleEventBus);
 
+        pageInfoView.setPageInfoPresenter(pageInfoPresenter);
 
         //init UsersListPresenter
         UsersListView usersListView = new UsersListViewImpl();
@@ -44,7 +45,5 @@ public class EmployeeDataModule implements EntryPoint {
         usersListView.setPresenter(usersListPresenter);
 
         usersListPresenter.go(RootLayoutPanel.get());
-
-
     }
 }

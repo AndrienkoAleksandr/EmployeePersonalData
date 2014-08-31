@@ -8,13 +8,17 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public class RedirectToPageInfoEvent extends GwtEvent<RedirectToPageInfoEventHandler>{
 
+    public static Type<RedirectToPageInfoEventHandler> TYPE = new Type<RedirectToPageInfoEventHandler>();
+
     private final HasWidgets hasWidgets;
 
     public RedirectToPageInfoEvent(HasWidgets hasWidgets) {
         this.hasWidgets = hasWidgets;
     }
 
-    public static Type<RedirectToPageInfoEventHandler> TYPE = new Type<RedirectToPageInfoEventHandler>();
+    public HasWidgets getHasWidgets() {
+        return hasWidgets;
+    }
 
     @Override
     public Type<RedirectToPageInfoEventHandler> getAssociatedType() {
@@ -23,6 +27,6 @@ public class RedirectToPageInfoEvent extends GwtEvent<RedirectToPageInfoEventHan
 
     @Override
     protected void dispatch(RedirectToPageInfoEventHandler handler) {
-        handler.redirectToPageInfo(this, hasWidgets);
+        handler.redirectToPageInfo(this);
     }
 }
