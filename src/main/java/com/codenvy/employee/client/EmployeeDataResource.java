@@ -8,7 +8,7 @@ import com.google.gwt.resources.client.TextResource;
 import javax.xml.soap.Text;
 
 /**
- * Created by logarifm on 28.08.14.
+ * Created by Andrienko Alexander on 28.08.14.
  */
 public interface EmployeeDataResource extends ClientBundle {
 

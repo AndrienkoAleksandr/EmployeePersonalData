@@ -3,19 +3,14 @@
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
     <ui:style>
-        .table {
-            background-color: lightblue;
-            width: 800px;
-            height: 300px;
-            margin:20px auto;
-        }
         .imgBuildings {
-            float:left;
+            float: left;
             width: 320px;
             height: 200px;
         }
+
         .textFromResource {
-            float:left;
+            float: left;
             width: 400px;
             height: 50px;
             font-size: large;
@@ -25,6 +20,7 @@
             color: darkblue;
         }
     </ui:style>
+
     <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
 
     <g:DockLayoutPanel unit='PX' >
@@ -49,7 +45,7 @@
 
             <g:FlowPanel>
 
-                <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="text"/>
+                <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="info"/>
 
             </g:FlowPanel>
 
@@ -59,8 +55,8 @@
 
             <g:FlowPanel>
 
-                <g:ScrollPanel styleName="{style.table}">
-                    <c:CellTable ui:field="usersTable" styleName="{style.table}"/>
+                <g:ScrollPanel styleName="{res.employDataStyle.table}">
+                    <c:CellTable ui:field="usersTable" styleName="{res.employDataStyle.table}"/>
                 </g:ScrollPanel>
 
             </g:FlowPanel>
