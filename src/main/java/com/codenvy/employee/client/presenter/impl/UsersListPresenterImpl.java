@@ -42,8 +42,6 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final HandlerManager eventBus;
 
-    private HasWidgets container;
-
     public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView,
                                   HandlerManager eventBus) {
         this.editUserDialogBoxPresenter = presenter;
@@ -73,7 +71,6 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void go(HasWidgets container) {
-        this.container = container;
         //set data to userListView's table
         usersListView.setUsers(users);
 
@@ -88,7 +85,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void onInfoLinkClicked() {
-        eventBus.fireEvent(new RedirectToPageInfoEvent(container));
+        eventBus.fireEvent(new RedirectToPageInfoEvent());
     }
 
     @Override
