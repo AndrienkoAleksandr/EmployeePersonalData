@@ -3,6 +3,7 @@
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
     <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
+    <ui:with field="resLocalisation" type="com.codenvy.employee.client.constants.EmployeeDataConstants"/>
 
     <g:DockLayoutPanel unit='PX' >
 
@@ -19,7 +20,7 @@
 
         <g:west size='300'>
 
-            <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="info"/>
+            <g:Hyperlink ui:field="linkInfo" text="{resLocalisation.infoLinkText}" targetHistoryToken="info"/>
 
         </g:west>
 
@@ -35,9 +36,12 @@
 
             <g:FlowPanel>
 
-                <g:Button ui:field="edit" styleName="{res.employDataStyle.editButtonOfUserList}" text="Edit"/>
-                <g:Button ui:field="add" styleName="{res.employDataStyle.editButtonOfUserList}" text="Add"/>
-                <g:Button ui:field="delete" styleName="{res.employDataStyle.editButtonOfUserList}" text="Delete"/>
+                <g:Button ui:field="edit" styleName="{res.employDataStyle.editButtonOfUserList}"
+                          text="{resLocalisation.editButtonText}"/>
+                <g:Button ui:field="add" styleName="{res.employDataStyle.editButtonOfUserList}"
+                          text="{resLocalisation.addButtonText}"/>
+                <g:Button ui:field="delete" styleName="{res.employDataStyle.editButtonOfUserList}"
+                          text="{resLocalisation.deleteButtonText}"/>
 
             </g:FlowPanel>
 

@@ -16,30 +16,31 @@
             margin-left: 70px;
         }
     </ui:style>
+    <ui:with field="resLocalisation" type="com.codenvy.employee.client.constants.EmployeeDataConstants"/>
 
     <g:FlowPanel>
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="First name"/>
+            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.firstNameTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="firstName"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="Surname"/>
+            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.lastNameTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="lastName"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="Address"/>
+            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.addressTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="address"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Button styleName="{style.buttonOfDialog}" ui:field="okButton" text="Ok"/>
-            <g:Button ui:field='cancelButton' text="Cancel"/>
+            <g:Button styleName="{style.buttonOfDialog}" ui:field="okButton" text="{resLocalisation.okButtonText}"/>
+            <g:Button ui:field='cancelButton' text="{resLocalisation.cancelButtonText}"/>
         </g:FlowPanel>
 
     </g:FlowPanel>

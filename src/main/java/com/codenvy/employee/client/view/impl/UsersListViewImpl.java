@@ -1,6 +1,7 @@
 package com.codenvy.employee.client.view.impl;
 
 import com.codenvy.employee.client.EmployeeDataResource;
+import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UsersListView;
@@ -26,6 +27,8 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     }
 
     private UsersListPresenter usersListPresenter;
+
+    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
 
     @UiField
     CellTable<User> usersTable;
@@ -85,7 +88,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getFirstName();
             }
         };
-        usersTable.addColumn(firstName, "Name");
+        usersTable.addColumn(firstName, CONSTANTS.firstTableColumnText());
 
         TextColumn<User> lastName = new TextColumn<User>() {
             @Override
@@ -93,7 +96,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getLastName();
             }
         };
-        usersTable.addColumn(lastName, "Surname");
+        usersTable.addColumn(lastName, CONSTANTS.secondTableColumnText());
 
         TextColumn<User> address = new TextColumn<User>() {
             @Override
@@ -101,7 +104,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getAddress();
             }
         };
-        usersTable.addColumn(address, "Address");
+        usersTable.addColumn(address, CONSTANTS.thirdTableColumnText());
 
         //add style to table
         firstName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());

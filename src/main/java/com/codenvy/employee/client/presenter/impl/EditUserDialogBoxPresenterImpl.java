@@ -1,9 +1,11 @@
 package com.codenvy.employee.client.presenter.impl;
 
+import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.view.EditUserDialogBoxView;
 import com.codenvy.employee.client.view.UserChangedCallBack;
+import com.google.gwt.core.client.GWT;
 
 /**
  * Created by Andrienko Alexander on 22.08.14.
@@ -11,6 +13,8 @@ import com.codenvy.employee.client.view.UserChangedCallBack;
 public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
 
     private final EditUserDialogBoxView editUserDialogBoxView;
+
+    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
 
     private UserChangedCallBack callBack;
 
@@ -27,9 +31,9 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
         this.callBack = callback;
 
         if (userForEdit == null) {
-            initDialog("Add", "", "", "");
+            initDialog(CONSTANTS.dialogBoxText()[1], "", "", "");
         } else {
-            initDialog("Edit", userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
+            initDialog(CONSTANTS.dialogBoxText()[0], userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
         }
 
         //show and move to center of display

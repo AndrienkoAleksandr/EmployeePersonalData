@@ -1,11 +1,13 @@
 package com.codenvy.employee.client.presenter.impl;
 
+import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
 import com.codenvy.employee.client.view.UserChangedCallBack;
 import com.codenvy.employee.client.view.UsersListView;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -27,6 +29,8 @@ public class UsersListPresenterImpl implements UsersListPresenter {
             new User("Fermi", "Gustav", "Kiev"),
             new User("Ammundcen", "Den", "Kiev")
     );
+
+    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
 
     private User selectedUser;
 
