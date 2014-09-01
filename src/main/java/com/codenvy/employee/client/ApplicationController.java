@@ -38,14 +38,15 @@ public class ApplicationController implements ValueChangeHandler<String>{
     private HasWidgets container;
 
     public ApplicationController(HandlerManager eventBus) {
-        this.eventBus = eventBus;
         EmployeeDataResource.INSTANCE.employDataStyle().ensureInjected();
+        this.eventBus = eventBus;
         History.newItem("");
         bind();
     }
 
     public void bind() {
         History.addValueChangeHandler(this);
+
         eventBus.addHandler(RedirectToPageInfoEvent.TYPE, new RedirectToPageInfoEventHandler() {
 
             @Override
@@ -53,6 +54,7 @@ public class ApplicationController implements ValueChangeHandler<String>{
                 History.newItem(Tokens.INFO);
             }
         });
+
         eventBus.addHandler(RedirectToListPageEvent.TYPE, new RedirectToListPageEventHandler() {
 
             @Override
@@ -60,13 +62,16 @@ public class ApplicationController implements ValueChangeHandler<String>{
                 History.newItem(Tokens.LIST_USER);
             }
         });
+
     }
+
     public void go(HasWidgets container) {
         this.container = container;
         if (History.getToken().equals("") || History.getToken().equals(Tokens.LIST_USER)) {
             History.newItem(Tokens.LIST_USER);
         }
     }
+
     @Override
     public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
         switch (stringValueChangeEvent.getValue()) {
@@ -83,6 +88,7 @@ public class ApplicationController implements ValueChangeHandler<String>{
                 presenter = new UsersListPresenterImpl(dialogBoxPresenter, usersListView, eventBus);
                 break;
         }
+
         presenter.go(container);
     }
 }

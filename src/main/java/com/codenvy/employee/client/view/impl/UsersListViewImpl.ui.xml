@@ -2,25 +2,6 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui"
              xmlns:c="urn:import:com.google.gwt.user.cellview.client">
 
-    <ui:style>
-        .imgBuildings {
-            float: left;
-            width: 320px;
-            height: 200px;
-        }
-
-        .textFromResource {
-            float: left;
-            width: 400px;
-            height: 50px;
-            font-size: large;
-                text-align: center;
-            margin-left: 160px;
-            margin-top: 90px;
-            color: darkblue;
-        }
-    </ui:style>
-
     <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
 
     <g:DockLayoutPanel unit='PX' >
@@ -29,8 +10,8 @@
 
             <g:FlowPanel>
 
-                <g:Image resource="{res.imgBuildings}" styleName="{style.imgBuildings}"/>
-                <g:Label ui:field="labelListEmployee" styleName="{style.textFromResource}"/>
+                <g:Image resource="{res.imgBuildings}" ui:field="imageBuildings"/>
+                <g:Label ui:field="labelListEmployee" styleName="{res.employDataStyle.textFromResource}"/>
 
             </g:FlowPanel>
 

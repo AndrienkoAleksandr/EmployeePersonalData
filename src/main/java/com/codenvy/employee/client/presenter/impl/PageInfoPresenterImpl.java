@@ -17,6 +17,7 @@ public class PageInfoPresenterImpl implements PageInfoPresenter {
 
     public PageInfoPresenterImpl(PageInfoView pageInfoView, HandlerManager eventBus) {
         this.pageInfoView = pageInfoView;
+        pageInfoView.setPageInfoPresenter(this);
         this.pageInfoView.setPageInfoPresenter(this);
         this.eventBus = eventBus;
     }
