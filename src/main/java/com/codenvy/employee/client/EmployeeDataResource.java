@@ -2,6 +2,7 @@ package com.codenvy.employee.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
 
@@ -12,15 +13,22 @@ public interface EmployeeDataResource extends ClientBundle {
 
     static final EmployeeDataResource INSTANCE = GWT.create(EmployeeDataResource.class);
 
-    @ClientBundle.Source("com/codenvy/employee/css/EmployeePersonalData.css")
+    @ClientBundle.Source("css/EmployeePersonalData.css")
     EmployDataStyle employDataStyle();
 
-    @ClientBundle.Source("com/codenvy/employee/img/buildings.jpg")
+    @ClientBundle.Source("img/buildings.jpg")
     ImageResource imgBuildings();
 
-    @ClientBundle.Source("com/codenvy/employee/text/EmployeeTable")
+    @ClientBundle.Source("text/EmployeeTable")
     TextResource textEmployeeTable();
 
-    @ClientBundle.Source("com/codenvy/employee/text/CompanyInfo")
+    @ClientBundle.Source("text/CompanyInfo")
     TextResource textCompanyInfo();
+
+    public interface EmployDataStyle extends CssResource {
+        String editButtonOfUserList();
+        String cellStyle();
+        String link();
+        String table();
+    }
 }

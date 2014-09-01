@@ -2,7 +2,10 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <g:FlowPanel>
+
         <g:Hyperlink ui:field="backToListLink" targetHistoryToken="list" text="Back to list"/>
         <g:Label ui:field="infoLabel"/>
+
     </g:FlowPanel>
+
 </ui:UiBinder>

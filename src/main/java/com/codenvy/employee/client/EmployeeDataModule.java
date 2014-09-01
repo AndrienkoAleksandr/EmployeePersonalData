@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
-        EmployeeDataResource.INSTANCE.employDataStyle().ensureInjected();
         HandlerManager simpleEventBus = new HandlerManager(null);
 
         ApplicationController applicationController = new ApplicationController(simpleEventBus);

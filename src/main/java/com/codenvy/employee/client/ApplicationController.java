@@ -39,6 +39,7 @@ public class ApplicationController implements ValueChangeHandler<String>{
 
     public ApplicationController(HandlerManager eventBus) {
         this.eventBus = eventBus;
+        EmployeeDataResource.INSTANCE.employDataStyle().ensureInjected();
         History.newItem("");
         bind();
     }
@@ -72,16 +73,14 @@ public class ApplicationController implements ValueChangeHandler<String>{
             case Tokens.INFO:
                 PageInfoViewImpl pageInfoView = new PageInfoViewImpl();
                 presenter = new PageInfoPresenterImpl(pageInfoView, eventBus);
-                pageInfoView.setPageInfoPresenter((com.codenvy.employee.client.presenter.PageInfoPresenter) presenter);
                 break;
+
             default:
                 EditUserDialogBoxView dialogBoxView = new EditUserDialogBoxViewViewImpl();
                 EditUserDialogBoxPresenter dialogBoxPresenter = new EditUserDialogBoxPresenterImpl(dialogBoxView);
-                dialogBoxView.setPresenter(dialogBoxPresenter);
 
                 UsersListView usersListView = new UsersListViewImpl();
                 presenter = new UsersListPresenterImpl(dialogBoxPresenter, usersListView, eventBus);
-                usersListView.setPresenter((com.codenvy.employee.client.presenter.UsersListPresenter) presenter);
                 break;
         }
         presenter.go(container);

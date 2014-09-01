@@ -17,8 +17,6 @@
         }
     </ui:style>
 
-    <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
-
     <g:FlowPanel>
 
         <g:FlowPanel>

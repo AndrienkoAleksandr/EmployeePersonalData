@@ -4,7 +4,7 @@ import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.view.CallBack;
+import com.codenvy.employee.client.view.UserChangedCallBack;
 import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
@@ -36,9 +36,9 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final List<User> users;
 
-    private final CallBack callBackForAddUser;
+    private final UserChangedCallBack callBackForAddUser;
 
-    private final CallBack callBackForEditUser;
+    private final UserChangedCallBack callBackForEditUser;
 
     private final HandlerManager eventBus;
 
@@ -48,10 +48,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
                                   HandlerManager eventBus) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
+        this.usersListView.setPresenter(this);
         this.eventBus = eventBus;
         this.users = new ArrayList<>(temp);
 
-        callBackForAddUser = new CallBack() {
+        callBackForAddUser = new UserChangedCallBack() {
             @Override
             public void onChanged(User user) {
                 users.add(new User(user.getFirstName(), user.getLastName(), user.getAddress()));
@@ -59,7 +60,7 @@ public class UsersListPresenterImpl implements UsersListPresenter {
             }
         };
 
-        callBackForEditUser = new CallBack() {
+        callBackForEditUser = new UserChangedCallBack() {
             @Override
             public void onChanged(User user) {
                 selectedUser.setFirstName(user.getFirstName());

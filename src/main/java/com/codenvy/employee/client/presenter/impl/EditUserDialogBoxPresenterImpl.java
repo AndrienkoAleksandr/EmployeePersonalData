@@ -1,10 +1,9 @@
 package com.codenvy.employee.client.presenter.impl;
 
-import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.view.EditUserDialogBoxView;
-import com.google.gwt.event.shared.EventBus;
+import com.codenvy.employee.client.view.UserChangedCallBack;
 
 /**
  * Created by Andrienko Alexander  on 22.08.14.
@@ -13,17 +12,18 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
 
     private final EditUserDialogBoxView editUserDialogBoxView;
 
-    private CallBack callBack;
+    private UserChangedCallBack callBack;
 
     private User userForEdit;
 
     public EditUserDialogBoxPresenterImpl(EditUserDialogBoxView editUserDialogBoxView) {
         this.editUserDialogBoxView = editUserDialogBoxView;
+        this.editUserDialogBoxView.setPresenter(this);
         userForEdit = new User("", "", "");
     }
 
     @Override
-    public void onShowDialog(User userForEdit, CallBack callback) {
+    public void onShowDialog(User userForEdit, UserChangedCallBack callback) {
         this.callBack = callback;
 
         if (userForEdit == null) {

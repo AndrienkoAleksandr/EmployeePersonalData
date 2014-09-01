@@ -14,7 +14,7 @@
             width: 400px;
             height: 50px;
             font-size: large;
-            text-align: center;
+                text-align: center;
             margin-left: 160px;
             margin-top: 90px;
             color: darkblue;
@@ -29,13 +29,8 @@
 
             <g:FlowPanel>
 
-                <g:SimplePanel>
-                    <g:Image resource="{res.imgBuildings}" styleName="{style.imgBuildings}"/>
-                </g:SimplePanel>
-
-                <g:SimplePanel>
-                    <g:Label ui:field="labelListEmployee" styleName="{style.textFromResource}"/>
-                </g:SimplePanel>
+                <g:Image resource="{res.imgBuildings}" styleName="{style.imgBuildings}"/>
+                <g:Label ui:field="labelListEmployee" styleName="{style.textFromResource}"/>
 
             </g:FlowPanel>
 
@@ -43,23 +38,15 @@
 
         <g:west size='300'>
 
-            <g:FlowPanel>
-
-                <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="info"/>
-
-            </g:FlowPanel>
+            <g:Hyperlink ui:field="linkInfo" text="About company" targetHistoryToken="info"/>
 
         </g:west>
 
         <g:center>
 
-            <g:FlowPanel>
-
-                <g:ScrollPanel styleName="{res.employDataStyle.table}">
-                    <c:CellTable ui:field="usersTable" styleName="{res.employDataStyle.table}"/>
-                </g:ScrollPanel>
-
-            </g:FlowPanel>
+            <g:ScrollPanel styleName="{res.employDataStyle.table}">
+                <c:CellTable ui:field="usersTable" styleName="{res.employDataStyle.table}"/>
+            </g:ScrollPanel>
 
         </g:center>
 
