@@ -45,6 +45,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiField
     Hyperlink linkInfo;
 
+    @UiField
+    Image imageBuildings;
+
     public UsersListViewImpl() {
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
@@ -63,6 +66,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     private void addStyleToView() {
         usersTable.setStyleName(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
         linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
+        imageBuildings.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().imgBuildings());
     }
 
     public void setPresenter(UsersListPresenter usersListPresenter) {

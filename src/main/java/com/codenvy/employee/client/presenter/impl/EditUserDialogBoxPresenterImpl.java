@@ -7,7 +7,7 @@ import com.codenvy.employee.client.view.EditUserDialogBoxView;
 import com.google.gwt.event.shared.EventBus;
 
 /**
- * Created by Andrienko Alexander  on 22.08.14.
+ * Created by Andrienko Alexander on 22.08.14.
  */
 public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
 

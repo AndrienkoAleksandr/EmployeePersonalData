@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Created by logarifm on 29.08.14.
+ * Created by Andrienko Alexander on 29.08.14.
  */
 public class PageInfoViewImpl extends Composite implements PageInfoView{
 

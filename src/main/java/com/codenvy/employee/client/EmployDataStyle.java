@@ -10,4 +10,6 @@ public interface EmployDataStyle extends CssResource {
     String cellStyle();
     String link();
     String table();
+    String textFromResource();
+    String imgBuildings();
 }

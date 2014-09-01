@@ -7,7 +7,7 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
- * Created by logarifm on 29.08.14.
+ * Created by Andrienko Alexander on 29.08.14.
  */
 public class PageInfoPresenterImpl implements PageInfoPresenter {
 
