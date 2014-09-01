@@ -1,6 +1,8 @@
 package com.codenvy.employee.client.presenter.impl;
 
 import com.codenvy.employee.client.entity.User;
+import com.codenvy.employee.client.event.AddUserEvent;
+import com.codenvy.employee.client.event.EditUserEvent;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.UsersListPresenter;
@@ -32,8 +34,6 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final UsersListView usersListView;
 
-    private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
-
     private final List<User> users;
 
     private final CallBack callBackForAddUser;
@@ -42,9 +42,8 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final HandlerManager eventBus;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView,
+    public UsersListPresenterImpl(final UsersListView usersListView,
                                   HandlerManager eventBus) {
-        this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
         this.eventBus = eventBus;
         this.users = new ArrayList<>(temp);
@@ -99,15 +98,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     @Override
     public void onAddButtonClicked() {
-        editUserDialogBoxPresenter.onShowDialog(null, callBackForAddUser);
+        eventBus.fireEvent(new AddUserEvent(null, callBackForAddUser));
     }
 
     @Override
     public void onEditButtonClicked() {
-        if (selectedUser != null) {
-            editUserDialogBoxPresenter.onShowDialog(selectedUser, callBackForEditUser);
-        } else {
-            Window.alert("You nothing selected!");
-        }
+        eventBus.fireEvent(new EditUserEvent(selectedUser, callBackForEditUser));
     }
 }

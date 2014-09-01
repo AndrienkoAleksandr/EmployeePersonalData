@@ -1,14 +1,13 @@
 package com.codenvy.employee.client;
 
-import com.codenvy.employee.client.event.RedirectToListPageEvent;
-import com.codenvy.employee.client.event.RedirectToListPageEventHandler;
-import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
-import com.codenvy.employee.client.event.RedirectToPageInfoEventHandler;
+import com.codenvy.employee.client.entity.User;
+import com.codenvy.employee.client.event.*;
 import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.presenter.Presenter;
 import com.codenvy.employee.client.presenter.impl.EditUserDialogBoxPresenterImpl;
 import com.codenvy.employee.client.presenter.impl.PageInfoPresenterImpl;
 import com.codenvy.employee.client.presenter.impl.UsersListPresenterImpl;
+import com.codenvy.employee.client.view.CallBack;
 import com.codenvy.employee.client.view.EditUserDialogBoxView;
 import com.codenvy.employee.client.view.UsersListView;
 import com.codenvy.employee.client.view.impl.EditUserDialogBoxViewViewImpl;
@@ -18,6 +17,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
@@ -29,6 +29,10 @@ public class ApplicationController implements ValueChangeHandler<String>{
         final String INFO = "info";
 
         final String LIST_USER = "list";
+
+        final String EDIT = "edit";
+
+        final String ADD = "add";
     }
 
     private Presenter presenter;
@@ -39,7 +43,7 @@ public class ApplicationController implements ValueChangeHandler<String>{
 
     public ApplicationController(HandlerManager eventBus) {
         this.eventBus = eventBus;
-        History.newItem("");
+//        History.newItem("");
         bind();
     }
 
@@ -62,6 +66,34 @@ public class ApplicationController implements ValueChangeHandler<String>{
             }
         });
 
+        eventBus.addHandler(AddUserEvent.TYPE, new AddUserEventHandler() {
+            @Override
+            public void addButtonClicked(User selectedUser, CallBack callBack) {
+                History.newItem(Tokens.ADD);
+                //todo 1 duplicated 86 line
+                EditUserDialogBoxView editUserDialogBoxView = new EditUserDialogBoxViewViewImpl();
+                EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl(editUserDialogBoxView);
+                editUserDialogBoxView.setPresenter(editUserDialogBoxPresenter);
+                editUserDialogBoxPresenter.onShowDialog(selectedUser, callBack);
+            }
+        });
+
+        eventBus.addHandler(EditUserEvent.TYPE, new EditUserEventHandler() {
+            @Override
+            public void EditButtonClicked(User selectedUser, CallBack callBack) {
+                if (selectedUser != null) {
+                    History.newItem(Tokens.EDIT);
+                    //todo 1 duplicated 73 line
+                    EditUserDialogBoxView editUserDialogBoxView = new EditUserDialogBoxViewViewImpl();
+                    EditUserDialogBoxPresenter editUserDialogBoxPresenter = new EditUserDialogBoxPresenterImpl(editUserDialogBoxView);
+                    editUserDialogBoxView.setPresenter(editUserDialogBoxPresenter);
+                    editUserDialogBoxPresenter.onShowDialog(selectedUser, callBack);
+                } else {
+                    Window.alert("You nothing selected!");return;
+                }
+            }
+        });
+
     }
 
     public void go(HasWidgets container) {
@@ -81,12 +113,8 @@ public class ApplicationController implements ValueChangeHandler<String>{
                 break;
 
             default:
-                EditUserDialogBoxView dialogBoxView = new EditUserDialogBoxViewViewImpl();
-                EditUserDialogBoxPresenter dialogBoxPresenter = new EditUserDialogBoxPresenterImpl(dialogBoxView);
-                dialogBoxView.setPresenter(dialogBoxPresenter);
-
                 UsersListView usersListView = new UsersListViewImpl();
-                presenter = new UsersListPresenterImpl(dialogBoxPresenter, usersListView, eventBus);
+                presenter = new UsersListPresenterImpl(usersListView, eventBus);
                 usersListView.setPresenter((com.codenvy.employee.client.presenter.UsersListPresenter) presenter);
                 break;
         }
