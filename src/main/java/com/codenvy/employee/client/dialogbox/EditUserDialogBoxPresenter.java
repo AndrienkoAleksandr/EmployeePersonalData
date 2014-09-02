@@ -2,37 +2,37 @@ package com.codenvy.employee.client.dialogbox;
 
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.UserChangedCallBack;
+import com.codenvy.employee.client.table.UserChangedCallBack;
 import com.google.gwt.core.client.GWT;
 
 /**
  * Created by Andrienko Alexander on 22.08.14.
  */
-public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxView.ActionDelegate {
+public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionDelegate {
 
     private final EditUserDialogBoxView editUserDialogBoxView;
 
-    private final EmployeeDataConstants CONSTANTS;
-
     private UserChangedCallBack callBack;
+
+    private final EmployeeDataConstants constants;
 
     private User userForEdit;
 
-    public EditUserDialogBoxPresenterImpl(EditUserDialogBoxView editUserDialogBoxView) {
+    public EditUserDialogBoxPresenter(EditUserDialogBoxView editUserDialogBoxView, EmployeeDataConstants constants) {
         this.editUserDialogBoxView = editUserDialogBoxView;
         this.editUserDialogBoxView.setDelegate(this);
-        CONSTANTS = GWT.create(EmployeeDataConstants.class);
+        this.constants = constants;
         userForEdit = new User("", "", "");
     }
 
     @Override
-    public void onShowDialog(User userForEdit, UserChangedCallBack callback) {
+    public void showDialog(User userForEdit, UserChangedCallBack callback) {
         this.callBack = callback;
 
         if (userForEdit == null) {
-            initDialog(CONSTANTS.dialogBoxText()[1], "", "", "");
+            initDialog(constants.addDialogBoxText(), "", "", "");
         } else {
-            initDialog(CONSTANTS.dialogBoxText()[0], userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
+            initDialog(constants.editDialogBoxText(), userForEdit.getFirstName(), userForEdit.getLastName(), userForEdit.getAddress());
         }
 
         //show and move to center of display
@@ -53,7 +53,7 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxView.Act
     }
 
     @Override
-    public void onOkButtonClicked() {
+    public void okButtonClicked() {
         getDataFromDialogBox();
 
         callBack.onChanged(userForEdit);
@@ -62,7 +62,7 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxView.Act
     }
 
     @Override
-    public void onCancelButtonClicked() {
+    public void cancelButtonClicked() {
         editUserDialogBoxView.hideDialog();
     }
 }

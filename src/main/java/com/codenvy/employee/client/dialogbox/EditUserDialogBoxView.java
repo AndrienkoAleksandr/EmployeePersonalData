@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.dialogbox;
 
-import com.codenvy.employee.client.UserChangedCallBack;
-import com.codenvy.employee.client.View;
+import com.codenvy.employee.client.table.UserChangedCallBack;
+import com.codenvy.employee.client.mvp.View;
 import com.codenvy.employee.client.entity.User;
 
 /**
@@ -11,11 +11,11 @@ public interface EditUserDialogBoxView extends View<EditUserDialogBoxView.Action
 
     public interface ActionDelegate {
 
-        void onShowDialog(User selectedUser, UserChangedCallBack callBack);
+        void showDialog(User selectedUser, UserChangedCallBack callBack);
 
-        void onOkButtonClicked();
+        void okButtonClicked();
 
-        void onCancelButtonClicked();
+        void cancelButtonClicked();
     }
 
     void setText(String title);

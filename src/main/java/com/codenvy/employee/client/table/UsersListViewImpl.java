@@ -2,6 +2,7 @@ package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
+import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -24,7 +25,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
 
-    private final EmployeeDataConstants CONSTANTS;
+    private final EmployeeDataConstants constants;
 
     @UiField
     CellTable<User> usersTable;
@@ -49,11 +50,10 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     private ActionDelegate actionDelegate;
 
-    public UsersListViewImpl() {
+    public UsersListViewImpl(EmployeeDataConstants constants) {
+        this.constants = constants;
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
-
         initWidget(ourUiBinder.createAndBindUi(this));
-        CONSTANTS = GWT.create(EmployeeDataConstants.class);
 
         drawUserTable();
         writeTextInHeader();
@@ -65,11 +65,13 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     }
 
     private void writeTextInHeader() {
-        GWT.log(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
         labelListEmployee.setText(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
     }
 
     private void addStyleToView() {
+        usersTable.getHeader(0).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
+        usersTable.getHeader(1).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
+        usersTable.getHeader(2).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
         usersTable.setStyleName(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
         linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
         imageBuildings.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().imgBuildings());
@@ -87,7 +89,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getFirstName();
             }
         };
-        usersTable.addColumn(firstName, CONSTANTS.firstTableColumnText());
+        usersTable.addColumn(firstName, constants.firstTableColumnText());
 
         TextColumn<User> lastName = new TextColumn<User>() {
             @Override
@@ -95,7 +97,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getLastName();
             }
         };
-        usersTable.addColumn(lastName, CONSTANTS.secondTableColumnText());
+        usersTable.addColumn(lastName, constants.secondTableColumnText());
 
         TextColumn<User> address = new TextColumn<User>() {
             @Override
@@ -103,7 +105,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
                 return user.getAddress();
             }
         };
-        usersTable.addColumn(address, CONSTANTS.thirdTableColumnText());
+        usersTable.addColumn(address, constants.thirdTableColumnText());
 
         //add style to table
         firstName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
@@ -124,23 +126,23 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     }
 
     @UiHandler("delete")
-    void onDeleteButtonClicked(ClickEvent clickEvent) {
+    public void onDeleteButtonClicked(ClickEvent clickEvent) {
         actionDelegate.onDeleteButtonClicked();
     }
 
     @UiHandler("add")
-    void onAddButtonClicked(ClickEvent clickEvent) {
+    public void onAddButtonClicked(ClickEvent clickEvent) {
         actionDelegate.onAddButtonClicked();
     }
 
 
     @UiHandler("edit")
-    void onEditButtonClicked(ClickEvent clickEvent) {
+    public void onEditButtonClicked(ClickEvent clickEvent) {
         actionDelegate.onEditButtonClicked();
     }
 
     @UiHandler("linkInfo")
-    void onLinkInfoClicked(ClickEvent clickEvent) {
+    public void onLinkInfoClicked(ClickEvent clickEvent) {
         actionDelegate.onInfoLinkClicked();
     }
 }

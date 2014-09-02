@@ -1,10 +1,10 @@
 package com.codenvy.employee.client.table;
 
-import com.codenvy.employee.client.UserChangedCallBack;
+import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
-import com.codenvy.employee.client.presenter.Presenter;
+import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -16,22 +16,13 @@ import java.util.List;
 /**
  * Created by Andrienko Alexander  on 21.08.14.
  */
-public class UsersListPresenterImpl implements UsersListView.ActionDelegate, Presenter {
-
-    @SuppressWarnings("deprecation")
-    private static final List<User> temp = Arrays.asList(
-            new User("Bogdan", "Petrenenko", "Kaniv"),
-            new User("Xolod", "Ivan", "Kaniv"),
-            new User("Stateman", "Konstantin", "Kiev"),
-            new User("Fermi", "Gustav", "Kiev"),
-            new User("Ammundcen", "Den", "Kiev")
-    );
+public class UsersListPresenter implements UsersListView.ActionDelegate, Presenter {
 
     private User selectedUser;
 
     private final UsersListView usersListView;
 
-    private final EditUserDialogBoxView.ActionDelegate editUserDialogBoxPresenter;
+    private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
     private final List<User> users;
 
@@ -41,14 +32,13 @@ public class UsersListPresenterImpl implements UsersListView.ActionDelegate, Pre
 
     private final HandlerManager eventBus;
 
-    public UsersListPresenterImpl(EditUserDialogBoxView.ActionDelegate presenter, final UsersListView usersListView,
-                                  HandlerManager eventBus) {
-        this.editUserDialogBoxPresenter = presenter;
+    public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter, final UsersListView usersListView,
+                              HandlerManager eventBus) {
         this.usersListView = usersListView;
         this.usersListView.setDelegate(this);
         this.eventBus = eventBus;
-        this.users = new ArrayList<>(temp);
-
+        this.users = new ArrayList<>();
+        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
         callBackForAddUser = new UserChangedCallBack() {
             @Override
             public void onChanged(User user) {
@@ -99,13 +89,13 @@ public class UsersListPresenterImpl implements UsersListView.ActionDelegate, Pre
 
     @Override
     public void onAddButtonClicked() {
-        editUserDialogBoxPresenter.onShowDialog(null, callBackForAddUser);
+        editUserDialogBoxPresenter.showDialog(null, callBackForAddUser);
     }
 
     @Override
     public void onEditButtonClicked() {
         if (selectedUser != null) {
-            editUserDialogBoxPresenter.onShowDialog(selectedUser, callBackForEditUser);
+            editUserDialogBoxPresenter.showDialog(selectedUser, callBackForEditUser);
         } else {
             Window.alert("You nothing selected!");
         }

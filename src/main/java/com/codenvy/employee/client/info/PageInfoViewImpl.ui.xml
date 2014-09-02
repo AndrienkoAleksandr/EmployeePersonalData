@@ -1,10 +1,14 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             ui:generateFormat="com.google.gwt.i18n.rebind.format.PropertiesFormat"
+             ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+             ui:generateLocales="default">
+
     <ui:with field="resLocalisation" type="com.codenvy.employee.client.constants.EmployeeDataConstants"/>
+
     <g:FlowPanel>
 
-        <g:Hyperlink ui:field="backToListLink" targetHistoryToken="list"
-                     text="{resLocalisation.listUsersLinkText}"/>
+        <g:Hyperlink ui:field="backToListLink" targetHistoryToken="list" text="{resLocalisation.listUsersLinkText}"/>
         <g:Label ui:field="infoLabel"/>
 
     </g:FlowPanel>

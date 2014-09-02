@@ -10,9 +10,9 @@ import com.google.gwt.user.client.ui.*;
 /**
  * Created by Andrienko Alexander  on 19.08.14.
  */
-public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUserDialogBoxView {
+public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDialogBoxView {
 
-    interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewViewImpl> {
+    interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewImpl> {
     }
 
     @UiField
@@ -34,7 +34,7 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
 
     private ActionDelegate actionDelegate;
 
-    public EditUserDialogBoxViewViewImpl() {
+    public EditUserDialogBoxViewImpl() {
         add(userEditor.createAndBindUi(this));
     }
 
@@ -74,13 +74,13 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
     }
 
     @UiHandler("okButton")
-    void onOkButtonClicked(ClickEvent clickEvent) {
-        actionDelegate.onOkButtonClicked();
+    public void onOkButtonClicked(ClickEvent clickEvent) {
+        actionDelegate.okButtonClicked();
     }
 
     @UiHandler("cancelButton")
-    void onCancelButtonClicked(ClickEvent clickEvent) {
-        actionDelegate.onCancelButtonClicked();
+    public void onCancelButtonClicked(ClickEvent clickEvent) {
+        actionDelegate.cancelButtonClicked();
     }
 
     public void showDialog() {

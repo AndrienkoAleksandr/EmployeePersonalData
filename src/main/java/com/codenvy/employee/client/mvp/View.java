@@ -1,4 +1,4 @@
-package com.codenvy.employee.client;
+package com.codenvy.employee.client.mvp;
 
 import com.google.gwt.user.client.ui.IsWidget;
 

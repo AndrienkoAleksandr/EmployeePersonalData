@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
-public class PageInfoViewImpl extends Composite implements PageInfoView{
+public class PageInfoViewImpl extends Composite implements PageInfoView {
 
     interface PageInfoViewUiBinder extends UiBinder<Widget, PageInfoViewImpl> {
     }
@@ -31,6 +31,7 @@ public class PageInfoViewImpl extends Composite implements PageInfoView{
 
     public PageInfoViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
+
         infoLabel.setText(EmployeeDataResource.INSTANCE.textCompanyInfo().getText());
     }
 
@@ -39,7 +40,7 @@ public class PageInfoViewImpl extends Composite implements PageInfoView{
     }
 
     @UiHandler("backToListLink")
-    void onBackToListHyperLinkClicked(ClickEvent clickEvent) {
+    public void onBackToListHyperLinkClicked(ClickEvent clickEvent) {
         actionDelegate.onBackToListHyperlinkClicked();
     }
 }

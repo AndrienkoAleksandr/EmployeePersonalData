@@ -1,22 +1,23 @@
 package com.codenvy.employee.client.info;
 
 import com.codenvy.employee.client.event.RedirectToListPageEvent;
-import com.codenvy.employee.client.presenter.Presenter;
+import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
-public class PageInfoPresenterImpl implements PageInfoView.ActionDelegate, Presenter {
+public class PageInfoPresenter implements PageInfoView.ActionDelegate, Presenter {
 
     private final PageInfoView pageInfoView;
 
     private final HandlerManager eventBus;
 
-    public PageInfoPresenterImpl(PageInfoView pageInfoView, HandlerManager eventBus) {
+    public PageInfoPresenter(PageInfoView pageInfoView, HandlerManager eventBus) {
         this.pageInfoView = pageInfoView;
-        pageInfoView.setDelegate(this);
+        this.pageInfoView.setDelegate(this);
+
         this.eventBus = eventBus;
     }
 

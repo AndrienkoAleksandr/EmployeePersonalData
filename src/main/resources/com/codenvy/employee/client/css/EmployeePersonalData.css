@@ -20,6 +20,15 @@ td.cellStyle {
     padding: 0;
     margin: 0;
     width: 230px;
+    text-align: center;
+}
+
+th.headerTableStyle {
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    width: 230px;
+    text-align: center;
 }
 
 .link {
