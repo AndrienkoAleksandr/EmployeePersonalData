@@ -3,7 +3,7 @@ package com.codenvy.employee.client.dialogbox;
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.table.UserChangedCallBack;
-import com.google.gwt.core.client.GWT;
+import com.google.inject.Inject;
 
 /**
  * Created by Andrienko Alexander on 22.08.14.
@@ -18,6 +18,7 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
 
     private User userForEdit;
 
+    @Inject
     public EditUserDialogBoxPresenter(EditUserDialogBoxView editUserDialogBoxView, EmployeeDataConstants constants) {
         this.editUserDialogBoxView = editUserDialogBoxView;
         this.editUserDialogBoxView.setDelegate(this);

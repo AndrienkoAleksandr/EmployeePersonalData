@@ -3,8 +3,6 @@ package com.codenvy.employee.client.table;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
-import com.codenvy.employee.client.gin.annotation.DialogBox;
-import com.codenvy.employee.client.gin.annotation.UserList;
 import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
