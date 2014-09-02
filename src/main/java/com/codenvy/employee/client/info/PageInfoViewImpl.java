@@ -1,8 +1,6 @@
-package com.codenvy.employee.client.view.impl;
+package com.codenvy.employee.client.info;
 
 import com.codenvy.employee.client.EmployeeDataResource;
-import com.codenvy.employee.client.presenter.PageInfoPresenter;
-import com.codenvy.employee.client.view.PageInfoView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -23,7 +21,7 @@ public class PageInfoViewImpl extends Composite implements PageInfoView{
 
     private static PageInfoViewUiBinder ourUiBinder = GWT.create(PageInfoViewUiBinder.class);
 
-    private PageInfoPresenter pageInfoPresenter;
+    private ActionDelegate actionDelegate;
 
     @UiField
     Label infoLabel;
@@ -36,12 +34,12 @@ public class PageInfoViewImpl extends Composite implements PageInfoView{
         infoLabel.setText(EmployeeDataResource.INSTANCE.textCompanyInfo().getText());
     }
 
-    public void setPageInfoPresenter(PageInfoPresenter pageInfoPresenter) {
-        this.pageInfoPresenter = pageInfoPresenter;
+    public void setDelegate(ActionDelegate actionDelegate) {
+        this.actionDelegate = actionDelegate;
     }
 
     @UiHandler("backToListLink")
     void onBackToListHyperLinkClicked(ClickEvent clickEvent) {
-        pageInfoPresenter.onBackToListHyperlinkClicked();
+        actionDelegate.onBackToListHyperlinkClicked();
     }
 }

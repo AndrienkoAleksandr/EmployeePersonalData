@@ -1,15 +1,14 @@
-package com.codenvy.employee.client.presenter.impl;
+package com.codenvy.employee.client.info;
 
 import com.codenvy.employee.client.event.RedirectToListPageEvent;
-import com.codenvy.employee.client.presenter.PageInfoPresenter;
-import com.codenvy.employee.client.view.PageInfoView;
+import com.codenvy.employee.client.presenter.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
-public class PageInfoPresenterImpl implements PageInfoPresenter {
+public class PageInfoPresenterImpl implements PageInfoView.ActionDelegate, Presenter {
 
     private final PageInfoView pageInfoView;
 
@@ -17,8 +16,7 @@ public class PageInfoPresenterImpl implements PageInfoPresenter {
 
     public PageInfoPresenterImpl(PageInfoView pageInfoView, HandlerManager eventBus) {
         this.pageInfoView = pageInfoView;
-        pageInfoView.setPageInfoPresenter(this);
-        this.pageInfoView.setPageInfoPresenter(this);
+        pageInfoView.setDelegate(this);
         this.eventBus = eventBus;
     }
 
@@ -30,5 +28,5 @@ public class PageInfoPresenterImpl implements PageInfoPresenter {
     @Override
     public void onBackToListHyperlinkClicked() {
         eventBus.fireEvent(new RedirectToListPageEvent());
-}
+    }
 }

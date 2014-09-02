@@ -1,7 +1,5 @@
-package com.codenvy.employee.client.view.impl;
+package com.codenvy.employee.client.dialogbox;
 
-import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.view.EditUserDialogBoxView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -34,15 +32,15 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
 
     private static EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
 
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    private ActionDelegate actionDelegate;
 
     public EditUserDialogBoxViewViewImpl() {
         add(userEditor.createAndBindUi(this));
     }
 
     @Override
-    public void setPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter) {
-        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
+    public void setDelegate(ActionDelegate actionDelegate) {
+        this.actionDelegate = actionDelegate;
     }
 
     @Override
@@ -77,12 +75,12 @@ public class EditUserDialogBoxViewViewImpl extends DialogBox implements EditUser
 
     @UiHandler("okButton")
     void onOkButtonClicked(ClickEvent clickEvent) {
-        editUserDialogBoxPresenter.onOkButtonClicked();
+        actionDelegate.onOkButtonClicked();
     }
 
     @UiHandler("cancelButton")
     void onCancelButtonClicked(ClickEvent clickEvent) {
-        editUserDialogBoxPresenter.onCancelButtonClicked();
+        actionDelegate.onCancelButtonClicked();
     }
 
     public void showDialog() {

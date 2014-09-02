@@ -1,20 +1,18 @@
-package com.codenvy.employee.client.presenter.impl;
+package com.codenvy.employee.client.dialogbox;
 
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.view.EditUserDialogBoxView;
-import com.codenvy.employee.client.view.UserChangedCallBack;
+import com.codenvy.employee.client.UserChangedCallBack;
 import com.google.gwt.core.client.GWT;
 
 /**
  * Created by Andrienko Alexander on 22.08.14.
  */
-public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresenter {
+public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxView.ActionDelegate {
 
     private final EditUserDialogBoxView editUserDialogBoxView;
 
-    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
+    private final EmployeeDataConstants CONSTANTS;
 
     private UserChangedCallBack callBack;
 
@@ -22,7 +20,8 @@ public class EditUserDialogBoxPresenterImpl implements EditUserDialogBoxPresente
 
     public EditUserDialogBoxPresenterImpl(EditUserDialogBoxView editUserDialogBoxView) {
         this.editUserDialogBoxView = editUserDialogBoxView;
-        this.editUserDialogBoxView.setPresenter(this);
+        this.editUserDialogBoxView.setDelegate(this);
+        CONSTANTS = GWT.create(EmployeeDataConstants.class);
         userForEdit = new User("", "", "");
     }
 

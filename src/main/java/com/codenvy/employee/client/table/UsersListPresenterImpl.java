@@ -1,13 +1,10 @@
-package com.codenvy.employee.client.presenter.impl;
+package com.codenvy.employee.client.table;
 
-import com.codenvy.employee.client.constants.EmployeeDataConstants;
+import com.codenvy.employee.client.UserChangedCallBack;
+import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
-import com.codenvy.employee.client.presenter.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.view.UserChangedCallBack;
-import com.codenvy.employee.client.view.UsersListView;
-import com.google.gwt.core.client.GWT;
+import com.codenvy.employee.client.presenter.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -19,7 +16,7 @@ import java.util.List;
 /**
  * Created by Andrienko Alexander  on 21.08.14.
  */
-public class UsersListPresenterImpl implements UsersListPresenter {
+public class UsersListPresenterImpl implements UsersListView.ActionDelegate, Presenter {
 
     @SuppressWarnings("deprecation")
     private static final List<User> temp = Arrays.asList(
@@ -30,13 +27,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
             new User("Ammundcen", "Den", "Kiev")
     );
 
-    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
-
     private User selectedUser;
 
     private final UsersListView usersListView;
 
-    private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    private final EditUserDialogBoxView.ActionDelegate editUserDialogBoxPresenter;
 
     private final List<User> users;
 
@@ -46,11 +41,11 @@ public class UsersListPresenterImpl implements UsersListPresenter {
 
     private final HandlerManager eventBus;
 
-    public UsersListPresenterImpl(EditUserDialogBoxPresenter presenter, final UsersListView usersListView,
+    public UsersListPresenterImpl(EditUserDialogBoxView.ActionDelegate presenter, final UsersListView usersListView,
                                   HandlerManager eventBus) {
         this.editUserDialogBoxPresenter = presenter;
         this.usersListView = usersListView;
-        this.usersListView.setPresenter(this);
+        this.usersListView.setDelegate(this);
         this.eventBus = eventBus;
         this.users = new ArrayList<>(temp);
 

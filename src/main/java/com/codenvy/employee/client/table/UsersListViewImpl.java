@@ -1,10 +1,8 @@
-package com.codenvy.employee.client.view.impl;
+package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
-import com.codenvy.employee.client.presenter.UsersListPresenter;
-import com.codenvy.employee.client.view.UsersListView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -26,9 +24,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
 
-    private UsersListPresenter usersListPresenter;
-
-    private final EmployeeDataConstants CONSTANTS = GWT.create(EmployeeDataConstants.class);
+    private final EmployeeDataConstants CONSTANTS;
 
     @UiField
     CellTable<User> usersTable;
@@ -51,14 +47,21 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiField
     Image imageBuildings;
 
+    private ActionDelegate actionDelegate;
+
     public UsersListViewImpl() {
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
 
         initWidget(ourUiBinder.createAndBindUi(this));
+        CONSTANTS = GWT.create(EmployeeDataConstants.class);
 
         drawUserTable();
         writeTextInHeader();
         addStyleToView();
+    }
+
+    public void setDelegate(ActionDelegate actionDelegate) {
+        this.actionDelegate = actionDelegate;
     }
 
     private void writeTextInHeader() {
@@ -70,10 +73,6 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         usersTable.setStyleName(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
         linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
         imageBuildings.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().imgBuildings());
-    }
-
-    public void setPresenter(UsersListPresenter usersListPresenter) {
-        this.usersListPresenter = usersListPresenter;
     }
 
     @Override
@@ -118,7 +117,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
                 new SelectionChangeEvent.Handler() {
                     public void onSelectionChange(SelectionChangeEvent event) {
-                        usersListPresenter.onSelectedUser(mySelectionModel.getSelectedObject());
+                        actionDelegate.onSelectedUser(mySelectionModel.getSelectedObject());
                     }
                 }
         );
@@ -126,22 +125,22 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     @UiHandler("delete")
     void onDeleteButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onDeleteButtonClicked();
+        actionDelegate.onDeleteButtonClicked();
     }
 
     @UiHandler("add")
     void onAddButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onAddButtonClicked();
+        actionDelegate.onAddButtonClicked();
     }
 
 
     @UiHandler("edit")
     void onEditButtonClicked(ClickEvent clickEvent) {
-        usersListPresenter.onEditButtonClicked();
+        actionDelegate.onEditButtonClicked();
     }
 
     @UiHandler("linkInfo")
     void onLinkInfoClicked(ClickEvent clickEvent) {
-        usersListPresenter.onInfoLinkClicked();
+        actionDelegate.onInfoLinkClicked();
     }
 }

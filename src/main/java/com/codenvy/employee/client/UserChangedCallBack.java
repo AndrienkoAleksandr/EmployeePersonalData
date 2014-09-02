@@ -1,4 +1,4 @@
-package com.codenvy.employee.client.view;
+package com.codenvy.employee.client;
 
 import com.codenvy.employee.client.entity.User;
 
