@@ -25,4 +25,7 @@
     <extend-property name='locale' values='en'/>
     <set-property-fallback name='locale' value='en'/>
 
+    <!--GIN-->
+    <inherits name="com.google.gwt.inject.Inject"/>
+
 </module>

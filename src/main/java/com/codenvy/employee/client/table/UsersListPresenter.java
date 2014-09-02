@@ -1,16 +1,17 @@
 package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
-import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
+import com.codenvy.employee.client.gin.annotation.DialogBox;
+import com.codenvy.employee.client.gin.annotation.UserList;
 import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.inject.Inject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,7 +33,9 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
 
     private final HandlerManager eventBus;
 
-    public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter, final UsersListView usersListView,
+    @Inject
+    public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter,
+                              final UsersListView usersListView,
                               HandlerManager eventBus) {
         this.usersListView = usersListView;
         this.usersListView.setDelegate(this);

@@ -8,6 +8,7 @@ import com.codenvy.employee.client.event.RedirectToListPageEvent;
 import com.codenvy.employee.client.event.RedirectToListPageEventHandler;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.event.RedirectToPageInfoEventHandler;
+import com.codenvy.employee.client.gin.UsersListPresenterInjector;
 import com.codenvy.employee.client.info.PageInfoPresenter;
 import com.codenvy.employee.client.info.PageInfoViewImpl;
 import com.codenvy.employee.client.mvp.Presenter;
@@ -19,7 +20,9 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.inject.Inject;
 
 /**
  * Created by Andrienko Alexander on 29.08.14.
@@ -90,6 +93,9 @@ public class ApplicationController implements ValueChangeHandler<String> {
                         new EditUserDialogBoxPresenter(dialogBoxView, constants);
 
                 UsersListView usersListView = new UsersListViewImpl(constants);
+                UsersListPresenterInjector inject = GWT.create(UsersListPresenterInjector.class);
+                UsersListPresenter ulp = inject.getUsersListPresenter();
+                GWT.log("this " + ulp.getClass()  + " " + (ulp!=null));
                 presenter = new UsersListPresenter(dialogBoxPresenter, usersListView, eventBus);
                 break;
         }
