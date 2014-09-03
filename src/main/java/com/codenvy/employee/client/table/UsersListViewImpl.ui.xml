@@ -6,7 +6,7 @@
              ui:generateLocales="default">
 
     <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
-    <ui:with field="resLocalisation" type="com.codenvy.employee.client.constants.EmployeeDataConstants"/>
+    <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
 
     <g:DockLayoutPanel unit='PX'>
 

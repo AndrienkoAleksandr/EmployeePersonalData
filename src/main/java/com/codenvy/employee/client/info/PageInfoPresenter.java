@@ -2,6 +2,7 @@ package com.codenvy.employee.client.info;
 
 import com.codenvy.employee.client.event.RedirectToListPageEvent;
 import com.codenvy.employee.client.mvp.Presenter;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
@@ -13,10 +14,10 @@ public class PageInfoPresenter implements PageInfoView.ActionDelegate, Presenter
 
     private final PageInfoView pageInfoView;
 
-    private final HandlerManager eventBus;
+    private final EventBus eventBus;
 
     @Inject
-    public PageInfoPresenter(PageInfoView pageInfoView, HandlerManager eventBus) {
+    public PageInfoPresenter(PageInfoView pageInfoView, EventBus eventBus) {
         this.pageInfoView = pageInfoView;
         this.pageInfoView.setDelegate(this);
 

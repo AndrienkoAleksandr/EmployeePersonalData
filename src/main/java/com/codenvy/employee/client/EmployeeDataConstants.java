@@ -1,4 +1,4 @@
-package com.codenvy.employee.client.constants;
+package com.codenvy.employee.client;
 
 
 import com.google.gwt.i18n.client.Constants;

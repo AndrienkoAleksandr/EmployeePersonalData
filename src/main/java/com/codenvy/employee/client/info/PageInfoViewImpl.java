@@ -10,16 +10,18 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
+
+@Singleton
 public class PageInfoViewImpl extends Composite implements PageInfoView {
 
     interface PageInfoViewUiBinder extends UiBinder<Widget, PageInfoViewImpl> {
     }
-
-    private static PageInfoViewUiBinder ourUiBinder = GWT.create(PageInfoViewUiBinder.class);
 
     private ActionDelegate actionDelegate;
 
@@ -29,10 +31,10 @@ public class PageInfoViewImpl extends Composite implements PageInfoView {
     @UiField
     Hyperlink backToListLink;
 
-    public PageInfoViewImpl() {
+    @Inject
+    public PageInfoViewImpl(EmployeeDataResource resource, PageInfoViewUiBinder ourUiBinder) {
         initWidget(ourUiBinder.createAndBindUi(this));
-
-        infoLabel.setText(EmployeeDataResource.INSTANCE.textCompanyInfo().getText());
+        infoLabel.setText(resource.textCompanyInfo().getText());
     }
 
     public void setDelegate(ActionDelegate actionDelegate) {

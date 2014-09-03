@@ -4,7 +4,7 @@
              ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <ui:with field="resLocalisation" type="com.codenvy.employee.client.constants.EmployeeDataConstants"/>
+    <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
 
     <g:FlowPanel>
 

@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.EmployeeDataResource;
-import com.codenvy.employee.client.constants.EmployeeDataConstants;
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,6 +27,8 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     private final EmployeeDataConstants constants;
 
+    private final EmployeeDataResource resource;
+
     @UiField
     CellTable<User> usersTable;
 
@@ -51,8 +53,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     private ActionDelegate actionDelegate;
 
     @Inject
-    public UsersListViewImpl(EmployeeDataConstants constants) {
+    public UsersListViewImpl(EmployeeDataConstants constants, EmployeeDataResource resource) {
         this.constants = constants;
+        this.resource = resource;
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
         initWidget(ourUiBinder.createAndBindUi(this));
 
@@ -66,16 +69,18 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     }
 
     private void writeTextInHeader() {
-        labelListEmployee.setText(EmployeeDataResource.INSTANCE.textEmployeeTable().getText());
+        labelListEmployee.setText(resource.textEmployeeTable().getText());
     }
 
     private void addStyleToView() {
-        usersTable.getHeader(0).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
-        usersTable.getHeader(1).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
-        usersTable.getHeader(2).setHeaderStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().headerTableStyle());
-        usersTable.setStyleName(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
-        linkInfo.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().link());
-        imageBuildings.addStyleName(EmployeeDataResource.INSTANCE.employDataStyle().imgBuildings());
+        usersTable.getHeader(0).setHeaderStyleNames(resource.employDataStyle().headerTableStyle());
+        usersTable.getHeader(1).setHeaderStyleNames(resource.employDataStyle().headerTableStyle());
+        usersTable.getHeader(2).setHeaderStyleNames(resource.employDataStyle().headerTableStyle());
+        usersTable.setStyleName(resource.employDataStyle().cellStyle());
+
+        linkInfo.addStyleName(resource.employDataStyle().link());
+
+        imageBuildings.addStyleName(resource.employDataStyle().imgBuildings());
     }
 
     @Override
@@ -109,9 +114,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         usersTable.addColumn(address, constants.thirdTableColumnText());
 
         //add style to table
-        firstName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
-        lastName.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
-        address.setCellStyleNames(EmployeeDataResource.INSTANCE.employDataStyle().cellStyle());
+        firstName.setCellStyleNames(resource.employDataStyle().cellStyle());
+        lastName.setCellStyleNames(resource.employDataStyle().cellStyle());
+        address.setCellStyleNames(resource.employDataStyle().cellStyle());
 
         //add handler for table
         final SingleSelectionModel<User> mySelectionModel = new SingleSelectionModel<User>();

@@ -1,18 +1,21 @@
 package com.codenvy.employee.client.dialogbox;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.gwt.user.client.ui.DialogBox;
 
 /**
  * Created by Andrienko Alexander  on 19.08.14.
  */
+
+@Singleton
 public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDialogBoxView {
 
     interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewImpl> {
@@ -33,11 +36,10 @@ public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDial
     @UiField
     Button cancelButton;
 
-    private static EditUserDialogBoxUI userEditor = GWT.create(EditUserDialogBoxUI.class);
-
     private ActionDelegate actionDelegate;
 
-    public EditUserDialogBoxViewImpl() {
+    @Inject
+    public EditUserDialogBoxViewImpl(EditUserDialogBoxUI userEditor) {
         add(userEditor.createAndBindUi(this));
     }
 

@@ -1,6 +1,6 @@
 package com.codenvy.employee.client.dialogbox;
 
-import com.codenvy.employee.client.constants.EmployeeDataConstants;
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.table.UserChangedCallBack;
 import com.google.inject.Inject;
@@ -26,7 +26,6 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
         userForEdit = new User("", "", "");
     }
 
-    @Override
     public void showDialog(User userForEdit, UserChangedCallBack callback) {
         this.callBack = callback;
 

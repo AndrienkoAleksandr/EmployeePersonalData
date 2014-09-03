@@ -4,12 +4,14 @@ import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.mvp.Presenter;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -29,17 +31,19 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
 
     private final UserChangedCallBack callBackForEditUser;
 
-    private final HandlerManager eventBus;
+    private final EventBus eventBus;
 
     @Inject
     public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter,
                               final UsersListView usersListView,
-                              HandlerManager eventBus) {
+                              EventBus eventBus) {
         this.usersListView = usersListView;
         this.usersListView.setDelegate(this);
+
         this.eventBus = eventBus;
         this.users = new ArrayList<>();
         this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
+
         callBackForAddUser = new UserChangedCallBack() {
             @Override
             public void onChanged(User user) {
