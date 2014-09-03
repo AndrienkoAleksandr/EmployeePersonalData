@@ -2,7 +2,6 @@ package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
-import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,6 +13,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.inject.Inject;
 
 import java.util.List;
 
@@ -50,6 +50,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
 
     private ActionDelegate actionDelegate;
 
+    @Inject
     public UsersListViewImpl(EmployeeDataConstants constants) {
         this.constants = constants;
         UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);

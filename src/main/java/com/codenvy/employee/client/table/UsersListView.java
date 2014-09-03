@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.table;
 
-import com.codenvy.employee.client.mvp.View;
 import com.codenvy.employee.client.entity.User;
+import com.codenvy.employee.client.mvp.View;
 
 import java.util.List;
 

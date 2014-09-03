@@ -3,8 +3,6 @@ package com.codenvy.employee.client.constants;
 
 import com.google.gwt.i18n.client.Constants;
 
-import static com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
-
 /**
  * Created by USER on 01.09.2014.
  */

@@ -1,18 +1,14 @@
 package com.codenvy.employee.client;
 
 import com.codenvy.employee.client.constants.EmployeeDataConstants;
-import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.event.RedirectToListPageEvent;
 import com.codenvy.employee.client.event.RedirectToListPageEventHandler;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.event.RedirectToPageInfoEventHandler;
-import com.codenvy.employee.client.gin.EditUserDialogBoxPresenterInjector;
-import com.codenvy.employee.client.info.PageInfoPresenter;
-import com.codenvy.employee.client.info.PageInfoViewImpl;
+import com.codenvy.employee.client.gin.PageInfoPresenterInjector;
+import com.codenvy.employee.client.gin.PresenterInjector;
+import com.codenvy.employee.client.gin.UsersListPresenterInjector;
 import com.codenvy.employee.client.mvp.Presenter;
-import com.codenvy.employee.client.table.UsersListPresenter;
-import com.codenvy.employee.client.table.UsersListView;
-import com.codenvy.employee.client.table.UsersListViewImpl;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -77,26 +73,18 @@ public class ApplicationController implements ValueChangeHandler<String> {
 
     @Override
     public void onValueChange(ValueChangeEvent<String> stringValueChangeEvent) {
+        PresenterInjector inject = GWT.create(PresenterInjector.class);
         switch (stringValueChangeEvent.getValue()) {
             case Tokens.INFO:
-                PageInfoViewImpl pageInfoView = new PageInfoViewImpl();
-                presenter = new PageInfoPresenter(pageInfoView, eventBus);
+                presenter = inject.getPageInfoPresenter();
+//                presenter = PageInfoPresenterInjector.INSTANCE.getPageInfoPresenter();
                 break;
 
             default:
-                EditUserDialogBoxPresenterInjector dialogInjector = GWT.create(EditUserDialogBoxPresenterInjector.class);
-                EditUserDialogBoxPresenter dialogBoxPresenter = dialogInjector.getEditUserDialogBoxPresenter();
-
-                UsersListView usersListView = new UsersListViewImpl(constants);
-//                UsersListPresenterInjector inject = GWT.create(UsersListPresenterInjector.class);
-//
-//                UsersListPresenter ulp = inject.getUsersListPresenter();
-//                GWT.log("this " + ulp.getClass()  + " " + (ulp!=null));
-
-                presenter = new UsersListPresenter(dialogBoxPresenter, usersListView, eventBus);
+                presenter = inject.getUsersListPresenter();
+//                presenter = UsersListPresenterInjector.INSTANCE.getUsersListPresenter();
                 break;
         }
-
         presenter.go(container);
     }
 }

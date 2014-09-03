@@ -1,8 +1,8 @@
 package com.codenvy.employee.client.dialogbox;
 
-import com.codenvy.employee.client.table.UserChangedCallBack;
-import com.codenvy.employee.client.mvp.View;
 import com.codenvy.employee.client.entity.User;
+import com.codenvy.employee.client.mvp.View;
+import com.codenvy.employee.client.table.UserChangedCallBack;
 
 /**
  * Created by Andrienko Alexander  on 22.08.14.

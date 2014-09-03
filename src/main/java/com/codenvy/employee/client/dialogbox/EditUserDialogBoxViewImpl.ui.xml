@@ -17,12 +17,11 @@
         }
 
         .buttonOfDialog {
-            width: 52px ;
+            width: 52px;
             margin-right: 10px;
             margin-left: 70px;
         }
     </ui:style>
-
 
 
     <g:FlowPanel>
