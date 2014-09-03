@@ -33,6 +33,7 @@ public class PageInfoViewImpl extends Composite implements PageInfoView {
 
     @Inject
     public PageInfoViewImpl(EmployeeDataResource resource, PageInfoViewUiBinder ourUiBinder) {
+        GWT.log(resource.hashCode() + "");
         initWidget(ourUiBinder.createAndBindUi(this));
         infoLabel.setText(resource.textCompanyInfo().getText());
     }

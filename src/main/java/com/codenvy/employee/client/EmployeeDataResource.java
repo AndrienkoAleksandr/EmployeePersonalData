@@ -1,19 +1,13 @@
 package com.codenvy.employee.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
-
-import static com.google.gwt.resources.client.ClientBundle.Source;
-
 /**
  * Created by Andrienko Alexander on 28.08.14.
  */
 public interface EmployeeDataResource extends ClientBundle {
-
-    static final EmployeeDataResource INSTANCE = GWT.create(EmployeeDataResource.class);
 
     @Source("css/EmployeePersonalData.css")
     EmployDataStyle employDataStyle();

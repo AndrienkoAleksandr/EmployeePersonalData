@@ -5,16 +5,17 @@ import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.i18n.client.Constants;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-import com.google.inject.Inject;
+import com.google.inject.*;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -53,11 +54,13 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     private ActionDelegate actionDelegate;
 
     @Inject
-    public UsersListViewImpl(EmployeeDataConstants constants, EmployeeDataResource resource) {
+    public UsersListViewImpl(EmployeeDataConstants constants, EmployeeDataResource resource, UsersListUiBinder ourUiBinder) {
+        GWT.log(resource.hashCode() + "i");
+
+
+        initWidget(ourUiBinder.createAndBindUi(this));
         this.constants = constants;
         this.resource = resource;
-        UsersListUiBinder ourUiBinder = GWT.create(UsersListUiBinder.class);
-        initWidget(ourUiBinder.createAndBindUi(this));
 
         drawUserTable();
         writeTextInHeader();

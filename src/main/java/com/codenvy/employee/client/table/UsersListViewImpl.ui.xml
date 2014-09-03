@@ -7,6 +7,8 @@
 
     <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
     <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
+    <ui:with field="d" type="com.codenvy.employee.client.table.Test"/>
+    <!--<ui:with field="dd" type="com.codenvy.employee.client.table.UsersListViewImpl"/>-->
 
     <g:DockLayoutPanel unit='PX'>
 
@@ -20,7 +22,7 @@
         </g:north>
 
         <g:west size='300'>
-            <g:Hyperlink ui:field="linkInfo" text="{resLocalisation.infoLinkText}" targetHistoryToken="info"/>
+            <g:Hyperlink ui:field="linkInfo" text="{d.getEmployeeDataConstants.infoLinkText}" targetHistoryToken="info"/>
         </g:west>
 
         <g:center>

@@ -19,11 +19,11 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
     private User userForEdit;
 
     @Inject
-    public EditUserDialogBoxPresenter(EditUserDialogBoxView editUserDialogBoxView, EmployeeDataConstants constants) {
-        this.editUserDialogBoxView = editUserDialogBoxView;
+    public EditUserDialogBoxPresenter(EditUserDialogBoxView dialogBoxView,EmployeeDataConstants constants, User user) {
+        this.editUserDialogBoxView = dialogBoxView;
         this.editUserDialogBoxView.setDelegate(this);
         this.constants = constants;
-        userForEdit = new User("", "", "");
+        userForEdit = user;
     }
 
     public void showDialog(User userForEdit, UserChangedCallBack callback) {
