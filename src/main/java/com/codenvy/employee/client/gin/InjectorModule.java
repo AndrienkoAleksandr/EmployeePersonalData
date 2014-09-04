@@ -21,21 +21,6 @@ import com.google.gwt.event.shared.SimpleEventBus;
  */
 public class InjectorModule extends AbstractGinModule {
 
-    @Provides
-    @Singleton
-    protected EmployeeDataConstants provideEmployeeDataConstants() {
-        GWT.log("yes");
-        return GWT.create(EmployeeDataConstants.class);
-    }
-
-    @Provides
-    @Singleton
-    protected EmployeeDataResource provideEmployeeDataResource() {
-        GWT.log("yes2");
-        return GWT.create(EmployeeDataResource.class);
-    }
-
-
     @Override
     protected void configure() {
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
@@ -47,9 +32,5 @@ public class InjectorModule extends AbstractGinModule {
         bind(EmployeeDataConstants.class).in(Singleton.class);
 
         bind(PageInfoView.class).to(PageInfoViewImpl.class);
-
-//        bind(EmployeeDataResource.class).asEagerSingleton();
-//
-//        bind(EmployeeDataConstants.class).asEagerSingleton();
     }
 }

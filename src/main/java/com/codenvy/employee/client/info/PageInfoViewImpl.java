@@ -1,5 +1,6 @@
 package com.codenvy.employee.client.info;
 
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -31,9 +32,16 @@ public class PageInfoViewImpl extends Composite implements PageInfoView {
     @UiField
     Hyperlink backToListLink;
 
+    @UiField(provided = true)
+    final EmployeeDataConstants constants;
+
     @Inject
-    public PageInfoViewImpl(EmployeeDataResource resource, PageInfoViewUiBinder ourUiBinder) {
-        GWT.log(resource.hashCode() + "");
+    public PageInfoViewImpl(EmployeeDataConstants constants,
+                            EmployeeDataResource resource,
+                            PageInfoViewUiBinder ourUiBinder) {
+
+        this.constants = constants;
+
         initWidget(ourUiBinder.createAndBindUi(this));
         infoLabel.setText(resource.textCompanyInfo().getText());
     }

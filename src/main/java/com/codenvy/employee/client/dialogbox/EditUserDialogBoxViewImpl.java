@@ -1,5 +1,6 @@
 package com.codenvy.employee.client.dialogbox;
 
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -38,8 +39,12 @@ public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDial
 
     private ActionDelegate actionDelegate;
 
+    @UiField(provided = true)
+    final EmployeeDataConstants constants;
+
     @Inject
-    public EditUserDialogBoxViewImpl(EditUserDialogBoxUI userEditor) {
+    public EditUserDialogBoxViewImpl(EmployeeDataConstants constants, EditUserDialogBoxUI userEditor) {
+        this.constants = constants;
         add(userEditor.createAndBindUi(this));
     }
 

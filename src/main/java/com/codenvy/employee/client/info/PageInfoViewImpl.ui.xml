@@ -4,11 +4,11 @@
              ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
+    <ui:with field="constants" type="com.codenvy.employee.client.EmployeeDataConstants"/>
 
     <g:FlowPanel>
 
-        <g:Hyperlink ui:field="backToListLink" targetHistoryToken="list" text="{resLocalisation.listUsersLinkText}"/>
+        <g:Hyperlink ui:field="backToListLink" targetHistoryToken="list" text="{constants.listUsersLinkText}"/>
         <g:Label ui:field="infoLabel"/>
 
     </g:FlowPanel>

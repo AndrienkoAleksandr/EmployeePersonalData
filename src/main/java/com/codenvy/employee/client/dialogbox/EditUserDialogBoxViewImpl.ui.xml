@@ -4,7 +4,7 @@
              ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
+    <ui:with field="constants" type="com.codenvy.employee.client.EmployeeDataConstants"/>
 
     <ui:style>
         .textDialogBox {
@@ -27,26 +27,26 @@
     <g:FlowPanel>
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.firstNameTextBox}"/>
+            <g:Label styleName="{style.textDialogBox}" text="{constants.firstNameTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="firstName"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.lastNameTextBox}"/>
+            <g:Label styleName="{style.textDialogBox}" text="{constants.lastNameTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="lastName"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Label styleName="{style.textDialogBox}" text="{resLocalisation.addressTextBox}"/>
+            <g:Label styleName="{style.textDialogBox}" text="{constants.addressTextBox}"/>
             <g:TextBox styleName="{style.textBoxOfDialog}" ui:field="address"/>
         </g:FlowPanel>
 
 
         <g:FlowPanel>
-            <g:Button styleName="{style.buttonOfDialog}" ui:field="okButton" text="{resLocalisation.okButtonText}"/>
-            <g:Button ui:field='cancelButton' text="{resLocalisation.cancelButtonText}"/>
+            <g:Button styleName="{style.buttonOfDialog}" ui:field="okButton" text="{constants.okButtonText}"/>
+            <g:Button ui:field='cancelButton' text="{constants.cancelButtonText}"/>
         </g:FlowPanel>
 
     </g:FlowPanel>

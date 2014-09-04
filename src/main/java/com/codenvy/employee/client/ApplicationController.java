@@ -47,7 +47,6 @@ public class ApplicationController implements ValueChangeHandler<String> {
 
     @Inject
     public ApplicationController(EventBus eventBus, EmployeeDataResource resource) {
-        GWT.log(resource.hashCode() + "");
         resource.employDataStyle().ensureInjected();
         this.eventBus = eventBus;
 

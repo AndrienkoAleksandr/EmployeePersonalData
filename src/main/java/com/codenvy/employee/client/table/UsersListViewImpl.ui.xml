@@ -5,41 +5,39 @@
              ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
              ui:generateLocales="default">
 
-    <ui:with field="res" type="com.codenvy.employee.client.EmployeeDataResource"/>
-    <ui:with field="resLocalisation" type="com.codenvy.employee.client.EmployeeDataConstants"/>
-    <ui:with field="d" type="com.codenvy.employee.client.table.Test"/>
-    <!--<ui:with field="dd" type="com.codenvy.employee.client.table.UsersListViewImpl"/>-->
+    <ui:with field="resource" type="com.codenvy.employee.client.EmployeeDataResource"/>
+    <ui:with field="constants" type="com.codenvy.employee.client.EmployeeDataConstants"/>
 
     <g:DockLayoutPanel unit='PX'>
 
         <g:north size="200">
             <g:FlowPanel>
 
-                <g:Image resource="{res.imgBuildings}" ui:field="imageBuildings"/>
-                <g:Label ui:field="labelListEmployee" styleName="{res.employDataStyle.textFromResource}"/>
+                <g:Image resource="{resource.imgBuildings}" ui:field="imageBuildings"/>
+                <g:Label ui:field="labelListEmployee" styleName="{resource.employDataStyle.textFromResource}"/>
 
             </g:FlowPanel>
         </g:north>
 
         <g:west size='300'>
-            <g:Hyperlink ui:field="linkInfo" text="{d.getEmployeeDataConstants.infoLinkText}" targetHistoryToken="info"/>
+            <g:Hyperlink ui:field="linkInfo" text="{constants.infoLinkText}" targetHistoryToken="info"/>
         </g:west>
 
         <g:center>
-            <g:ScrollPanel styleName="{res.employDataStyle.table}">
-                <c:CellTable ui:field="usersTable" styleName="{res.employDataStyle.table}"/>
+            <g:ScrollPanel styleName="{resource.employDataStyle.table}">
+                <c:CellTable ui:field="usersTable" styleName="{resource.employDataStyle.table}"/>
             </g:ScrollPanel>
         </g:center>
 
         <g:east size="200">
             <g:FlowPanel>
 
-                <g:Button ui:field="edit" styleName="{res.employDataStyle.editButtonOfUserList}"
-                          text="{resLocalisation.editButtonText}"/>
-                <g:Button ui:field="add" styleName="{res.employDataStyle.editButtonOfUserList}"
-                          text="{resLocalisation.addButtonText}"/>
-                <g:Button ui:field="delete" styleName="{res.employDataStyle.editButtonOfUserList}"
-                          text="{resLocalisation.deleteButtonText}"/>
+                <g:Button ui:field="edit" styleName="{resource.employDataStyle.editButtonOfUserList}"
+                          text="{constants.editButtonText}"/>
+                <g:Button ui:field="add" styleName="{resource.employDataStyle.editButtonOfUserList}"
+                          text="{constants.addButtonText}"/>
+                <g:Button ui:field="delete" styleName="{resource.employDataStyle.editButtonOfUserList}"
+                          text="{constants.deleteButtonText}"/>
 
             </g:FlowPanel>
         </g:east>
