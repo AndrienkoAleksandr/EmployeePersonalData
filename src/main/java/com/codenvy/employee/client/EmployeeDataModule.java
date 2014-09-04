@@ -10,8 +10,8 @@ public class EmployeeDataModule implements EntryPoint {
 
     public void onModuleLoad() {
         Injector injector = GWT.create(Injector.class);
+
         ApplicationController applicationController = injector.getApplicationController();
-        applicationController.bind();
 
         applicationController.go(RootLayoutPanel.get());
     }

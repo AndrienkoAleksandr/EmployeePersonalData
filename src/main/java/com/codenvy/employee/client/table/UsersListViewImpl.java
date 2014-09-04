@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
  */
 public class UsersListViewImpl extends Composite implements UsersListView {
 
+    @Singleton
     interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
 

@@ -44,7 +44,9 @@ public class ApplicationController implements ValueChangeHandler<String> {
     @Inject
     public ApplicationController(EventBus eventBus, EmployeeDataResource resource,
                                  @PageInfo Presenter infoPagePresenter, @UserList Presenter userListPresenter) {
+
         resource.employDataStyle().ensureInjected();
+
         this.eventBus = eventBus;
 
         this.infoPagePresenter = infoPagePresenter;
@@ -53,7 +55,7 @@ public class ApplicationController implements ValueChangeHandler<String> {
         bind();
     }
 
-    public void bind() {
+    private void bind() {
         History.addValueChangeHandler(this);
 
         eventBus.addHandler(RedirectToPageInfoEvent.TYPE, new RedirectToPageInfoEventHandler() {
