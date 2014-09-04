@@ -14,13 +14,6 @@ import com.google.gwt.user.client.ui.Widget;
 @GinModules(InjectorModule.class)
 public interface Injector extends Ginjector {
 
-    Injector INSTANCE = GWT.create(Injector.class);
-
-    UsersListPresenter getUsersListPresenter();
-
-    PageInfoPresenter getPageInfoPresenter();
-
     ApplicationController getApplicationController();
 
-    Widget getDialogBox();
 }

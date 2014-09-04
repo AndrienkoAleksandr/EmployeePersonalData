@@ -15,10 +15,9 @@ import com.google.gwt.user.client.ui.DialogBox;
 /**
  * Created by Andrienko Alexander  on 19.08.14.
  */
-
-@Singleton
 public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDialogBoxView {
 
+    @Singleton
     interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewImpl> {
     }
 
@@ -85,12 +84,12 @@ public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDial
 
     @UiHandler("okButton")
     public void onOkButtonClicked(ClickEvent clickEvent) {
-        actionDelegate.okButtonClicked();
+        actionDelegate.onOkButtonClicked();
     }
 
     @UiHandler("cancelButton")
     public void onCancelButtonClicked(ClickEvent clickEvent) {
-        actionDelegate.cancelButtonClicked();
+        actionDelegate.onCancelButtonClicked();
     }
 
     public void showDialog() {

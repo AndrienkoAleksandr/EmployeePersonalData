@@ -5,8 +5,13 @@ import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxViewImpl;
+import com.codenvy.employee.client.gin.annotation.PageInfo;
+import com.codenvy.employee.client.gin.annotation.UserList;
+import com.codenvy.employee.client.info.PageInfoPresenter;
 import com.codenvy.employee.client.info.PageInfoView;
 import com.codenvy.employee.client.info.PageInfoViewImpl;
+import com.codenvy.employee.client.mvp.Presenter;
+import com.codenvy.employee.client.table.UsersListPresenter;
 import com.codenvy.employee.client.table.UsersListView;
 import com.codenvy.employee.client.table.UsersListViewImpl;
 import com.google.gwt.core.client.GWT;
@@ -25,12 +30,8 @@ public class InjectorModule extends AbstractGinModule {
     protected void configure() {
         bind(EventBus.class).to(SimpleEventBus.class).in(Singleton.class);
 
-        bind(EditUserDialogBoxView.class).to(EditUserDialogBoxViewImpl.class);
+        bind(Presenter.class).annotatedWith(PageInfo.class).to(PageInfoPresenter.class);
 
-        bind(UsersListView.class).to(UsersListViewImpl.class);
-
-        bind(EmployeeDataConstants.class).in(Singleton.class);
-
-        bind(PageInfoView.class).to(PageInfoViewImpl.class);
+        bind(Presenter.class).annotatedWith(UserList.class).to(UsersListPresenter.class);
     }
 }

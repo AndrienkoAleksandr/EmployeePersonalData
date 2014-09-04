@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
+
 public class PageInfoPresenter implements PageInfoView.ActionDelegate, Presenter {
 
     private final PageInfoView pageInfoView;

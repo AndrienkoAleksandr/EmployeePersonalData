@@ -2,10 +2,12 @@ package com.codenvy.employee.client;
 
 
 import com.google.gwt.i18n.client.Constants;
+import com.google.inject.Singleton;
 
 /**
  * Created by USER on 01.09.2014.
  */
+@Singleton
 public interface EmployeeDataConstants extends Constants {
 
     String infoLinkText();

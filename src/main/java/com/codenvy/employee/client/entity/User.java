@@ -1,5 +1,7 @@
 package com.codenvy.employee.client.entity;
 
+import com.google.inject.Inject;
+
 /**
  * Created by Andrienko Alexander on 19.08.14.
  */
@@ -8,6 +10,7 @@ public class User {
     private String lastName;
     private String address;
 
+    @Inject
     public User() {
     }
 

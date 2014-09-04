@@ -55,7 +55,6 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     private ActionDelegate actionDelegate;
 
     @Inject
-    @UiConstructor
     public UsersListViewImpl(EmployeeDataConstants constants,
                              EmployeeDataResource resource,
                              UsersListUiBinder ourUiBinder) {

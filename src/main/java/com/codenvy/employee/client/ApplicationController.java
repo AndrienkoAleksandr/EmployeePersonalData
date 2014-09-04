@@ -4,9 +4,9 @@ import com.codenvy.employee.client.event.RedirectToListPageEvent;
 import com.codenvy.employee.client.event.RedirectToListPageEventHandler;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.event.RedirectToPageInfoEventHandler;
-import com.codenvy.employee.client.gin.Injector;
+import com.codenvy.employee.client.gin.annotation.PageInfo;
+import com.codenvy.employee.client.gin.annotation.UserList;
 import com.codenvy.employee.client.mvp.Presenter;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventBus;
@@ -14,16 +14,12 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
 public class ApplicationController implements ValueChangeHandler<String> {
 
-    private enum  Tokens {
+    private enum Tokens {
         INFO("info"), LIST_USER("list");
 
         String token;
@@ -46,12 +42,13 @@ public class ApplicationController implements ValueChangeHandler<String> {
     private HasWidgets container;
 
     @Inject
-    public ApplicationController(EventBus eventBus, EmployeeDataResource resource) {
+    public ApplicationController(EventBus eventBus, EmployeeDataResource resource,
+                                 @PageInfo Presenter infoPagePresenter, @UserList Presenter userListPresenter) {
         resource.employDataStyle().ensureInjected();
         this.eventBus = eventBus;
 
-        infoPagePresenter = Injector.INSTANCE.getPageInfoPresenter();
-        userListPresenter = Injector.INSTANCE.getUsersListPresenter();
+        this.infoPagePresenter = infoPagePresenter;
+        this.userListPresenter = userListPresenter;
         History.newItem("");
         bind();
     }

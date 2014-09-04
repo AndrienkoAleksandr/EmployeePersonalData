@@ -4,9 +4,12 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.TextResource;
+import com.google.inject.Singleton;
+
 /**
  * Created by Andrienko Alexander on 28.08.14.
  */
+@Singleton
 public interface EmployeeDataResource extends ClientBundle {
 
     @Source("css/EmployeePersonalData.css")

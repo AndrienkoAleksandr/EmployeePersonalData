@@ -17,8 +17,6 @@ import com.google.inject.Singleton;
 /**
  * Created by Andrienko Alexander on 29.08.14.
  */
-
-@Singleton
 public class PageInfoViewImpl extends Composite implements PageInfoView {
 
     interface PageInfoViewUiBinder extends UiBinder<Widget, PageInfoViewImpl> {
