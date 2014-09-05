@@ -51,7 +51,7 @@ public class ApplicationController implements ValueChangeHandler<String> {
 
         this.infoPagePresenter = infoPagePresenter;
         this.userListPresenter = userListPresenter;
-        History.newItem("");
+
         bind();
     }
 
@@ -81,6 +81,11 @@ public class ApplicationController implements ValueChangeHandler<String> {
         if (History.getToken().equals("") || History.getToken().equals(Tokens.LIST_USER.getToken())) {
             History.newItem(Tokens.LIST_USER.getToken());
         }
+        if (History.getToken().equals(Tokens.INFO.getToken())) {
+            History.newItem(Tokens.INFO.getToken());
+        }
+
+        History.fireCurrentHistoryState();
     }
 
     @Override
