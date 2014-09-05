@@ -93,7 +93,7 @@ public class UsersListViewImpl extends Composite implements UsersListView {
         usersTable.setRowData(users);
     }
 
-    public void drawUserTable() {
+    private void drawUserTable() {
         TextColumn<User> firstName = new TextColumn<User>() {
             @Override
             public String getValue(User user) {

@@ -99,8 +99,6 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
     public void onEditButtonClicked() {
         if (selectedUser != null) {
             editUserDialogBoxPresenter.showDialog(selectedUser, callBackForEditUser);
-        } else {
-            Window.alert("You nothing selected!");
         }
     }
 }
