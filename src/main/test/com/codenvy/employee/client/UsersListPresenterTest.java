@@ -11,6 +11,10 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -18,68 +22,65 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by logarifm on 05.09.14.
+ * Created by Andrienko Alexander on 05.09.14.
+ * This class test class com.codenvy.employee.client.table.UsersListPresenter.java
  */
+@RunWith(MockitoJUnitRunner.class)
 public class UsersListPresenterTest {
+    @Mock
+    private UsersListView usersListView;
 
-    private UsersListPresenter usersListPresenter;
+    @Spy
+    private SimpleEventBus eventBus;
+
+    @Mock
+    private HasWidgets container;
+
+    @Spy
+    private User realUser;
+
+    @Spy
+    User someEmptyUser;
+
+    @Mock
+    EditUserDialogBoxView editUserDialogBoxView;
+
+    @Mock
+    EmployeeDataConstants constants;
 
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
-    private UsersListView usersListView;
-
-    private SimpleEventBus eventBus;
-
-    private HasWidgets container;
-
-    private User realUser;
+    private UsersListPresenter usersListPresenter;
 
     @Before
     public void init(){
-
-        EditUserDialogBoxView editUserDialogBoxView = mock(EditUserDialogBoxView.class);
-
-        EmployeeDataConstants constants = mock(EmployeeDataConstants.class);
-
-        User someEmptyUser = spy(new User());
-
         editUserDialogBoxPresenter =
-                spy(new EditUserDialogBoxPresenter(editUserDialogBoxView,
-                        constants, someEmptyUser));
+                spy(new EditUserDialogBoxPresenter(editUserDialogBoxView, constants, someEmptyUser));
 
-        eventBus = spy(new SimpleEventBus());
-
-        usersListView = mock(UsersListView.class);
-
-        container = mock(HasWidgets.class);
-
-        usersListPresenter = new UsersListPresenter(editUserDialogBoxPresenter,
-                usersListView, eventBus);
-
-        realUser = new User("firstName", "SecondName", "Address");
+        usersListPresenter = new UsersListPresenter(editUserDialogBoxPresenter, usersListView, eventBus);
     }
 
     @Test
-    public void testGoMockClear() {
+    public void testGoMockCheckMethodClearOfWidgets() {
         usersListPresenter.go(container);
 
         verify(container).clear();
     }
 
     @Test
-    public void testGoMockAdd() {
+    public void testGoMockCheckMethodAddOfWidgets() {
         usersListPresenter.go(container);
 
         verify(container).add(usersListView.asWidget());
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testGoMockSetUsers() {
         usersListPresenter.go(container);
 
         verify(usersListView).setUsers(any(List.class));
     }
-
 
     @Test
     public void testOnInfoLinkClicked() {
@@ -89,10 +90,31 @@ public class UsersListPresenterTest {
     }
 
     @Test
-    public void testOnDeleteButtonClickedSetUsers() {
+    @SuppressWarnings("unchecked")
+    public void testOnDeleteButtonClickedCheckSetUsers() {
         usersListPresenter.onDeleteButtonClicked();
 
         verify(usersListView).setUsers(any(List.class));
+    }
+
+    @Test
+    public void testOnAddButtonClickedSelectedUserNull() {
+        doCallRealMethod().when(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
+
+        usersListPresenter.onSelectedUser(null);
+        usersListPresenter.onAddButtonClicked();
+
+        verify(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
+    }
+
+    @Test
+    public void testOnAddButtonClickedSelectedUserNotNull() {
+        doCallRealMethod().when(editUserDialogBoxPresenter).
+                showDialog(isNull(User.class), any(UserChangedCallBack.class));
+
+        usersListPresenter.onSelectedUser(realUser);
+        usersListPresenter.onAddButtonClicked();
+        verify(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
     }
 
     @Test
@@ -113,26 +135,5 @@ public class UsersListPresenterTest {
         usersListPresenter.onEditButtonClicked();
 
         verify(editUserDialogBoxPresenter, times(0)).showDialog(any(User.class), any(UserChangedCallBack.class));
-    }
-
-    @Test
-    public void testOnAddButtonClickedSelectedUserNull() {
-        doCallRealMethod().when(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
-
-        usersListPresenter.onSelectedUser(null);
-        usersListPresenter.onAddButtonClicked();
-
-        verify(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
-    }
-
-    @Test
-    public void testOnAddButtonClickedSelectedUserNotNull() {
-        doCallRealMethod().when(editUserDialogBoxPresenter).
-                showDialog(isNull(User.class), any(UserChangedCallBack.class));
-
-        usersListPresenter.onSelectedUser(realUser);
-        usersListPresenter.onAddButtonClicked();
-
-        verify(editUserDialogBoxPresenter).showDialog(isNull(User.class), any(UserChangedCallBack.class));
     }
 }

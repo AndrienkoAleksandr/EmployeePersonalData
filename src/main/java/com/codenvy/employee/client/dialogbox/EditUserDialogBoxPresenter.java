@@ -3,7 +3,6 @@ package com.codenvy.employee.client.dialogbox;
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.table.UserChangedCallBack;
-import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
 
 /**
@@ -57,7 +56,9 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
     public void onOkButtonClicked() {
         getDataFromDialogBox();
 
-        callBack.onChanged(userForEdit);
+        if (callBack != null) {
+            callBack.onChanged(userForEdit);
+        }
 
         editUserDialogBoxView.hideDialog();
     }

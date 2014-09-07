@@ -5,46 +5,43 @@ import com.codenvy.employee.client.info.PageInfoPresenter;
 import com.codenvy.employee.client.info.PageInfoView;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
- * Created by logarifm on 05.09.14.
+ * Created by Andrienko Alexander on 05.09.14.
+ * This is test for class com.codenvy.employee.client.info.PageInfoPresenter.java
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PageInfoPresenterTest {
 
+    @Mock
     private PageInfoView pageInfoView;
 
+    @Spy
     private SimpleEventBus simpleEventBus;
 
-    private PageInfoPresenter pageInfoPresenter;
-
+    @Mock
     private HasWidgets container;
 
-    @Before
-    public void init() {
-        pageInfoView = mock(PageInfoView.class);
-
-        simpleEventBus = spy(new SimpleEventBus());
-
-        pageInfoPresenter = new PageInfoPresenter(pageInfoView, simpleEventBus);
-
-        container = mock(HasWidgets.class);
-    }
+    @InjectMocks
+    private PageInfoPresenter pageInfoPresenter;
 
     @Test
-    public void testGoClear() {
+    public void testGoMethodClearOfContainer() {
         pageInfoPresenter.go(container);
         verify(container).clear();
     }
 
     @Test
-    public void testGoAdd() {
+    public void testGoMethodAddOfContainer() {
         pageInfoPresenter.go(container);
         verify(container).add(pageInfoView.asWidget());
     }
@@ -54,5 +51,4 @@ public class PageInfoPresenterTest {
         pageInfoPresenter.onBackToListHyperlinkClicked();
         verify(simpleEventBus).fireEvent(any(RedirectToListPageEvent.class));
     }
-
 }

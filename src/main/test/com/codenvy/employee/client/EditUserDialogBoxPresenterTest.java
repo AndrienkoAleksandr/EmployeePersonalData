@@ -4,72 +4,94 @@ import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.table.UserChangedCallBack;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by logarifm on 05.09.14.
+ * Created by Andrienko Alexander on 05.09.14.
+ * This is test for class com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter.java
  */
+@RunWith(MockitoJUnitRunner.class)
 public class EditUserDialogBoxPresenterTest {
-
+    @Mock
     private EditUserDialogBoxView dialogBoxView;
 
-    private EmployeeDataConstants constants;
-
-    private User emptyUser;
-
+    @Mock
     private User realUserForEdit;
 
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    @Mock
+    EmployeeDataConstants constants;
 
-    private final String firstName = "Ivan";
-
-    private final String lastName = "Vigovsky";
-
-    private final String address = "Chernigiv";
-
+    @Mock
     private  UserChangedCallBack userChangedCallBack;
 
-    @Before
-    public void init() {
-        dialogBoxView = mock(EditUserDialogBoxView.class);
-        constants = mock(EmployeeDataConstants.class);
-        emptyUser = new User();
-        userChangedCallBack = mock(UserChangedCallBack.class);
-        realUserForEdit = new User(firstName, lastName, address);
-        editUserDialogBoxPresenter = new EditUserDialogBoxPresenter(dialogBoxView, constants, emptyUser);
-    }
+    @InjectMocks
+    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
     @Test
-    public void showDialogUserForEditNull() {
+    public void showDialogCheckUserForEditNull() {
         editUserDialogBoxPresenter.showDialog(null, userChangedCallBack);
+
         verify(dialogBoxView).showDialog();
     }
 
     @Test
-    public void showDialogUserForEditNotNull() {
+    public void showDialogCheckUserForEditNotNull() {
         editUserDialogBoxPresenter.showDialog(realUserForEdit, userChangedCallBack);
+
         verify(dialogBoxView).showDialog();
     }
+
+    @Test
+    public void showDialogCheckUserCheckSetTextsToFields() {
+        editUserDialogBoxPresenter.showDialog(new User("Ivan", "Dron", "Address"), userChangedCallBack);
+
+        verify(dialogBoxView).setText(anyString());
+        verify(dialogBoxView).setFirstName("Ivan");
+        verify(dialogBoxView).setLastName("Dron");
+        verify(dialogBoxView).setAddress("Address");
+    }
+
+    @Test
+    public void showDialogCheckUserCheckSetAnyTextsToFields() {
+        editUserDialogBoxPresenter.showDialog(new User("Ivan", "Dron", "Address"), userChangedCallBack);
+
+        verify(dialogBoxView).setText(anyString());
+        verify(dialogBoxView).setFirstName(anyString());
+        verify(dialogBoxView).setLastName(anyString());
+        verify(dialogBoxView).setAddress(anyString());
+    }
+
 
     @Test
     public void testOnOkButtonClickedCheckCallBack() {
+        editUserDialogBoxPresenter.showDialog(realUserForEdit, userChangedCallBack);
         editUserDialogBoxPresenter.onOkButtonClicked();
-        when(dialogBoxView.getFirstName()).thenReturn(firstName);
-        when(dialogBoxView.getLastName()).thenReturn(lastName);
-        when(dialogBoxView.getAddress()).thenReturn(address);
-        verify(userChangedCallBack).onChanged(realUserForEdit);
+
+        verify(userChangedCallBack).onChanged(any(User.class));
     }
 
-//    @Test
-//    public void testOnOkButtonClickedCheckHideDialogBox() {
-//        editUserDialogBoxPresenter.onOkButtonClicked();
-//        verify(dialogBoxView).hideDialog();
-//    }
+    @Test
+    public void testOnOkButtonClickedCheckCallBackNull() {
+        editUserDialogBoxPresenter.showDialog(realUserForEdit, null);
+        editUserDialogBoxPresenter.onOkButtonClicked();
+
+        verify(userChangedCallBack, never()).onChanged(any(User.class));
+    }
+
+    @Test
+     public void testOnOkButtonClickedCheckHideDialogBox() {
+        editUserDialogBoxPresenter.showDialog(realUserForEdit, userChangedCallBack);
+        editUserDialogBoxPresenter.onOkButtonClicked();
+
+        verify(dialogBoxView).hideDialog();
+    }
 
     @Test
     public void testOnCancelButtonClicked() {
