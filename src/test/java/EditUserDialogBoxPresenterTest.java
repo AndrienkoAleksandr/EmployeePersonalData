@@ -1,5 +1,4 @@
-package com.codenvy.employee.client;
-
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
@@ -35,21 +34,31 @@ public class EditUserDialogBoxPresenterTest {
     private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
     @Test
-    public void showDialogCheckUserForEditNull() {
+    public void testShowDialogCheckUserForEditNull() {
         editUserDialogBoxPresenter.showDialog(null, userChangedCallBack);
 
         verify(dialogBoxView).showDialog();
     }
 
     @Test
-    public void showDialogCheckUserForEditNotNull() {
+    public void testShowDialogCheckUserForEditNotNull() {
         editUserDialogBoxPresenter.showDialog(realUserForEdit, userChangedCallBack);
 
         verify(dialogBoxView).showDialog();
     }
 
     @Test
-    public void showDialogCheckUserCheckSetTextsToFields() {
+    public void testShowDialogCheckTextForTextBoxWhenUserNull() {
+        editUserDialogBoxPresenter.showDialog(null, userChangedCallBack);
+
+        verify(dialogBoxView).setText(anyString());
+        verify(dialogBoxView).setFirstName("");
+        verify(dialogBoxView).setLastName("");
+        verify(dialogBoxView).setAddress("");
+    }
+
+    @Test
+    public void testShowDialogCheckTextForTextBoxWhenUserNotNull() {
         editUserDialogBoxPresenter.showDialog(new User("Ivan", "Dron", "Address"), userChangedCallBack);
 
         verify(dialogBoxView).setText(anyString());
@@ -57,17 +66,6 @@ public class EditUserDialogBoxPresenterTest {
         verify(dialogBoxView).setLastName("Dron");
         verify(dialogBoxView).setAddress("Address");
     }
-
-    @Test
-    public void showDialogCheckUserCheckSetAnyTextsToFields() {
-        editUserDialogBoxPresenter.showDialog(new User("Ivan", "Dron", "Address"), userChangedCallBack);
-
-        verify(dialogBoxView).setText(anyString());
-        verify(dialogBoxView).setFirstName(anyString());
-        verify(dialogBoxView).setLastName(anyString());
-        verify(dialogBoxView).setAddress(anyString());
-    }
-
 
     @Test
     public void testOnOkButtonClickedCheckCallBack() {

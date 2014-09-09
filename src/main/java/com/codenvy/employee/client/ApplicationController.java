@@ -44,7 +44,6 @@ public class ApplicationController implements ValueChangeHandler<String> {
     @Inject
     public ApplicationController(EventBus eventBus, EmployeeDataResource resource,
                                  @PageInfo Presenter infoPagePresenter, @UserList Presenter userListPresenter) {
-
         resource.employDataStyle().ensureInjected();
 
         this.eventBus = eventBus;
@@ -78,14 +77,12 @@ public class ApplicationController implements ValueChangeHandler<String> {
 
     public void go(HasWidgets container) {
         this.container = container;
-        if (History.getToken().equals("") || History.getToken().equals(Tokens.LIST_USER.getToken())) {
-            History.newItem(Tokens.LIST_USER.getToken());
-        }
-        if (History.getToken().equals(Tokens.INFO.getToken())) {
-            History.newItem(Tokens.INFO.getToken());
-        }
 
-        History.fireCurrentHistoryState();
+        if (History.getToken().equals("")) {
+            History.newItem(Tokens.LIST_USER.getToken());
+        } else {
+            History.fireCurrentHistoryState();
+        }
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.List;
 public class UsersListViewImpl extends Composite implements UsersListView {
 
     @Singleton
-    interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
+    public interface UsersListUiBinder extends UiBinder<Widget, UsersListViewImpl> {
     }
 
     @UiField

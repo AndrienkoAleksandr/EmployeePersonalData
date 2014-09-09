@@ -1,5 +1,4 @@
-package com.codenvy.employee.client;
-
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;

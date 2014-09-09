@@ -3,15 +3,18 @@
 
     <inherits name='com.google.gwt.user.User'/>
 
+    <!--JUnit-->
+    <inherits name='com.google.gwt.junit.JUnit'/>
+
     <!--Resources-->
     <inherits name="com.google.gwt.resources.Resources"/>
 
     <inherits name='com.google.gwt.user.theme.standard.Standard'/>
 
-    <entry-point class='com.codenvy.employee.client.EmployeeDataModule'/>
-
     <!-- Inherit the UiBinder module.-->
     <inherits name="com.google.gwt.uibinder.UiBinder"/>
+
+    <entry-point class='com.codenvy.employee.client.EmployeeDataModule'/>
 
     <add-linker name="xsiframe"/>
     <set-configuration-property name="devModeRedirectEnabled" value="true"/>

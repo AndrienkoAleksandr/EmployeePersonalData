@@ -20,7 +20,7 @@ import com.google.inject.Singleton;
 public class PageInfoViewImpl extends Composite implements PageInfoView {
 
     @Singleton
-    interface PageInfoViewUiBinder extends UiBinder<Widget, PageInfoViewImpl> {
+    public interface PageInfoViewUiBinder extends UiBinder<Widget, PageInfoViewImpl> {
     }
 
     private ActionDelegate actionDelegate;

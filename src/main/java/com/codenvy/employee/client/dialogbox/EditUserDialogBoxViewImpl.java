@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 public class EditUserDialogBoxViewImpl extends DialogBox implements EditUserDialogBoxView {
 
     @Singleton
-    interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewImpl> {
+    public interface EditUserDialogBoxUI extends UiBinder<Widget, EditUserDialogBoxViewImpl> {
     }
 
     @UiField
