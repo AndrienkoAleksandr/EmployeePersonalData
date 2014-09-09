@@ -6,7 +6,6 @@ import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.table.UserChangedCallBack;
 import com.codenvy.employee.client.table.UsersListPresenter;
 import com.codenvy.employee.client.table.UsersListView;
-import com.google.gwt.core.client.Callback;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.googlecode.gwt.test.GwtModule;
@@ -20,8 +19,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -163,18 +160,19 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
         verify(userChangedCallBack).onChanged(any(User.class));
     }
-//    @Test
-//    public void testOnEditButtonClickedWithNotNullSelectedUser() {
-//
-//        doAnswer(new Answer<Object>() {
-//            public Void answer(InvocationOnMock invocation) {
-//                verify((UserChangedCallBack) invocation.getArguments()[0]).onChanged(any(User.class));
-//                return null;
-//            }
-//        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
-//
-//        usersListPresenter.onAddButtonClicked();
-//    }
+
+    @Test
+    public void testOnEditButtonClickedWithNotNullSelectedUser() {
+
+        doAnswer(new Answer<Object>() {
+            public Void answer(InvocationOnMock invocation) {
+                verify((UserChangedCallBack) invocation.getArguments()[1]).onChanged(any(User.class));
+                return null;
+            }
+        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+
+        usersListPresenter.onAddButtonClicked();
+    }
 
 //    @Test
 //    public void testOnEditButtonClickedWithSelectedUserNull() {

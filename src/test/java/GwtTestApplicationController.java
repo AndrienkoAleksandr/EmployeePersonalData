@@ -2,14 +2,13 @@ import com.codenvy.employee.client.ApplicationController;
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.googlecode.gwt.test.GwtModule;
 import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Spy;
 
 import static com.codenvy.employee.client.EmployeeDataResource.EmployDataStyle;
 import static org.mockito.Mockito.*;
@@ -21,8 +20,8 @@ import static org.mockito.Mockito.*;
 @GwtModule("com.codenvy.employee.EmployeeData")
 public class GwtTestApplicationController extends GwtTestWithMockito {
 
-    @Spy
-    private SimpleEventBus simpleEventBus;
+    @Mock
+    private EventBus eventBus;
 
     @Mock
     private EmployeeDataResource employeeDataResource;
@@ -49,7 +48,7 @@ public class GwtTestApplicationController extends GwtTestWithMockito {
 
         when(employeeDataResource.employDataStyle()).thenReturn(style);
 
-        appController = new ApplicationController(simpleEventBus, employeeDataResource,
+        appController = new ApplicationController(eventBus, employeeDataResource,
                 userPageInfoPresenter, usersListPresenter);
     }
 
