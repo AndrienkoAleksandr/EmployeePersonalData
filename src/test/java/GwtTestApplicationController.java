@@ -1,5 +1,3 @@
-package client.test;
-
 import com.codenvy.employee.client.ApplicationController;
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.mvp.Presenter;
@@ -18,6 +16,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * Created by Andrienko Alexander on 07.09.2014.
+ * This is test for ApplicationController
  */
 @GwtModule("com.codenvy.employee.EmployeeData")
 public class GwtTestApplicationController extends GwtTestWithMockito {
@@ -39,7 +38,6 @@ public class GwtTestApplicationController extends GwtTestWithMockito {
 
     @Mock
     private Presenter userPageInfoPresenter;
-
 
     private ApplicationController appController;
 

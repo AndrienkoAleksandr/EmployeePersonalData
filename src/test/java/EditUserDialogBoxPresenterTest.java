@@ -3,6 +3,8 @@ import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxView;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.table.UserChangedCallBack;
+import com.googlecode.gwt.test.GwtModule;
+import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,8 +18,8 @@ import static org.mockito.Mockito.*;
  * Created by Andrienko Alexander on 05.09.14.
  * This is test for class com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter.java
  */
-@RunWith(MockitoJUnitRunner.class)
-public class EditUserDialogBoxPresenterTest {
+@GwtModule("com.codenvy.employee.EmployeeData")
+public class EditUserDialogBoxPresenterTest extends GwtTestWithMockito {
     @Mock
     private EditUserDialogBoxView dialogBoxView;
 
@@ -70,6 +72,8 @@ public class EditUserDialogBoxPresenterTest {
     @Test
     public void testOnOkButtonClickedCheckCallBack() {
         editUserDialogBoxPresenter.showDialog(realUserForEdit, userChangedCallBack);
+
+
         editUserDialogBoxPresenter.onOkButtonClicked();
 
         verify(userChangedCallBack).onChanged(any(User.class));
@@ -94,6 +98,7 @@ public class EditUserDialogBoxPresenterTest {
     @Test
     public void testOnCancelButtonClicked() {
         editUserDialogBoxPresenter.onCancelButtonClicked();
+
         verify(dialogBoxView).hideDialog();
     }
 }

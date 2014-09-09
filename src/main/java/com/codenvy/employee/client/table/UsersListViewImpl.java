@@ -3,6 +3,7 @@ package com.codenvy.employee.client.table;
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.EmployeeDataResource;
 import com.codenvy.employee.client.entity.User;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
