@@ -6,13 +6,16 @@ import com.codenvy.employee.client.table.UsersListPresenter;
 import com.codenvy.employee.client.table.UsersListView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.googlecode.gwt.test.GwtModule;
-import com.googlecode.gwt.test.GwtTestWithMockito;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -22,116 +25,147 @@ import static org.mockito.Mockito.*;
  * Created by Andrienko Alexander on 05.09.14.
  * This class test class com.codenvy.employee.client.table.UsersListPresenter.java
  */
-@GwtModule("com.codenvy.employee.EmployeeData")
-public class UsersListPresenterTest extends GwtTestWithMockito {
+@RunWith(MockitoJUnitRunner.class)
+public class UsersListPresenterTest {
     @Mock
-    private UsersListView usersListViewMock;
+    private UsersListView usersView;
 
     @Mock
-    private EventBus eventBusMock;
+    private EventBus eventBus;
 
     @Mock
-    private HasWidgets containerMock;
+    private HasWidgets container;
 
     @Mock
-    private User userMock;
+    private User user;
 
     @Mock
-    private EditUserDialogBoxPresenter editUserDialogBoxPresenter;
+    private EditUserDialogBoxPresenter dialogBoxPresenter;
 
     @InjectMocks
     private UsersListPresenter usersListPresenter;
 
+    private List<User> users;
+
+    @Before
+    public void setUp() {
+        users = null;
+    }
+
     @Test
     public void testGoMockCheckMethodClearOfWidgets() {
-        usersListPresenter.go(containerMock);
+        usersListPresenter.go(container);
 
-        verify(usersListViewMock).setUsers(anyListOf(User.class));
+        verify(usersView).setUsers(anyListOf(User.class));
 
-        verify(containerMock).clear();
-        verify(usersListViewMock).asWidget();
-        verify(containerMock).add(eq(usersListViewMock.asWidget()));
+        verify(container).clear();
+        verify(usersView).asWidget();
+        verify(container).add(eq(usersView.asWidget()));
     }
 
     @Test
     public void testOnInfoLinkClicked() {
         usersListPresenter.onInfoLinkClicked();
 
-        verify(eventBusMock).fireEvent(any(RedirectToPageInfoEvent.class));
+        verify(eventBus).fireEvent(any(RedirectToPageInfoEvent.class));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testOnDeleteButtonClickedCheckSetUsers() {
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                users = (List<User>) invocationOnMock.getArguments()[0];
+                return null;
+            }
+        }).when(usersView).setUsers(anyListOf(User.class));
+
+        usersListPresenter.go(container);
+        reset(usersView);
+
+        User userForDeleting = new User("testName", "testLastName", "testAddress");
+
+        users.add(userForDeleting);
+
+        int amountUsersBeforeDeleting = users.size();
+
+        usersListPresenter.onSelectedUser(userForDeleting);
+
         usersListPresenter.onDeleteButtonClicked();
 
-        verify(usersListViewMock).setUsers(anyListOf(User.class));
+        verify(usersView).setUsers(anyListOf(User.class));
+
+        assertEquals(amountUsersBeforeDeleting - 1, users.size());
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testOnAddButtonClickedWithSelectedUserNotNull() {
-        usersListPresenter.onSelectedUser(userMock);
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                users = (List<User>) invocationOnMock.getArguments()[0];
+                return null;
+            }
+        }).when(usersView).setUsers(anyListOf(User.class));
 
-        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
+        usersListPresenter.go(container);
+        reset(usersView);
+
+        int amountUsersBeforeAdding = users.size();
+
+        usersListPresenter.onSelectedUser(user);
 
         doAnswer(new Answer() {
             @Override
             public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack[0] = spy(callBack[0]);
-                callBack[0].onChanged(userMock);
+                UserChangedCallBack callBack = (UserChangedCallBack) invocationOnMock.getArguments()[1];
+                callBack.onChanged(user);
 
                 return null;
             }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+        }).when(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onAddButtonClicked();
 
-        verify(callBack[0]).onChanged(userMock);
+        verify(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+        verify(usersView).setUsers(anyListOf(User.class));
 
-        verify(usersListViewMock).setUsers(anyListOf(User.class));
+        assertEquals(amountUsersBeforeAdding + 1, users.size());
+
     }
 
     @Test
     public void testOnEditButtonClickedWithSelectedUserNotNull() {
-        usersListPresenter.onSelectedUser(userMock);
-
-        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
+        User userTest = new User("test", "test", "test");
+        usersListPresenter.onSelectedUser(userTest);
 
         doAnswer(new Answer() {
             @Override
             public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack[0] = spy(callBack[0]);
-                callBack[0].onChanged(userMock);
+                UserChangedCallBack callBack = (UserChangedCallBack) invocationOnMock.getArguments()[1];
+                callBack.onChanged(new User("testName", "testLastName", "testAddress"));
 
                 return null;
             }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+        }).when(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onEditButtonClicked();
 
-        verify(callBack[0]).onChanged(userMock);
-
-        verify(usersListViewMock).setUsers(anyListOf(User.class));
+        assertEquals(userTest.getFirstName(), "testName");
+        assertEquals(userTest.getLastName(), "testLastName");
+        assertEquals(userTest.getAddress(), "testAddress");
+        verify(usersView).setUsers(anyListOf(User.class));
     }
 
     @Test
     public void testOnEditButtonClickedWithSelectedUserNull() {
         usersListPresenter.onSelectedUser(null);
 
-        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
-
-        doAnswer(new Answer() {
-            @Override
-            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-
-                return null;
-            }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
-
         usersListPresenter.onEditButtonClicked();
 
-        assertEquals(callBack[0], null);
+        verify(dialogBoxPresenter, never()).showDialog(any(User.class), any(UserChangedCallBack.class));
     }
 }

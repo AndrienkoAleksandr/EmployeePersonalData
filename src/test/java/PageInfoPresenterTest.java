@@ -3,11 +3,11 @@ import com.codenvy.employee.client.info.PageInfoPresenter;
 import com.codenvy.employee.client.info.PageInfoView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.googlecode.gwt.test.GwtModule;
-import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -17,34 +17,34 @@ import static org.mockito.Mockito.verify;
  * Created by Andrienko Alexander on 05.09.14.
  * This is test for class com.codenvy.employee.client.info.PageInfoPresenter.java
  */
-@GwtModule("com.codenvy.employee.EmployeeData")
-public class PageInfoPresenterTest extends GwtTestWithMockito {
+@RunWith(MockitoJUnitRunner.class)
+public class PageInfoPresenterTest {
 
     @Mock
-    private PageInfoView pageInfoViewMock;
+    private PageInfoView InfoView;
 
     @Mock
-    private EventBus eventBusMock;
+    private EventBus eventBus;
 
     @Mock
-    private HasWidgets containerMock;
+    private HasWidgets container;
 
     @InjectMocks
     private PageInfoPresenter pageInfoPresenter;
 
     @Test
     public void testGoMethodClearOfContainer() {
-        pageInfoPresenter.go(containerMock);
+        pageInfoPresenter.go(container);
 
-        verify(containerMock).clear();
-        verify(pageInfoViewMock).asWidget();
-        verify(containerMock).add(eq(pageInfoViewMock.asWidget()));
+        verify(container).clear();
+        verify(InfoView).asWidget();
+        verify(container).add(eq(InfoView.asWidget()));
     }
 
     @Test
     public void testOnBackToListHyperlinkClicked() {
         pageInfoPresenter.onBackToListHyperlinkClicked();
 
-        verify(eventBusMock).fireEvent(any(RedirectToListPageEvent.class));
+        verify(eventBus).fireEvent(any(RedirectToListPageEvent.class));
     }
 }
