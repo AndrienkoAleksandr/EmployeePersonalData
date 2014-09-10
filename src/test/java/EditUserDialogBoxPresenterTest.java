@@ -29,7 +29,7 @@ public class EditUserDialogBoxPresenterTest extends GwtTestWithMockito {
     EmployeeDataConstants constantsMock;
 
     @Mock
-    private  UserChangedCallBack userChangedCallBackMock;
+    private UserChangedCallBack userChangedCallBackMock;
 
     @Mock
     private UsersListPresenter usersListPresenterMock;
@@ -70,7 +70,7 @@ public class EditUserDialogBoxPresenterTest extends GwtTestWithMockito {
     }
 
     @Test
-     public void testOnOkButtonClickedCallBackNotNull() {
+    public void testOnOkButtonClickedCallBackNotNull() {
         editUserDialogBoxPresenter.showDialog(realUserForEditMock, userChangedCallBackMock);
 
         editUserDialogBoxPresenter.onOkButtonClicked();
