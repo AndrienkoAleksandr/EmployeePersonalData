@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
@@ -18,6 +19,8 @@ import org.mockito.stubbing.Answer;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -73,7 +76,7 @@ public class UsersListPresenterTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testOnDeleteButtonClickedCheckSetUsers() {
-
+        //get users
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
@@ -83,58 +86,67 @@ public class UsersListPresenterTest {
         }).when(usersView).setUsers(anyListOf(User.class));
 
         usersListPresenter.go(container);
-        reset(usersView);
 
-        User userForDeleting = new User("testName", "testLastName", "testAddress");
-
-        users.add(userForDeleting);
-
-        int amountUsersBeforeDeleting = users.size();
-
-        usersListPresenter.onSelectedUser(userForDeleting);
-
-        usersListPresenter.onDeleteButtonClicked();
-
-        verify(usersView).setUsers(anyListOf(User.class));
-
-        assertEquals(amountUsersBeforeDeleting - 1, users.size());
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testOnAddButtonClickedWithSelectedUserNotNull() {
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-                users = (List<User>) invocationOnMock.getArguments()[0];
-                return null;
-            }
-        }).when(usersView).setUsers(anyListOf(User.class));
-
-        usersListPresenter.go(container);
-        reset(usersView);
-
-        int amountUsersBeforeAdding = users.size();
-
-        usersListPresenter.onSelectedUser(user);
+        //add new user for deleting
+        final User userForDeleting = new User("testName", "testLastName", "testAddress");
 
         doAnswer(new Answer() {
             @Override
             public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
                 UserChangedCallBack callBack = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack.onChanged(user);
-
+                callBack.onChanged(userForDeleting);
                 return null;
             }
         }).when(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onAddButtonClicked();
 
-        verify(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+        reset(usersView);
+
+        int amountUsersBeforeDeleting = users.size();
+
+        //delete user
+        usersListPresenter.onSelectedUser(userForDeleting);
+
+        usersListPresenter.onDeleteButtonClicked();
+
         verify(usersView).setUsers(anyListOf(User.class));
 
-        assertEquals(amountUsersBeforeAdding + 1, users.size());
+        assertFalse(users.contains(userForDeleting));
 
+        assertEquals(amountUsersBeforeDeleting - 1, users.size());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testOnAddButtonClicked() {
+
+        ArgumentCaptor<List> usersCapture = ArgumentCaptor.forClass(List.class);
+        doNothing().when(usersView).setUsers(usersCapture.capture());
+
+        usersListPresenter.go(container);
+
+        users = ((List<User>) usersCapture.getValue());
+        reset(usersView);
+
+        int amountUsersBeforeAdding = users.size();
+
+        usersListPresenter.onSelectedUser(user);
+
+        ArgumentCaptor<UserChangedCallBack> userCapture = ArgumentCaptor.forClass(UserChangedCallBack.class);
+        doNothing().when(dialogBoxPresenter).showDialog(any(User.class), userCapture.capture());
+
+        usersListPresenter.onAddButtonClicked();
+
+        userCapture.getValue().onChanged(user);
+
+        verify(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+
+        verify(usersView).setUsers(anyListOf(User.class));
+
+        assertTrue(users.contains(user));
+
+        assertEquals(amountUsersBeforeAdding + 1, users.size());
     }
 
     @Test

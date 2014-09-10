@@ -16,14 +16,11 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
 
     private final EmployeeDataConstants constants;
 
-    private User userForEdit;
-
     @Inject
-    public EditUserDialogBoxPresenter(EditUserDialogBoxView dialogBoxView, EmployeeDataConstants constants, User user) {
+    public EditUserDialogBoxPresenter(EditUserDialogBoxView dialogBoxView, EmployeeDataConstants constants) {
         this.editUserDialogBoxView = dialogBoxView;
         this.editUserDialogBoxView.setDelegate(this);
         this.constants = constants;
-        userForEdit = user;
     }
 
     public void showDialog(User userForEdit, UserChangedCallBack callback) {
@@ -46,18 +43,18 @@ public class EditUserDialogBoxPresenter implements EditUserDialogBoxView.ActionD
         editUserDialogBoxView.setAddress(address);
     }
 
-    private void getDataFromDialogBox() {
+    private User getDataFromDialogBox(User userForEdit) {
         userForEdit.setFirstName(editUserDialogBoxView.getFirstName());
         userForEdit.setLastName(editUserDialogBoxView.getLastName());
         userForEdit.setAddress(editUserDialogBoxView.getAddress());
+        return userForEdit;
     }
 
     @Override
     public void onOkButtonClicked() {
-        getDataFromDialogBox();
 
         if (callBack != null) {
-            callBack.onChanged(userForEdit);
+            callBack.onChanged(getDataFromDialogBox(new User()));
         }
 
         editUserDialogBoxView.hideDialog();

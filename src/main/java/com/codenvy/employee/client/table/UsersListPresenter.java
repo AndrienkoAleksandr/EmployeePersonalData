@@ -44,7 +44,7 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
         callBackForAddUser = new UserChangedCallBack() {
             @Override
             public void onChanged(User user) {
-                users.add(new User(user.getFirstName(), user.getLastName(), user.getAddress()));
+                users.add(user);
                 usersListView.setUsers(users);
             }
         };

@@ -8,7 +8,6 @@ import com.googlecode.gwt.test.GwtModule;
 import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import static com.codenvy.employee.client.EmployeeDataResource.EmployDataStyle;
