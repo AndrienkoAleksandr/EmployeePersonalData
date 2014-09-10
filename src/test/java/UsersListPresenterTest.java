@@ -68,6 +68,28 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
     }
 
     @Test
+    public void testOnAddButtonClickedWithSelectedUserNotNull() {
+        usersListPresenter.onSelectedUser(userMock);
+
+        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
+
+        doAnswer(new Answer() {
+            @Override
+            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
+                callBack[0] = spy(callBack[0]);
+                callBack[0].onChanged(userMock);
+
+                return null;
+            }
+        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
+
+        usersListPresenter.onAddButtonClicked();
+
+        verify(callBack[0]).onChanged(userMock);
+    }
+
+    @Test
     public void testOnEditButtonClickedWithSelectedUserNotNull() {
         usersListPresenter.onSelectedUser(userMock);
 
@@ -108,50 +130,4 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
         assertEquals(callBack[0], null);
     }
-
-    @Test
-    public void testOnAddButtonClickedWithSelectedUserNotNull() {
-        usersListPresenter.onSelectedUser(userMock);
-
-        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
-
-        doAnswer(new Answer() {
-            @Override
-            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack[0] = spy(callBack[0]);
-                callBack[0].onChanged(userMock);
-
-                return null;
-            }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
-
-        usersListPresenter.onAddButtonClicked();
-
-        verify(callBack[0]).onChanged(userMock);
-    }
-
-    @Test
-    public void testOnAddButtonClickedWithSelectedUserNull() {
-        usersListPresenter.onSelectedUser(null);
-
-        final UserChangedCallBack[] callBack = new UserChangedCallBack[1];
-
-        doAnswer(new Answer() {
-            @Override
-            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                callBack[0] = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack[0] = spy(callBack[0]);
-                callBack[0].onChanged(userMock);
-
-                return null;
-            }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
-
-        usersListPresenter.onAddButtonClicked();
-
-        verify(callBack[0]).onChanged(userMock);
-    }
-
-
 }
