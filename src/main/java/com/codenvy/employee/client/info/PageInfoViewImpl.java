@@ -2,7 +2,6 @@ package com.codenvy.employee.client.info;
 
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.EmployeeDataResource;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;

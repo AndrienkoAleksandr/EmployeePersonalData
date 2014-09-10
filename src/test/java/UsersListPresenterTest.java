@@ -11,7 +11,6 @@ import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -48,6 +47,7 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
         usersListPresenter.go(containerMock);
 
         verify(usersListViewMock).setUsers(anyListOf(User.class));
+
         verify(containerMock).clear();
         verify(usersListViewMock).asWidget();
         verify(containerMock).add(eq(usersListViewMock.asWidget()));
@@ -82,11 +82,13 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
                 return null;
             }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
+        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onAddButtonClicked();
 
         verify(callBack[0]).onChanged(userMock);
+
+        verify(usersListViewMock).setUsers(anyListOf(User.class));
     }
 
     @Test
@@ -104,11 +106,13 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
                 return null;
             }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
+        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onEditButtonClicked();
 
         verify(callBack[0]).onChanged(userMock);
+
+        verify(usersListViewMock).setUsers(anyListOf(User.class));
     }
 
     @Test
@@ -124,7 +128,7 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
                 return null;
             }
-        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), Mockito.isA(UserChangedCallBack.class));
+        }).when(editUserDialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
 
         usersListPresenter.onEditButtonClicked();
 
