@@ -1,10 +1,12 @@
 package com.codenvy.employee.client.table;
 
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.mvp.Presenter;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
@@ -30,14 +32,18 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
 
     private final EventBus eventBus;
 
+    private final EmployeeDataConstants constants;
+
     @Inject
     public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter,
                               final UsersListView usersListView,
-                              EventBus eventBus) {
+                              EventBus eventBus,
+                              EmployeeDataConstants constants) {
         this.usersListView = usersListView;
         this.usersListView.setDelegate(this);
 
         this.eventBus = eventBus;
+        this.constants = constants;
         this.users = new ArrayList<>();
         this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
 
@@ -98,6 +104,8 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
     public void onEditButtonClicked() {
         if (selectedUser != null) {
             editUserDialogBoxPresenter.showDialog(selectedUser, callBackForEditUser);
+        } else {
+            Window.alert(constants.noneSelectedUserWarning());
         }
     }
 }

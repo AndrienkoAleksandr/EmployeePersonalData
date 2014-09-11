@@ -1,3 +1,4 @@
+import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
@@ -6,14 +7,14 @@ import com.codenvy.employee.client.table.UsersListPresenter;
 import com.codenvy.employee.client.table.UsersListView;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.googlecode.gwt.test.GwtModule;
+import com.googlecode.gwt.test.GwtTestWithMockito;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 import java.util.List;
@@ -28,8 +29,8 @@ import static org.mockito.Mockito.*;
  * Created by Andrienko Alexander on 05.09.14.
  * This class test class com.codenvy.employee.client.table.UsersListPresenter.java
  */
-@RunWith(MockitoJUnitRunner.class)
-public class UsersListPresenterTest {
+@GwtModule("com.codenvy.employee.EmployeeData")
+public class UsersListPresenterTest extends GwtTestWithMockito {
     @Mock
     private UsersListView usersView;
 
@@ -44,6 +45,9 @@ public class UsersListPresenterTest {
 
     @Mock
     private EditUserDialogBoxPresenter dialogBoxPresenter;
+
+    @Mock
+    private EmployeeDataConstants constants;
 
     @InjectMocks
     private UsersListPresenter usersListPresenter;
@@ -134,9 +138,10 @@ public class UsersListPresenterTest {
         usersListPresenter.onSelectedUser(user);
 
         ArgumentCaptor<UserChangedCallBack> userCapture = ArgumentCaptor.forClass(UserChangedCallBack.class);
-        doNothing().when(dialogBoxPresenter).showDialog(any(User.class), userCapture.capture());
 
         usersListPresenter.onAddButtonClicked();
+
+        verify(dialogBoxPresenter).showDialog(any(User.class), userCapture.capture());
 
         userCapture.getValue().onChanged(user);
 
@@ -176,8 +181,10 @@ public class UsersListPresenterTest {
     public void testOnEditButtonClickedWithSelectedUserNull() {
         usersListPresenter.onSelectedUser(null);
 
-        usersListPresenter.onEditButtonClicked();
+        when(constants.noneSelectedUserWarning()).thenReturn("You nothing selected!!!");
 
+        usersListPresenter.onEditButtonClicked();
         verify(dialogBoxPresenter, never()).showDialog(any(User.class), any(UserChangedCallBack.class));
+        verify(constants).noneSelectedUserWarning();
     }
 }

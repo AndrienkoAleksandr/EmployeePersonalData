@@ -66,14 +66,16 @@ public class GwtTestApplicationController extends GwtTestWithMockito {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testOnValueChangeWhenGetValueList() {
+    public void testOnValueChangeWhenGetHasValueList() {
 
         when(valueChangeEvent.getValue()).thenReturn("list");
 
         appController.go(container);
+        reset(usersListPresenter);
+
         appController.onValueChange(valueChangeEvent);
 
-        verify(usersListPresenter, times(2)).go(container);
+        verify(usersListPresenter, times(1)).go(container);
     }
 
     @Test
@@ -90,20 +92,23 @@ public class GwtTestApplicationController extends GwtTestWithMockito {
         reset(usersListPresenter);
 
         appController.onValueChange(valueChangeEvent);
-
         verify(usersListPresenter, times(1)).go(container);
+        reset(usersListPresenter);
 
         appController.onValueChange(valueChangeEvent);
-
         verify(userPageInfoPresenter, times(1)).go(container);
+        reset(userPageInfoPresenter);
 
         appController.onValueChange(valueChangeEvent);
-        verify(usersListPresenter, times(2)).go(container);
+        verify(usersListPresenter, times(1)).go(container);
+        reset(usersListPresenter);
 
         appController.onValueChange(valueChangeEvent);
-        verify(userPageInfoPresenter, times(2)).go(container);
+        verify(userPageInfoPresenter, times(1)).go(container);
+        reset(userPageInfoPresenter);
 
         appController.onValueChange(valueChangeEvent);
-        verify(userPageInfoPresenter, times(3)).go(container);
+        verify(userPageInfoPresenter, times(1)).go(container);
+        reset(userPageInfoPresenter);
     }
 }
