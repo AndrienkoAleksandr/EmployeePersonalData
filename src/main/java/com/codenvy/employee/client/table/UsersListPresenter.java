@@ -2,9 +2,12 @@ package com.codenvy.employee.client.table;
 
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
+import com.codenvy.employee.client.entity.Note;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.mvp.Presenter;
+import com.codenvy.employee.client.note.NoteDialogPresenter;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -24,11 +27,15 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
 
     private final EditUserDialogBoxPresenter editUserDialogBoxPresenter;
 
+    private final NoteDialogPresenter noteDialogPresenter;
+
     private final List<User> users;
 
     private final UserChangedCallBack callBackForAddUser;
 
     private final UserChangedCallBack callBackForEditUser;
+
+    private final NoteChangedCallBack noteChangedCallBack;
 
     private final EventBus eventBus;
 
@@ -36,16 +43,19 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
 
     @Inject
     public UsersListPresenter(EditUserDialogBoxPresenter editUserDialogBoxPresenter,
+                              NoteDialogPresenter noteDialogPresenter,
                               final UsersListView usersListView,
                               EventBus eventBus,
                               EmployeeDataConstants constants) {
+        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
+        this.noteDialogPresenter = noteDialogPresenter;
         this.usersListView = usersListView;
         this.usersListView.setDelegate(this);
 
         this.eventBus = eventBus;
         this.constants = constants;
+
         this.users = new ArrayList<>();
-        this.editUserDialogBoxPresenter = editUserDialogBoxPresenter;
 
         callBackForAddUser = new UserChangedCallBack() {
             @Override
@@ -63,6 +73,13 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
                 selectedUser.setAddress(user.getAddress());
 
                 usersListView.setUsers(users);
+            }
+        };
+
+        noteChangedCallBack = new NoteChangedCallBack() {
+            @Override
+            public void onChangedNote(Note note) {
+                selectedUser.setNote(note);
             }
         };
     }
@@ -87,12 +104,12 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
     }
 
     @Override
-    public void onDeleteButtonClicked() {
-        users.remove(selectedUser);
-
-        selectedUser = null;
-
-        usersListView.setUsers(users);
+    public void onEditButtonClicked() {
+        if (selectedUser != null) {
+            editUserDialogBoxPresenter.showDialog(selectedUser, callBackForEditUser);
+        } else {
+            Window.alert(constants.noneSelectedUserWarning());
+        }
     }
 
     @Override
@@ -101,11 +118,19 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
     }
 
     @Override
-    public void onEditButtonClicked() {
+    public void onDeleteButtonClicked() {
+        users.remove(selectedUser);
+
+        selectedUser = null;
+
+        usersListView.setUsers(users);
+    }
+
+    //todo
+    @Override
+    public void onNoteButtonClicked() {
         if (selectedUser != null) {
-            editUserDialogBoxPresenter.showDialog(selectedUser, callBackForEditUser);
-        } else {
-            Window.alert(constants.noneSelectedUserWarning());
+            noteDialogPresenter.showDialog(selectedUser.getNote(), noteChangedCallBack);
         }
     }
 }

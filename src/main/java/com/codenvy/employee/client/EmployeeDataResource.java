@@ -38,5 +38,9 @@ public interface EmployeeDataResource extends ClientBundle {
         String imgBuildings();
 
         String headerTableStyle();
+
+        String buttonPanel();
+
+        String noteArea();
     }
 }

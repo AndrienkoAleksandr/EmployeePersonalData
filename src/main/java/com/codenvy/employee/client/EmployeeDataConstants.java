@@ -43,4 +43,10 @@ public interface EmployeeDataConstants extends Constants {
     String thirdTableColumnText();
 
     String noneSelectedUserWarning();
+
+    String noteButtonText();
+
+    String noteDialogCaption();
+
+    String noteCloseButton();
 }

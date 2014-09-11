@@ -19,8 +19,8 @@
             </g:FlowPanel>
         </g:north>
 
-        <g:west size='300'>
-            <g:Hyperlink ui:field="linkInfo" text="{constants.infoLinkText}" targetHistoryToken="info"/>
+        <g:west size='320'>
+        <g:Hyperlink ui:field="linkInfo" text="{constants.infoLinkText}" targetHistoryToken="info"/>
         </g:west>
 
         <g:center>
@@ -29,8 +29,8 @@
             </g:ScrollPanel>
         </g:center>
 
-        <g:east size="200">
-            <g:FlowPanel>
+        <g:east size="320">
+            <g:FlowPanel styleName="{resource.employDataStyle.buttonPanel}">
 
                 <g:Button ui:field="edit" styleName="{resource.employDataStyle.editButtonOfUserList}"
                           text="{constants.editButtonText}"/>
@@ -38,6 +38,8 @@
                           text="{constants.addButtonText}"/>
                 <g:Button ui:field="delete" styleName="{resource.employDataStyle.editButtonOfUserList}"
                           text="{constants.deleteButtonText}"/>
+                <g:Button ui:field="note" styleName="{resource.employDataStyle.editButtonOfUserList}"
+                          text="{constants.noteButtonText}"/>
 
             </g:FlowPanel>
         </g:east>

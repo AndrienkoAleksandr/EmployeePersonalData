@@ -54,3 +54,15 @@ th.headerTableStyle {
     width: 320px;
     height: 200px;
 }
+
+.buttonPanel {
+    margin: 0 auto;
+    width: 223px;
+    height: 70px;
+}
+
+.noteArea {
+    width: 300px;
+    height: 200px;
+}
+

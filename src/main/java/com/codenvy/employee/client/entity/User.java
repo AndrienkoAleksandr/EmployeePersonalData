@@ -9,6 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String address;
+    private Note note;
 
     @Inject
     public User() {
@@ -42,5 +43,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
     }
 }

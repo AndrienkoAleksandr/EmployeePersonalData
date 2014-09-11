@@ -39,6 +39,9 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     Button add;
 
     @UiField
+    Button note;
+
+    @UiField
     Label labelListEmployee;
 
     @UiField
@@ -154,5 +157,10 @@ public class UsersListViewImpl extends Composite implements UsersListView {
     @UiHandler("linkInfo")
     public void onLinkInfoClicked(ClickEvent clickEvent) {
         actionDelegate.onInfoLinkClicked();
+    }
+
+    @UiHandler("note")
+    public void onNoteButtonClicked(ClickEvent clickEvent) {
+        actionDelegate.onNoteButtonClicked();
     }
 }

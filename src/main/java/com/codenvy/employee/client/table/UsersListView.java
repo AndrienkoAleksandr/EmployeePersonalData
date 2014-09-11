@@ -23,6 +23,8 @@ public interface UsersListView extends View<UsersListView.ActionDelegate> {
         void onSelectedUser(User user);
 
         void onInfoLinkClicked();
+
+        void onNoteButtonClicked();
     }
 
     void setUsers(List<User> users);
