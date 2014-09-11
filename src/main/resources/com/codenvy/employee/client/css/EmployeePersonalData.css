@@ -66,3 +66,10 @@ th.headerTableStyle {
     height: 200px;
 }
 
+.closeButton {
+    width: 52px;
+    height: 28px;
+    margin-left: 130px;
+    background-color: lightcyan;
+}
+

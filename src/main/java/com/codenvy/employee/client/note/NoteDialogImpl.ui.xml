@@ -10,11 +10,12 @@
     <g:FlowPanel>
 
         <g:SimplePanel>
-            <g:RichTextArea ui:field="noteArea" styleName="{res.employDataStyle.noteArea}"/>
+            <g:TextArea ui:field="noteArea" styleName="{res.employDataStyle.noteArea}"/>
         </g:SimplePanel>
 
         <g:SimplePanel>
-            <g:Button ui:field="close" text="{locale.noteCloseButton}"/>
+            <g:Button ui:field="close" text="{locale.noteCloseButton}"
+                      styleName="{res.employDataStyle.closeButton}"/>
         </g:SimplePanel>
 
     </g:FlowPanel>

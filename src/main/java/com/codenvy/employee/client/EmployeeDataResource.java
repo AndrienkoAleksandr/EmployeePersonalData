@@ -42,5 +42,7 @@ public interface EmployeeDataResource extends ClientBundle {
         String buttonPanel();
 
         String noteArea();
+
+        String closeButton();
     }
 }
