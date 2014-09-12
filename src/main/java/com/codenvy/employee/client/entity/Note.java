@@ -5,7 +5,7 @@ package com.codenvy.employee.client.entity;
  */
 public class Note {
 
-    private String text = "";
+    private String text;
 
     public Note(String text) {
         this.text = text;

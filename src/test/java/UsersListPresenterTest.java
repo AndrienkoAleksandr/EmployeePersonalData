@@ -55,6 +55,9 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
     @Mock
     private NoteDialogPresenter noteDialogPresenter;
 
+    @Mock
+    private Note note;
+
     @InjectMocks
     private UsersListPresenter usersListPresenter;
 
@@ -195,9 +198,8 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
     }
 
     @Test
-    public void testOnNoteButtonClicked() {
-        User selectedUser = new User("testName", "testLastName", "testAddress");
-        usersListPresenter.onSelectedUser(selectedUser);
+    public void testOnNoteButtonClickedWhenSelectedUserNotNull() {
+        usersListPresenter.onSelectedUser(user);
 
         ArgumentCaptor<NoteChangedCallBack> noteChangedCallBackCaptor
                 = ArgumentCaptor.forClass(NoteChangedCallBack.class);
@@ -206,11 +208,17 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
         verify(noteDialogPresenter).showDialog(any(Note.class), noteChangedCallBackCaptor.capture());
 
-        Note noteForTest = new Note("test");
-        noteChangedCallBackCaptor.getValue().onChangedNote(noteForTest);
+        noteChangedCallBackCaptor.getValue().onChangedNote(note);
 
-        assertTrue(selectedUser.getNote() != null);
-        assertTrue(selectedUser.getNote().equals(noteForTest));
-        assertTrue(selectedUser.getNote().getText().equals("test"));
+        verify(user).setNote(note);
+    }
+
+    @Test
+    public void testOnNoteButtonClickedWhenSelectedUserNull() {
+        usersListPresenter.onSelectedUser(null);
+
+        usersListPresenter.onNoteButtonClicked();
+
+        verify(noteDialogPresenter, never()).showDialog(any(Note.class), any(NoteChangedCallBack.class));
     }
 }

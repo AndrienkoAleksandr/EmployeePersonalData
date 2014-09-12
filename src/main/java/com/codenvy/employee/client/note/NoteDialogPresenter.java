@@ -9,7 +9,7 @@ import com.google.inject.Inject;
  */
 public class NoteDialogPresenter implements NoteDialogView.Delegate {
 
-    private NoteDialogView noteDialogView;
+    private final NoteDialogView noteDialogView;
 
     private Note note;
 
@@ -37,9 +37,9 @@ public class NoteDialogPresenter implements NoteDialogView.Delegate {
     @Override
     public void onCloseButtonDelegate() {
         String changedTextOfNote = noteDialogView.getNoteArea();
-        this.note.setText(changedTextOfNote);
+        note.setText(changedTextOfNote);
 
-        noteChangedCallBack.onChangedNote(this.note);
+        noteChangedCallBack.onChangedNote(note);
 
         noteDialogView.hideDialog();
     }

@@ -32,8 +32,25 @@ public class NotePresenterTest {
     private NoteDialogPresenter noteDialogPresenter;
 
     @Test
-    public void testOnCloseButtonDelegate() {
-        Note note = new Note("");
+    public void testShowDialogWhenNoteIsNull() {
+        noteDialogPresenter.showDialog(null, noteChangedCallBack);
+
+        verify(view).setNoteArea(eq(""));
+        verify(view).showDialog();
+    }
+
+    @Test
+    public void testShowDialogWhenNoteIsNotNull() {
+        String testLine = "test line";
+        when(note.getText()).thenReturn(testLine);
+        noteDialogPresenter.showDialog(note, noteChangedCallBack);
+
+        verify(view).setNoteArea(testLine);
+        verify(view).showDialog();
+    }
+
+    @Test
+     public void testOnCloseButtonDelegate() {
         String testLine = "test text";
 
         noteDialogPresenter.showDialog(note, noteChangedCallBack);
@@ -45,27 +62,10 @@ public class NotePresenterTest {
 
         verify(view).getNoteArea();
 
-        assertTrue(note.getText().equals(testLine));
+        verify(note).setText(eq(testLine));
 
-        verify(noteChangedCallBack).onChangedNote(any(Note.class));
+        verify(noteChangedCallBack).onChangedNote(note);
 
         verify(view).hideDialog();
-    }
-
-
-    @Test
-    public void testShowDialogWithNoteNull() {
-        noteDialogPresenter.showDialog(null, noteChangedCallBack);
-
-        verify(view).setNoteArea(any(String.class));
-        verify(view).showDialog();
-    }
-
-    @Test
-    public void testShowDialogWithNoteNotNull() {
-        noteDialogPresenter.showDialog(note, noteChangedCallBack);
-
-        verify(view).setNoteArea(any(String.class));
-        verify(view).showDialog();
     }
 }

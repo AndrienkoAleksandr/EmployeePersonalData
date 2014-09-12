@@ -2,7 +2,6 @@ package com.codenvy.employee.client.note;
 
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.EmployeeDataResource;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -23,8 +22,6 @@ public class NoteDialogViewViewImpl extends DialogBox implements NoteDialogView 
     interface NoteDialogUiBinder extends UiBinder<Widget, NoteDialogViewViewImpl> {
     }
 
-    private static NoteDialogUiBinder ourUiBinder = GWT.create(NoteDialogUiBinder.class);
-
     private Delegate actionDelegate;
 
     @UiField
@@ -40,7 +37,8 @@ public class NoteDialogViewViewImpl extends DialogBox implements NoteDialogView 
     final EmployeeDataResource res;
 
     @Inject
-    public NoteDialogViewViewImpl(EmployeeDataConstants locale, EmployeeDataResource res) {
+    public NoteDialogViewViewImpl(EmployeeDataConstants locale, EmployeeDataResource res,
+                                  NoteDialogUiBinder ourUiBinder) {
         this.locale = locale;
         this.res = res;
 
