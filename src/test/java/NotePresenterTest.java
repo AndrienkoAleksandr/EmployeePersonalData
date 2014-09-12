@@ -8,8 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static junit.framework.Assert.assertTrue;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -43,14 +41,15 @@ public class NotePresenterTest {
     public void testShowDialogWhenNoteIsNotNull() {
         String testLine = "test line";
         when(note.getText()).thenReturn(testLine);
+
         noteDialogPresenter.showDialog(note, noteChangedCallBack);
 
-        verify(view).setNoteArea(testLine);
+        verify(view).setNoteArea(eq(testLine));
         verify(view).showDialog();
     }
 
     @Test
-     public void testOnCloseButtonDelegate() {
+    public void testOnCloseButtonDelegate() {
         String testLine = "test text";
 
         noteDialogPresenter.showDialog(note, noteChangedCallBack);
@@ -64,7 +63,7 @@ public class NotePresenterTest {
 
         verify(note).setText(eq(testLine));
 
-        verify(noteChangedCallBack).onChangedNote(note);
+        verify(noteChangedCallBack).onChangedNote(eq(note));
 
         verify(view).hideDialog();
     }

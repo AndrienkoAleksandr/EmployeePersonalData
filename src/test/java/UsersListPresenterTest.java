@@ -210,7 +210,7 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
 
         noteChangedCallBackCaptor.getValue().onChangedNote(note);
 
-        verify(user).setNote(note);
+        verify(user).setNote(eq(note));
     }
 
     @Test
