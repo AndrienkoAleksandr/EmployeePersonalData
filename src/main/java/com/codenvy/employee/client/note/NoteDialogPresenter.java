@@ -5,41 +5,42 @@ import com.codenvy.employee.client.table.NoteChangedCallBack;
 import com.google.inject.Inject;
 
 /**
- * Created by logarifm on 11.09.14.
+ * Created by Andrienko Alexander on 11.09.14.
  */
-public class NoteDialogPresenter implements NoteDialog.Delegate {
+public class NoteDialogPresenter implements NoteDialogView.Delegate {
 
-    private NoteDialog noteDialog;
+    private NoteDialogView noteDialogView;
 
     private Note note;
 
-    NoteChangedCallBack noteChangedCallBack;
+    private NoteChangedCallBack noteChangedCallBack;
 
     @Inject
-    public NoteDialogPresenter(NoteDialog noteDialog) {
-        this.noteDialog = noteDialog;
-        noteDialog.setDelegate(this);
-    }
+    public NoteDialogPresenter(NoteDialogView noteDialogView) {
+        this.noteDialogView = noteDialogView;
 
-    @Override
-    public void onCloseButtonDelegate() {
-        String changedTextOfNote = noteDialog.getNote();
-        this.note.setText(changedTextOfNote);
-
-        noteChangedCallBack.onChangedNote(this.note);
-
-        noteDialog.hideDialog();
+        noteDialogView.setDelegate(this);
     }
 
     public void showDialog(Note note, NoteChangedCallBack noteChangedCallBack) {
         this.noteChangedCallBack = noteChangedCallBack;
 
         if (note == null) {
-            this.note = new Note("");
-        } else {
-            this.note = note;
+            note = new Note("");
         }
-        noteDialog.setNote(this.note.getText());
-        noteDialog.showDialog();
+        this.note = note;
+
+        noteDialogView.setNoteArea(this.note.getText());
+        noteDialogView.showDialog();
+    }
+
+    @Override
+    public void onCloseButtonDelegate() {
+        String changedTextOfNote = noteDialogView.getNoteArea();
+        this.note.setText(changedTextOfNote);
+
+        noteChangedCallBack.onChangedNote(this.note);
+
+        noteDialogView.hideDialog();
     }
 }

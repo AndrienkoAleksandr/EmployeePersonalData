@@ -15,12 +15,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 /**
- * Created by logarifm on 11.09.14.
+ * Created by Andrienko Alexander on 11.09.14.
  */
 
-public class NoteDialogImpl extends DialogBox implements NoteDialog {
+public class NoteDialogViewViewImpl extends DialogBox implements NoteDialogView {
     @Singleton
-    interface NoteDialogUiBinder extends UiBinder<Widget, NoteDialogImpl> {
+    interface NoteDialogUiBinder extends UiBinder<Widget, NoteDialogViewViewImpl> {
     }
 
     private static NoteDialogUiBinder ourUiBinder = GWT.create(NoteDialogUiBinder.class);
@@ -40,7 +40,7 @@ public class NoteDialogImpl extends DialogBox implements NoteDialog {
     final EmployeeDataResource res;
 
     @Inject
-    public NoteDialogImpl(EmployeeDataConstants locale, EmployeeDataResource res) {
+    public NoteDialogViewViewImpl(EmployeeDataConstants locale, EmployeeDataResource res) {
         this.locale = locale;
         this.res = res;
 
@@ -59,12 +59,12 @@ public class NoteDialogImpl extends DialogBox implements NoteDialog {
     }
 
     @Override
-    public void setNote(String note) {
+    public void setNoteArea(String note) {
         noteArea.setText(note);
     }
 
     @Override
-    public String getNote() {
+    public String getNoteArea() {
         return noteArea.getText();
     }
 

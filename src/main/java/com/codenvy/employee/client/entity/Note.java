@@ -1,7 +1,7 @@
 package com.codenvy.employee.client.entity;
 
 /**
- * Created by logarifm on 11.09.14.
+ * Created by Andrienko Alexander on 11.09.14.
  */
 public class Note {
 

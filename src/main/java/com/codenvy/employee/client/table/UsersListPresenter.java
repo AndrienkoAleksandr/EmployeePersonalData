@@ -7,7 +7,6 @@ import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
 import com.codenvy.employee.client.mvp.Presenter;
 import com.codenvy.employee.client.note.NoteDialogPresenter;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -126,7 +125,6 @@ public class UsersListPresenter implements UsersListView.ActionDelegate, Present
         usersListView.setUsers(users);
     }
 
-    //todo
     @Override
     public void onNoteButtonClicked() {
         if (selectedUser != null) {

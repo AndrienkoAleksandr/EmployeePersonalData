@@ -5,8 +5,6 @@ import com.codenvy.employee.client.gin.annotation.PageInfo;
 import com.codenvy.employee.client.gin.annotation.UserList;
 import com.codenvy.employee.client.info.PageInfoPresenter;
 import com.codenvy.employee.client.mvp.Presenter;
-import com.codenvy.employee.client.note.NoteDialog;
-import com.codenvy.employee.client.note.NoteDialogImpl;
 import com.codenvy.employee.client.table.UsersListPresenter;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;

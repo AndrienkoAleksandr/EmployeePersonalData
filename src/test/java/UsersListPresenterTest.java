@@ -1,7 +1,10 @@
 import com.codenvy.employee.client.EmployeeDataConstants;
 import com.codenvy.employee.client.dialogbox.EditUserDialogBoxPresenter;
+import com.codenvy.employee.client.entity.Note;
 import com.codenvy.employee.client.entity.User;
 import com.codenvy.employee.client.event.RedirectToPageInfoEvent;
+import com.codenvy.employee.client.note.NoteDialogPresenter;
+import com.codenvy.employee.client.table.NoteChangedCallBack;
 import com.codenvy.employee.client.table.UserChangedCallBack;
 import com.codenvy.employee.client.table.UsersListPresenter;
 import com.codenvy.employee.client.table.UsersListView;
@@ -49,6 +52,9 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
     @Mock
     private EmployeeDataConstants constants;
 
+    @Mock
+    private NoteDialogPresenter noteDialogPresenter;
+
     @InjectMocks
     private UsersListPresenter usersListPresenter;
 
@@ -75,6 +81,73 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
         usersListPresenter.onInfoLinkClicked();
 
         verify(eventBus).fireEvent(any(RedirectToPageInfoEvent.class));
+    }
+
+    @Test
+    public void testOnEditButtonClickedWithSelectedUserNotNull() {
+        User userTest = new User("test", "test", "test");
+        usersListPresenter.onSelectedUser(userTest);
+
+        doAnswer(new Answer() {
+            @Override
+            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                UserChangedCallBack callBack = (UserChangedCallBack) invocationOnMock.getArguments()[1];
+                callBack.onChanged(new User("testName", "testLastName", "testAddress"));
+
+                return null;
+            }
+        }).when(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+
+        usersListPresenter.onEditButtonClicked();
+
+        assertEquals(userTest.getFirstName(), "testName");
+        assertEquals(userTest.getLastName(), "testLastName");
+        assertEquals(userTest.getAddress(), "testAddress");
+        verify(usersView).setUsers(anyListOf(User.class));
+    }
+
+    @Test
+    public void testOnEditButtonClickedWithSelectedUserNull() {
+        usersListPresenter.onSelectedUser(null);
+
+        when(constants.noneSelectedUserWarning()).thenReturn("You nothing selected!!!");
+
+        usersListPresenter.onEditButtonClicked();
+        verify(dialogBoxPresenter, never()).showDialog(any(User.class), any(UserChangedCallBack.class));
+        verify(constants).noneSelectedUserWarning();
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testOnAddButtonClicked() {
+
+        ArgumentCaptor<List> usersCapture = ArgumentCaptor.forClass(List.class);
+        doNothing().when(usersView).setUsers(usersCapture.capture());
+
+        usersListPresenter.go(container);
+
+        users = ((List<User>) usersCapture.getValue());
+        reset(usersView);
+
+        int amountUsersBeforeAdding = users.size();
+
+        usersListPresenter.onSelectedUser(user);
+
+        ArgumentCaptor<UserChangedCallBack> userCapture = ArgumentCaptor.forClass(UserChangedCallBack.class);
+
+        usersListPresenter.onAddButtonClicked();
+
+        verify(dialogBoxPresenter).showDialog(any(User.class), userCapture.capture());
+
+        userCapture.getValue().onChanged(user);
+
+        verify(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
+
+        verify(usersView).setUsers(anyListOf(User.class));
+
+        assertTrue(users.contains(user));
+
+        assertEquals(amountUsersBeforeAdding + 1, users.size());
     }
 
     @Test
@@ -122,69 +195,22 @@ public class UsersListPresenterTest extends GwtTestWithMockito {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
-    public void testOnAddButtonClicked() {
+    public void testOnNoteButtonClicked() {
+        User selectedUser = new User("testName", "testLastName", "testAddress");
+        usersListPresenter.onSelectedUser(selectedUser);
 
-        ArgumentCaptor<List> usersCapture = ArgumentCaptor.forClass(List.class);
-        doNothing().when(usersView).setUsers(usersCapture.capture());
+        ArgumentCaptor<NoteChangedCallBack> noteChangedCallBackCaptor
+                = ArgumentCaptor.forClass(NoteChangedCallBack.class);
 
-        usersListPresenter.go(container);
+        usersListPresenter.onNoteButtonClicked();
 
-        users = ((List<User>) usersCapture.getValue());
-        reset(usersView);
+        verify(noteDialogPresenter).showDialog(any(Note.class), noteChangedCallBackCaptor.capture());
 
-        int amountUsersBeforeAdding = users.size();
+        Note noteForTest = new Note("test");
+        noteChangedCallBackCaptor.getValue().onChangedNote(noteForTest);
 
-        usersListPresenter.onSelectedUser(user);
-
-        ArgumentCaptor<UserChangedCallBack> userCapture = ArgumentCaptor.forClass(UserChangedCallBack.class);
-
-        usersListPresenter.onAddButtonClicked();
-
-        verify(dialogBoxPresenter).showDialog(any(User.class), userCapture.capture());
-
-        userCapture.getValue().onChanged(user);
-
-        verify(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
-
-        verify(usersView).setUsers(anyListOf(User.class));
-
-        assertTrue(users.contains(user));
-
-        assertEquals(amountUsersBeforeAdding + 1, users.size());
-    }
-
-    @Test
-    public void testOnEditButtonClickedWithSelectedUserNotNull() {
-        User userTest = new User("test", "test", "test");
-        usersListPresenter.onSelectedUser(userTest);
-
-        doAnswer(new Answer() {
-            @Override
-            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
-                UserChangedCallBack callBack = (UserChangedCallBack) invocationOnMock.getArguments()[1];
-                callBack.onChanged(new User("testName", "testLastName", "testAddress"));
-
-                return null;
-            }
-        }).when(dialogBoxPresenter).showDialog(any(User.class), any(UserChangedCallBack.class));
-
-        usersListPresenter.onEditButtonClicked();
-
-        assertEquals(userTest.getFirstName(), "testName");
-        assertEquals(userTest.getLastName(), "testLastName");
-        assertEquals(userTest.getAddress(), "testAddress");
-        verify(usersView).setUsers(anyListOf(User.class));
-    }
-
-    @Test
-    public void testOnEditButtonClickedWithSelectedUserNull() {
-        usersListPresenter.onSelectedUser(null);
-
-        when(constants.noneSelectedUserWarning()).thenReturn("You nothing selected!!!");
-
-        usersListPresenter.onEditButtonClicked();
-        verify(dialogBoxPresenter, never()).showDialog(any(User.class), any(UserChangedCallBack.class));
-        verify(constants).noneSelectedUserWarning();
+        assertTrue(selectedUser.getNote() != null);
+        assertTrue(selectedUser.getNote().equals(noteForTest));
+        assertTrue(selectedUser.getNote().getText().equals("test"));
     }
 }
